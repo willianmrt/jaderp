@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="component" version="1.5.0">
+	<name>JAdERP</name>
+	<!-- The following elements are optional and free of formatting conttraints -->
+	<creationDate>2009-05-22</creationDate>
+	<author>FEKI HICHEM</author>
+	<authorEmail>feki.hichem@gmail.com</authorEmail>
+	<authorUrl>culture3d.com</authorUrl>
+	<copyright>Copyright Info</copyright>
+	<license>License Info</license>
+	<!--  The version string is recorded in the components table -->
+	<version>0.0.1</version>
+	<!-- The description is optional and defaults to the name -->
+	<description>Description of the component ...</description>
+
+	<!-- Site Main File Copy Section -->
+	<files folder="site">
+		<filename>controller.php</filename>
+		<filename>jaderp.php</filename>
+		<filename>index.html</filename>
+		<filename>models/jaderp.php</filename>
+		<filename>views/jaderp/index.html</filename>
+		<filename>views/jaderp/view.html.php</filename>
+		<filename>views/jaderp/tmpl/index.html</filename>
+		<filename>views/jaderp/tmpl/default.php</filename>
+		<filename>views/index.html</filename>
+	</files>
+
+	<install>
+		<sql>
+			<file charset="utf8" driver="mysql">install.sql</file>
+		</sql>
+	</install>
+	<uninstall>
+		<sql>
+			<file charset="utf8" driver="mysql">uninstall.sql</file>
+		</sql>
+	</uninstall>	
+
+	<administration>
+		<!-- Administration Menu Section -->
+		<menu>Joomla Advanced ERP!</menu>
+		<submenu>
+			<menu task="config">Configuration Générale</menu>
+      		<menu task="usersconfig">Gestion des utilisateurs</menu>
+      		<menu task="menuconfig">Gestion des menus</menu>
+    	</submenu>
+		<!-- Administration Main File Copy Section -->
+		<!-- Note the folder attribute: This attribute describes the folder
+			to copy FROM in the package to install therefore files copied
+			in this section are copied from /admin/ in the package -->
+		<files folder="admin">
+			<!-- Site Main File Copy Section -->
+			<filename>jaderp.php</filename>
+			<filename>index.html</filename>
+			<filename>install.sql</filename>
+			<filename>uninstall.sql</filename>
+			<filename>controller.php</filename>
+			<filename>controllers/hello.php</filename>
+			<filename>controllers/index.html</filename>
+			<filename>models/jaderps.php</filename>
+			<filename>models/jaderp.php</filename>
+			<filename>models/index.html</filename>
+			<filename>tables/jaderp.php</filename>
+			<filename>tables/index.html</filename>
+			<filename>views/jaderp/view.html.php</filename>
+			<filename>views/jaderp/tmpl/form.php</filename>
+			<filename>views/jaderp/index.html</filename>
+			<filename>views/jaderp/tmpl/index.html</filename>
+			<filename>views/jaderps/view.html.php</filename>
+			<filename>views/jaderps/index.html</filename>
+			<filename>views/jaderps/tmpl/default.php</filename>
+			<filename>views/jaderps/tmpl/index.html</filename>
+		</files>		
+	</administration>
+</install>
