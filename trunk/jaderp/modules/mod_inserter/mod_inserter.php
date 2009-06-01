@@ -104,12 +104,18 @@ if($biblio=="0")
 	    $("#inserter_accordion").accordion({ autoHeight: false, collapsible: true, active: '.$selectacc.' });
 	  });
 	');
+	$doc->addScriptdeclaration('
+	  $(document).ready(function(){
+	    $("#inserter_accordion").sortable({ placeholder: "ui-state-highlight" });
+	  });
+	');
+	
 	$JAdERPTool->JQueryHeader();
 	//$doc->addStyleDeclaration(modDinamodsHelper::buildCSS( $params, $dinamods_id ));
 	
 
-	JHTML::script('ui.accordion.js','modules/mod_inserter/js/',false );
-
+//	JHTML::script('ui.accordion.js','modules/mod_inserter/js/',false );
+//	JHTML::script('ui.selectable.js','includes/jquery/',false );
 }
 else
 {
