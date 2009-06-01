@@ -11,22 +11,12 @@ defined('_JEXEC') or die('Restricted access');
 		$users =& JFactory::getUser();
 
 		$uid=$users->id;
+		global $querymenu;
 		foreach ($rows as $row)
 			{ 
-				$query = 'SELECT m.id as id,
-					m.languagename ,
-					m.url,
-					m.name,
-					m.desktop_icon
-					FROM #__jaderp_menu as m 
-					INNER JOIN #__jaderp_menu_user as u 
-					ON m.id=u.menu_id 
-					WHERE m.parent_name = '.$db->Quote($row->name).' 
-					AND u.user_id='.$uid.' AND u.active=1 
-					AND m.active=1
-					ORDER BY u.ordering';
-				//$query = 'SELECT * FROM #__jaderp_menu WHERE parent_id='.$row->id.' order by ordering';
-				$db->setQuery( $query );
+				$query =  $querymenu[1].' WHERE m.parent_name = '.$db->Quote($row->name).$querymenu[2].$querymenu[3];
+				echo $query;
+				$db->setQuery($query);
 				$sousmenus = $db->loadObjectList();
 				if ($sousmenus)
 				{
