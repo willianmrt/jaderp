@@ -29,8 +29,9 @@ class JaderpModelDesktop extends JModel
 	{
 		return "Desktop Model";
 	}
-	function getMenuTable($menuid=0)
+	function getMenuTable()
 	{
+		$menuid=JRequest::getVar('amid',0);
 		$users =& JFactory::getUser();
 		$uid=$users->id;
 		$menuwhere=' m.parent_name = "" ';
