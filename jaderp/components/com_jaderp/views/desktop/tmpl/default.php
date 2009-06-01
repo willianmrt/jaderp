@@ -15,7 +15,7 @@ defined('_JEXEC') or die('Restricted access');
 		foreach ($rows as $row)
 			{ 
 				$query =  $querymenu[1].' WHERE m.parent_name = '.$db->Quote($row->name).$querymenu[2].$querymenu[3];
-				echo $query;
+				//echo $query;
 				$db->setQuery($query);
 				$sousmenus = $db->loadObjectList();
 				if ($sousmenus)
