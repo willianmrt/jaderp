@@ -82,5 +82,22 @@ class JAdERPTools
 			return true;
 		}		
 	}
+
+	function UserAccessLevel($userid, $module, $model, $view)
+	{
+		$db =& JFactory::getDBO();
+		$request='SELECT access_level FROM #__jaderp_users_access WHERE 
+				  user_id='.$userid.' 
+				  AND module_component = '.$db->Quote($module).' 
+				  AND model = '.$db->Quote($model).' 
+				  AND view = '.$db->Quote($view);
+		$db->setQuery($request);
+		$acclvl = $db->loadResult();
+		if ($acclvl )
+			return $acclvl;
+		else 
+			return false;
+			
+	}
 }
 	?>

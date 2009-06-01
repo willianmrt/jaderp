@@ -10,6 +10,7 @@
 
 jimport( 'joomla.application.component.view');
 
+
 /**
  * HTML View class for the HelloWorld Component
  *
@@ -21,8 +22,6 @@ class JaderpViewDesktop extends JView
 	function display($tpl = null)
 	{
 		JHTML::stylesheet('desktop.css','components/com_jaderp/views/desktop/tmpl/');
-		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
-		$JAdERPTool=& new JAdERPTools;
 		$rows =& $this->get( 'MenuTable' );
 		//$this->assignRef( 'rows',	$rows );
 		//parent::display($tpl);
