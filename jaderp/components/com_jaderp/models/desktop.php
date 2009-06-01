@@ -44,7 +44,8 @@ class JaderpModelDesktop extends JModel
 		{
 			$query = 'SELECT m.id as id,
 						m.languagename,
-						m.name
+						m.name,
+						m.url
 						FROM #__jaderp_menu as m 
 						WHERE '.$menuwhere .'
 						ORDER BY m.ordering';
@@ -62,7 +63,8 @@ class JaderpModelDesktop extends JModel
 		{
 			$query = 'SELECT m.id as id,
 						m.languagename,
-						m.name
+						m.name,
+						m.url
 						FROM #__jaderp_menu as m 
 						INNER JOIN #__jaderp_menu_user as u 
 						ON m.id=u.menu_id 
