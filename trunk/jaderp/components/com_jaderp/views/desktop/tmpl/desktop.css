@@ -1,0 +1,11 @@
+@charset "utf-8";
+/* CSS Document */
+html {font-family:Arial, Helvetica, sans-serif; font-size:14px; color:#000;}
+.DesktopIconsCategories{border:#930 1px solid;}
+.DesktopIconsCategories legend{color:#333;}
+#DesktopIconContainer{float:left;width:80px; margin:5px; text-align:center; font-size:10px; padding:2px;}
+#DesktopIconContainer:hover{cursor:pointer;color:#666;}
+#DesktopIconContainer:hover div#DesktopIcons{background-color:#E5E5E5; background-position:0px -80px;}
+#DesktopIconLimit{padding:2px; border:1px solid #E5E5E5; width:80px;}
+#DesktopIcons{height:80px; width:80px; background-repeat:no-repeat; background-position:0px 0px;}
+#DesktopIconsName{text-align:center; font-weight:bold; margin-top:3px;white-space:normal;}
