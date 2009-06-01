@@ -55,7 +55,7 @@ class JaderpModelDesktop extends JModel
 				m.desktop_icon
 				FROM #__jaderp_menu as m ';
 			$querymenu[2]='';
-			$querymenu[3]='ORDER BY m.ordering';
+			$querymenu[3]=' ORDER BY m.ordering';
 			
 		}
 		else 
@@ -78,8 +78,8 @@ class JaderpModelDesktop extends JModel
 					FROM #__jaderp_menu as m 
 					INNER JOIN #__jaderp_menu_user as u 
 					ON m.id=u.menu_id ';
-				$querymenu[2]='AND u.user_id='.$uid.' AND u.active=1 
-					AND m.active=1';
+				$querymenu[2]=' AND u.user_id='.$uid.' AND u.active=1 
+					AND m.active=1 ';
 				$querymenu[3]=' ORDER BY u.ordering';
 		}
 		$db->setQuery( $query );
