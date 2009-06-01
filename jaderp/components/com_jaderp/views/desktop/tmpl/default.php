@@ -21,6 +21,7 @@ defined('_JEXEC') or die('Restricted access');
 				{
 					echo '<fieldset class="DesktopIconsCategories">';
 					echo '<legend>'.JText::_($row->languagename).':</legend>';
+					echo '<div id="IconsCategories">';
 					$i=0;
 					foreach($sousmenus as $row1)
 					{
@@ -47,7 +48,7 @@ defined('_JEXEC') or die('Restricted access');
 								echo "</div>";
 							}
 						}
-					
+					echo '</div>';
 					if (!$menuid)
 					{
 						unset($menuid);
