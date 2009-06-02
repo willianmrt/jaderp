@@ -15,7 +15,7 @@ class JAdERPTools
 	 */
 	function creatMenuBar($buttons, $declarations=false, $vertical=false, $showlabels=false, $sticky=false, $activebutton=0)
 	{
-		$BUTTONS_COLLECTION='save edit cancel add';
+		$BUTTONS_COLLECTION='save edit cancel add apply';
 		$nbr_bottons = 0;
 		if (count($buttons)) {
 			$menubar='
@@ -78,6 +78,7 @@ class JAdERPTools
 			$dejadone=1;
 			JHTML::script('jquery-1.3.2.min.js','includes/jquery/',false );
 			JHTML::script('jquery-ui-1.7.1.custom.min.js','includes/jquery/',false );	
+			//JHTML::script('jquery-ui-i18n.min.js','includes/jquery/',false );
 			JHTML::stylesheet('jquery-ui-1.7.1.css','includes/jquery/');
 			return true;
 		}		

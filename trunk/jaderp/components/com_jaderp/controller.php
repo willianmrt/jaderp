@@ -23,7 +23,6 @@ class JaderpController extends JController
 	 
 	    // Register Extra tasks
 	    $this->registerTask( 'desktop','Desktop');
-	    $this->registerTask( 'workers','Workers');
 	}
 
 	/**
@@ -40,16 +39,6 @@ class JaderpController extends JController
 		$language->load('com_jaderp');
 		if($user->get('id'))
 		{
-			$uid=$user->id;
-			$access_level = $JAdERPTool->UserAccessLevel($uid,'com_jaderp','hello','default');
-			if(!$access_level)
-			{
-				jimport('joomla.application.component.controller');
-				echo 'the default action';
-				$msg= JText::_('YOU_DONT_HAVE_PERMISSION');
-				JController::setRedirect(JRoute::_('index.php?option=com_jaderp&task=desktop'), $msg, 'notice');
-				return;
-			}
 			//echo $user->get('id');
 			parent::display();
 		}
