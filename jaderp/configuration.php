@@ -15,8 +15,8 @@ class JConfig {
 	var $gzip = '0';
 	var $error_reporting = '-1';
 	var $xmlrpc_server = '0';
-	var $log_path = 'C:\\xampp\\htdocs\\erp\\logs';
-	var $tmp_path = 'C:\\xampp\\htdocs\\erp\\tmp';
+	var $log_path = 'C:\\xampp\\htdocs\\devel\\jaderp\\logs';
+	var $tmp_path = 'C:\\xampp\\htdocs\\devel\\jaderp\\tmp';
 	var $live_site = '';
 	var $force_ssl = '0';
 	var $offset = '0';
@@ -32,8 +32,8 @@ class JConfig {
 	var $ftp_root = '';
 	var $dbtype = 'mysql';
 	var $host = 'localhost';
-	var $user = 'root';
-	var $db = 'erp';
+	var $user = 'jaderp';
+	var $db = 'jaderp';
 	var $dbprefix = 'jos_';
 	var $mailer = 'mail';
 	var $mailfrom = 'feki.hichem@gmail.com';
@@ -47,7 +47,7 @@ class JConfig {
 	var $MetaTitle = '1';
 	var $lifetime = '120';
 	var $session_handler = 'database';
-	var $password = '';
+	var $password = '260701';
 	var $sitename = 'JAdERP';
 	var $MetaDesc = 'Joomla! - le portail dynamique et système de gestion de contenu';
 	var $MetaKeys = 'joomla, Joomla';
