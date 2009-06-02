@@ -21,7 +21,7 @@ defined('_JEXEC') or die('Restricted access');
 	$JAdERPTool=& new JAdERPTools;
 		
 	// Require specific controller if requested
-	if($controller = JRequest::getVar('controller')) {
+	if($controller = JRequest::getWord('func')) {
 		require_once (JPATH_COMPONENT.DS.'controllers'.DS.$controller.'.php');
 	}
 	

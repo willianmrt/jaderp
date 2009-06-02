@@ -18,70 +18,157 @@ jimport( 'joomla.application.component.model' );
  */
 class JaderpModelWorkers extends JModel
 {
-	/**
-	 * Gets the greeting
-	 * @return string The greeting to be displayed to the user
-	 */
-	function getWorker()
+     /**
+     * Foobar ID
+     * 
+     * @var int
+     */
+	var $_id;
+	var $_worker;
+//	var $_joomla_id;
+//	var $_mat;
+//	var $_lastname;
+//	var $_firstname;
+//	var $_num_piece;
+//	var $_type_piece;
+//	var $_email;
+//	var $_phone;
+//	var $_salaire;
+//	var $_startdate;
+//	var $_note;
+//	var $_position;
+//	var $_present;
+//	var $_password;
+	 function __construct()
+     {
+	       parent::__construct();
+	       // get the cid array from the default request hash
+	       $cid = JRequest::getVar('cid', false, 'DEFAULT', 'array');
+	       if($cid)
+	       {
+	           $id = $cid[0];
+	       }
+	       else
+	       {
+	           $id = JRequest::getInt('id', 0);
+	       }
+	           $this->setId($id);
+       }
+	function setId($id=0)
+	    {
+	        $this->_id = $id;
+	        $this->_worker= null;
+	    }
+	function _initializeWorker() 
+		   {
+		        $workers = new stdClass;
+		        $workers->id = 0;
+		        $workers->name = null;
+				$workers->joomla_id = null;
+				$workers->mat		= null;
+				$workers->lastname 			= null;
+				
+				$workers->firstname 			= null;
+				
+				$workers->num_piece 			= null;
+				
+				$workers->type_piece 		= null;
+				
+				$workers->email 				= null;
+				
+				$workers->phone 				= null;
+				$workers->salaire 			= null;
+				
+				$workers->startdate 			= null;
+				
+				$workers->note 				= null;
+				
+				$workers->position 			= null;
+				
+				$workers->present 			= null;
+				
+				$workers->password 			= null;
+				
+				$workers->checked_out 		= 0;
+				
+				$workers->checked_out_time 	= 0;
+		       return $workers;
+		   }
+	function &getData()
 	{
-		$menuid=JRequest::getInt('amid',0);
-		$users =& JFactory::getUser();
-		$uid=$users->id;
-		
-		$menuwhere=' m.parent_name = "" ';
-		if(isset($menuid) && $menuid>0)
+		if($this->_id)
 		{
-			$menuwhere=' m.id = '.$menuid;
+			 if (!$this->_worker)
+			 {
+			     $db =& $this->getDBO();
+			     $query = "SELECT * FROM #__jaderp_users
+			     WHERE ".$db->nameQuote('id')." = ".$this->_id;
+			     $db->setQuery($query);
+			     $this->_worker = $db->loadObject();
+			   	if (!$db->query()) 
+			   	{
+					JError::raiseError(500, $db->getErrorMsg() );
+				}
+			 }
 		}
-		$querymenu=array();
-		global $querymenu;
-		$db =& JFactory::getDBO();
-		if($users->id >=24)
+		if (empty($this->_worker)) {
+			$this->_worker = $this->_initializeWorker();
+		}
+		jimport('joomla.utilities.date');
+		$date = new JDate($this->_worker->startdate);
+		$this->_worker->startdate = $date->toFormat('%d/%m/%Y');
+		 return $this->_worker;
+		 
+	}
+	
+	function store($data)
+	{	
+		$db =& $this->getDBO();
+		$now =& JFactory::getDate();
+		if ($data['id']<0)
 		{
-			$query = 'SELECT m.id as id,
-						m.languagename,
-						m.name,
-						m.url
-						FROM #__jaderp_menu as m 
-						WHERE '.$menuwhere .'
-						ORDER BY m.ordering';
-			$querymenu[1] = 'SELECT m.id as id,
-				m.languagename ,
-				m.url,
-				m.name,
-				m.desktop_icon
-				FROM #__jaderp_menu as m ';
-			$querymenu[2]='';
-			$querymenu[3]=' ORDER BY m.ordering';
-			
+			$sql = "INSERT INTO #__users (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`)
+			 VALUES (NULL,".$db->Quote($data['lastname']." ".$data['firstname'])." ,".$db->Quote(strtolower($data['lastname']).".".strtolower($data['firstname'])). ", ".$db->Quote(strtolower($data['email'])).", ".$db->Quote($data['password']).", '', '0', '0', '18',". $db->Quote($now->toMySQL()).", '0000-00-00 00:00:00', '', '');";
+			$db->setQuery($sql);
+			if (!$db->query()) {
+			JError::raiseError(500, $db->getErrorMsg() );
+			}
+			$data['joomla_id'] = $db->insertid();
+			$sql = "INSERT INTO #__core_acl_aro (`id`, `section_value`, `value`, `order_value`, `name`, `hidden`)
+			 VALUES (NULL,'users', ".$db->Quote($data['joomla_id']).", '0', ".$db->Quote($data['lastname']." ".$data['firstname'])." ,'0');";
+			$db->setQuery($sql);
+			if (!$db->query()) {
+			JError::raiseError(500, $db->getErrorMsg() );
+			}
+			$aro=$db->insertid();;
+			$sql = "INSERT INTO #__core_acl_groups_aro_map (`group_id`, `section_value`, `aro_id`)
+			 VALUES ('18','', ".$db->Quote($aro).");";
+			$db->setQuery($sql);
+			if (!$db->query()) {
+			JError::raiseError(500, $db->getErrorMsg() );
+			}
 		}
-		else 
-		{
-			$query = 'SELECT m.id as id,
-						m.languagename,
-						m.name,
-						m.url
-						FROM #__jaderp_menu as m 
-						INNER JOIN #__jaderp_menu_user as u 
-						ON m.id=u.menu_id 
-						WHERE '.$menuwhere .'
-						AND u.user_id='.$uid.' AND u.active=1 
-						AND m.active=1
-						ORDER BY u.ordering';
-				$querymenu[1] = 'SELECT m.id as id,
-					m.languagename ,
-					m.url,
-					m.name,
-					m.desktop_icon
-					FROM #__jaderp_menu as m 
-					INNER JOIN #__jaderp_menu_user as u 
-					ON m.id=u.menu_id ';
-				$querymenu[2]=' AND u.user_id='.$uid.' AND u.active=1 
-					AND m.active=1 ';
-				$querymenu[3]=' ORDER BY u.ordering';
+		JTable::addIncludePath('components'.DS.'com_jaderp'.DS.'tables');
+		$row =& $this->getTable('Workers');
+
+		// Bind the form fields to the hello table
+		if (!$row->bind($data)) {
+			$this->setError($this->_db->getErrorMsg());
+			return false;
 		}
-		$db->setQuery( $query );
-		$menus = $db->loadObjectList();
-		return $menus;
+
+		// Make sure the hello record is valid
+		if (!$row->check()) {
+			$this->setError($this->_db->getErrorMsg());
+			return false;
+		}
+
+		// Store the web link table to the database
+		if (!$row->store()) {
+			$this->setError( $row->getErrorMsg() );
+			return false;
+		}
+
+		return true;
 	}
 }

@@ -62,13 +62,15 @@ class HellosModelHello extends JModel
 			$this->_db->setQuery( $query );
 			$this->_data = $this->_db->loadObject();
 		}
-		if (!$this->_data) {
+		echo $this->_data->id;
+		if (empty($this->_data)) {
 			$this->_data = new stdClass();
 			$this->_data->id = 0;
 			$this->_data->greeting = null;
 		}
+		echo $this->_data->id;
 		return $this->_data;
-	}
+	}	
 
 	/**
 	 * Method to store a record
