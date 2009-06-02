@@ -63,6 +63,7 @@ foreach ($menus as $row)
 		$sousmenus = $db->loadObjectList();
 		if ($sousmenus)
 		{
+			//echo '<div id="sortable">';
 			echo '<h3 class="inserter_toggler atStart"><a href="#" tabindex="-1">'.JText::_($row->languagename).'</a></h3>';
 			if($row->id==$menuid) 
 			{
@@ -87,6 +88,7 @@ foreach ($menus as $row)
 				echo '<a href="'.JRoute::_($row1->url."&menuid=".$row1->id).'">'.$styleb.JText::_($row1->languagename).$stylee.'</a><br>';
 			}
 			echo "</div>";
+			//echo "</div>";
 		}
 		$accnb+=1;
 	}
@@ -106,16 +108,11 @@ if($biblio=="0")
 	');
 	$doc->addScriptdeclaration('
 	  $(document).ready(function(){
-	    $("#inserter_accordion").sortable({ placeholder: "ui-state-highlight" });
+	    $("#sortable").sortable({ placeholder: "ui-state-highlight" });
 	  });
 	');
 	
 	$JAdERPTool->JQueryHeader();
-	//$doc->addStyleDeclaration(modDinamodsHelper::buildCSS( $params, $dinamods_id ));
-	
-
-//	JHTML::script('ui.accordion.js','modules/mod_inserter/js/',false );
-//	JHTML::script('ui.selectable.js','includes/jquery/',false );
 }
 else
 {

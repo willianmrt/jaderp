@@ -23,6 +23,7 @@ class JaderpController extends JController
 	 
 	    // Register Extra tasks
 	    $this->registerTask( 'desktop','Desktop');
+	    $this->registerTask( 'workers','Workers');
 	}
 
 	/**
@@ -82,5 +83,28 @@ class JaderpController extends JController
 		}		
 	}
 
+	function Workers()
+	{
+		$user =& JFactory::getUser();
+		$language =& JFactory::getLanguage();
+		$language->load('com_jaderp');
+		// Create the view
+		$view = & $this->getView('workers', 'html');
+
+		// Get/Create the model
+		$model = & $this->getModel('Workers');
+		$view->setModel($model, true);
+
+		if($user->get('id'))
+		{
+			//echo $user->get('id');
+			$view->display();
+		}
+		else 
+		{
+			$msg= JText::_('YOU_MUST_CONNECT');
+			$this->setRedirect(JRoute::_('index.php?option=com_user&view=login'), $msg, 'notice');
+		}		
+	}
 }
 ?>

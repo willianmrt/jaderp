@@ -14,7 +14,7 @@ defined('_JEXEC') or die('Restricted access');
 // Require the base controller
 	$users =& JFactory::getUser();
 	$uid=$users->id;
-	if ($uid == 0) die('Vous devez vous concterzrzrzer');
+	//if ($uid == 0) die('Vous devez vous concterzrzrzer');
 
 	require_once (JPATH_COMPONENT.DS.'controller.php');
 	require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
