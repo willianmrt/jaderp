@@ -13,7 +13,6 @@ class JaderpViewWorkers extends JView
 {
 	function display($tpl = null)
 	{
-		JHTML::stylesheet('workers.css','components/com_jaderp/views/workers/tmpl/');
 		$doc =& JFactory::getDocument();
 		$doc->addScriptdeclaration('
 			$(function() {
