@@ -21,7 +21,6 @@ class JaderpViewDesktop extends JView
 {
 	function display($tpl = null)
 	{
-		JHTML::stylesheet('desktop.css','components/com_jaderp/views/desktop/tmpl/');
 		$rows =& $this->get( 'MenuTable' );
 		//$this->assignRef( 'rows',	$rows );
 		//parent::display($tpl);

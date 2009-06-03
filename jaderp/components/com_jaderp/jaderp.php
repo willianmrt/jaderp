@@ -11,6 +11,9 @@
 // no direct access
 defined('_JEXEC') or die('Restricted access');
 
+// Load JAdERP Stylesheet
+	JHTML::stylesheet('jaderp.css','components/com_jaderp/css/');
+
 // Require the base controller
 	$users =& JFactory::getUser();
 	$uid=$users->id;
