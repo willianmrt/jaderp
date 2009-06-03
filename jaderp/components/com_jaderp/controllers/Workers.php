@@ -81,10 +81,11 @@ class JaderpControllerWorkers extends JaderpController
 		$crypt = JUserHelper::getCryptedPassword($post['password'], $salt);
 		$post['password']=$crypt.':'.$salt;
 		jimport('joomla.utilities.date');
-		$date = new JDate($post['startdate']);
-		$date = $date->toFormat('%m-%d-%Y');
+		//$dbefore= $post['startdate'];
+		$date = ereg_replace('/', '-', $post['startdate']);
 		$date1 = new JDate($date);
 		$post['startdate'] = $date1->toMySQL();
+		//$dafter= $post['startdate'];
 		if($post['id']>0 && $post['password']=='')
 			unset($post['password']);
 		if ($model->store($post)) {
@@ -92,18 +93,18 @@ class JaderpControllerWorkers extends JaderpController
 		} else {
 			$msg = JText::_( 'Error Saving' );
 		}
-
+		$msg = JText::sprintf( 'Successfully Saved User %s', $post['firstname'] );
 		// Check the table in so it can be edited.... we are done with it anyway
 		switch ( $this->getTask() )
 		{
 			case 'apply':
-				$msg = JText::sprintf( 'Successfully Saved changes to User %s', $post['firstname'] );
+				//$msg = JText::sprintf( 'Successfully Saved changes to User %s', $post['firstname'] );
 				$this->setRedirect( 'index.php?option=com_jaderp&func=Workers&task=edit&cid[]='. $post['id'], $msg );
 				break;
 
 			case 'save':
 			default:
-				$msg = JText::sprintf( 'Successfully Saved User', $post['firstname'] );
+				//$msg = JText::sprintf( $dbefore.'Successfully'.$dafter.' Saved User %s', $post['firstname'] );
 				$this->setRedirect( 'index.php?option=com_jaderp&task=desktop', $msg );
 				break;
 		}

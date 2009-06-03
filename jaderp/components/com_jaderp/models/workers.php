@@ -115,8 +115,8 @@ class JaderpModelWorkers extends JModel
 			$this->_worker = $this->_initializeWorker();
 		}
 		jimport('joomla.utilities.date');
-		$date = new JDate($this->_worker->startdate);
-		$this->_worker->startdate = $date->toFormat('%d/%m/%Y');
+		$date = $this->_worker->startdate;
+		$this->_worker->startdate =  date("d/m/Y", strtotime($date));;
 		 return $this->_worker;
 		 
 	}
