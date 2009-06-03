@@ -41,6 +41,7 @@ class JAdERPTools
 		{
 			$menubar='';			
 		}
+		
 		if ($menubar && $declarations){
 			$path=JURI::base().'components/com_jaderp/';
 			$css = $path.'css/menubar.css';
@@ -81,7 +82,7 @@ class JAdERPTools
 			$dejadone=1;
 			JHTML::script('jquery-1.3.2.min.js','includes/jquery/',false );
 			JHTML::script('jquery-ui-1.7.1.custom.min.js','includes/jquery/',false );	
-			//JHTML::script('jquery-ui-i18n.min.js','includes/jquery/',false );
+			JHTML::script('jquery-ui-i18n.min.js','includes/jquery/',false );
 			JHTML::stylesheet('jquery-ui-1.7.1.css','includes/jquery/');
 			return true;
 		}		
