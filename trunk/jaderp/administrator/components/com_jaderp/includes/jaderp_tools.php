@@ -19,17 +19,20 @@ class JAdERPTools
 		$nbr_bottons = 0;
 		if (count($buttons)) {
 			$menubar='
+			<div id="ToolBarIcons">
+			<div id="ToolBarIconsL">
+			<div id="ToolBarIconsR">
 			<ul class="kwicks vertical" >';
 			$lis = '';
 			foreach ($buttons as $button) {
 					$button = trim(strtolower($button));
 					if (stripos($BUTTONS_COLLECTION, $button) !== false) {
-						$lis .= '<li id="'.$button.'" onclick="javascript:submitbutton(\''.$button.'\')">'. ($showlabels ? JText::_(strtoupper('Button_'.$button)) : "") .'</li>';
+						$lis .= '<li id="'.$button.'" onclick="javascript:submitbutton(\''.$button.'\')"><div id="TaskIcon"><div>'. ($showlabels ? JText::_(strtoupper('Button_'.$button)) : "") .'</div></div></li>';
 						$nbr_bottons += 1;
 					}
 					
 			}
-			$menubar .= $lis.' </ul>';
+			$menubar .= $lis.' </ul></div></div></div>';
 			if ($nbr_bottons==0)
 				$menubar='';
 		}
@@ -50,11 +53,11 @@ class JAdERPTools
 			//$document->addScript(JURI::base().'administrator/components/com_jaderp/js/toolbar.js');
 			$script="$(document).ready(function() {
 					$('.kwicks').kwicks({
-						max : 175,
+						max : 135,
 						isVertical : ".($vertical ? 'true' : 'false').",
 						sticky : ".($sticky ? 'true' : 'false').",
 						defaultKwick: ".$activebutton . ",
-						spacing : 5
+						spacing : 0
 					});
 				});
 			";

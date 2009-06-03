@@ -1,5 +1,6 @@
 <?php // no direct access
 defined('_JEXEC') or die('Restricted access');?>
+<div id="JAdERPForm">
 <form action="index.php" method="post" name="adminForm" id="adminForm">
   <div id="FormElementsGroup">
     <fieldset>
@@ -71,7 +72,7 @@ defined('_JEXEC') or die('Restricted access');?>
         <input type="radio" name="present" id="present" value="1"  <?php echo $this->worker->present ? 'checked="checked"':'';?> />
         <label for="present"><?php echo JText::_('WORKER_AVAILABLE'); ?></label>
         <input type="radio" name="present" id="notpresent" value="0" <?php echo $this->worker->present ? '':'checked="checked"';?>/>
-        <label for="present"><?php echo JText::_('WORKER_NOT_AVAILABLE'); ?></label>
+        <label for="notpresent"><?php echo JText::_('WORKER_NOT_AVAILABLE'); ?></label>
       </div>
     </fieldset>
   </div>
@@ -101,3 +102,4 @@ defined('_JEXEC') or die('Restricted access');?>
 <input type="hidden" name="func" value="Workers" />
 
 </form>
+</div>
