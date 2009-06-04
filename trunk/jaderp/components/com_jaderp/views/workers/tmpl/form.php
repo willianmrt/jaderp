@@ -1,6 +1,7 @@
 <?php // no direct access
 defined('_JEXEC') or die('Restricted access');?>
 <div id="JAdERPForm">
+<?php echo $tache; ?>
 <form action="index.php" method="post" name="adminForm" id="adminForm">
   <div id="FormElementsGroup">
     <fieldset>

@@ -1,8 +1,21 @@
-/* This css file serves as a template for styling your kwicks.  Feel free to modify, but please make note of the comments - some of them are important. */
-#ToolBarIcons{width:700px;display:block; overflow:hidden;background:url(../../../images/jaderp/taskbar_bg.png) 0 0 repeat-x;}
+/*********************************************
+* This css file serves as a template for styling
+* kwicks. 
+* Feel free to modify, but please make note
+* of the comments - some of them are important.
+**********************************************
+* JAdERP is suite of Open Source Joomla!1.5.x
+* ERP/MRP native components and modules 
+*********************************************
+* ©2009 JAdEEP All rights reserved
+*********************************************/
+
+
+
+#ToolBarIcons{display:block; overflow:hidden;background:url(../../../images/jaderp/taskbar_bg.png) 0 0 repeat-x;}
 #ToolBarIconsL, #ToolBarIconsR{padding:0; margin:0; height:52px;display:block;}
-#ToolBarIconsL{background:url(../../../images/jaderp/taskbar_bg_ll.png) top left no-repeat;width:700px;}
-#ToolBarIconsR{background:url(../../../images/jaderp/taskbar_bg_r.png) top right no-repeat; width:692px;padding-right:8px;}
+#ToolBarIconsL{background:url(../../../images/jaderp/taskbar_bg_ll.png) top left no-repeat;}
+#ToolBarIconsR{background:url(../../../images/jaderp/taskbar_bg_r.png) top right no-repeat;padding-right:8px;}
 .kwicks {
 	/* recommended styles for kwicks ul container */
 	list-style: none;
@@ -11,7 +24,7 @@
 	padding: 0;
 	float:right;
 	display:block;
-	}	
+	}
 .kwicks li{
 	/* these are required, but the values are up to you (must be pixel) */
 	width: 60px;

@@ -56,7 +56,9 @@ class JaderpControllerWorkers extends JaderpController
 			$this->setRedirect(JRoute::_('index.php?option=com_user&view=login'), $msg, 'notice');
 		}
 		$buttons = array("save", "cancel", "edit", "apply");
-		$menubar = $JAdERPTool-> creatMenuBar($buttons, true, false,true);
+		$tache='manageUsers';
+		$tacheText='Gestion du Personnel';
+		$menubar = $JAdERPTool-> creatMenuBar($buttons, $tache, $tacheText, true, false,true);
 		echo $menubar;
 		JRequest::setVar( 'view', 'Workers' );
 		JRequest::setVar( 'layout', 'form'  );

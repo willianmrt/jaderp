@@ -1,5 +1,19 @@
-@charset "utf-8";
-/* CSS Document */
+/*********************************************
+* JAdERP Stylesheet
+* This file containes OverAll styles applyed
+* to JAdERP diplayed component.
+**********************************************
+* JAdERP is suite of Open Source Joomla!1.5.x
+* ERP/MRP native components and modules 
+*********************************************
+* ©2009 JAdEEP All rights reserved
+*********************************************/
+
+/*********************************************
+************** Common styles ****************
+*********************************************/
+#maincolumn{font-family:Verdana,Arial,sans-serif;}
+
 /*********************************************
 ************** Desktop styles ****************
 *********************************************/
@@ -17,6 +31,8 @@
 /*********************************************
 ************** Forms styles ****************
 *********************************************/
+div.tache{float:left; padding-left:52px; padding-top:18px; margin-left:8px; max-width:300px; display:block; height:34px; color:#333;font-size:16px;}
+
 div#FormElementsGroup{margin:10px;}
-div.FormElements{float:left; margin:10px; min-width:200px;}
-#JAdERPForm{width:700px;}
+div.FormElements{float:left; margin:5px 15px; min-width:160px;}
+#JAdERPForm{}
