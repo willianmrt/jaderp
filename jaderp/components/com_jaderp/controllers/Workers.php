@@ -57,7 +57,7 @@ class JaderpControllerWorkers extends JaderpController
 		}
 		$buttons = array("save", "cancel", "edit", "apply");
 		$tache='manageUsers';
-		$tacheText='Gestion du Personnel';
+		$tacheText= JText::_('MANAGE_PERSONELS');
 		$menubar = $JAdERPTool-> creatMenuBar($buttons, $tache, $tacheText, true, false,true);
 		echo $menubar;
 		JRequest::setVar( 'view', 'Workers' );

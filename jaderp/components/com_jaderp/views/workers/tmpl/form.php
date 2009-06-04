@@ -1,7 +1,6 @@
 <?php // no direct access
 defined('_JEXEC') or die('Restricted access');?>
 <div id="JAdERPForm">
-<?php echo $tache; ?>
 <form action="index.php" method="post" name="adminForm" id="adminForm">
   <div id="FormElementsGroup">
     <fieldset>
@@ -101,6 +100,5 @@ defined('_JEXEC') or die('Restricted access');?>
 <input type="hidden" name="id" value="<?php echo $this->worker->id; ?>" />
 <input type="hidden" name="task" value="" />
 <input type="hidden" name="func" value="Workers" />
-
 </form>
 </div>
