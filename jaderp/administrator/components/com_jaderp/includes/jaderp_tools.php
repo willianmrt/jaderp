@@ -13,7 +13,7 @@ class JAdERPTools
 	 * @param integer $activebutton
 	 * @return HTML code for the ToolBar
 	 */
-	function creatMenuBar($buttons, $declarations=false, $vertical=false, $showlabels=false, $sticky=false, $activebutton=0)
+	function creatMenuBar($buttons, $tache, $tacheText, $declarations=false, $vertical=false, $showlabels=false, $sticky=false, $activebutton=0)
 	{
 		$BUTTONS_COLLECTION='save edit cancel add apply';
 		$nbr_bottons = 0;
@@ -22,6 +22,7 @@ class JAdERPTools
 			<div id="ToolBarIcons">
 			<div id="ToolBarIconsL">
 			<div id="ToolBarIconsR">
+			<div style="background:url(images/jaderp/icons/'.$tache.'.png) 0px 8px no-repeat;" class="tache">'.$tacheText.'</div>
 			<ul class="kwicks vertical" >';
 			$lis = '';
 			foreach ($buttons as $button) {
@@ -54,7 +55,7 @@ class JAdERPTools
 			//$document->addScript(JURI::base().'administrator/components/com_jaderp/js/toolbar.js');
 			$script="$(document).ready(function() {
 					$('.kwicks').kwicks({
-						max : 135,
+						max : 140,
 						isVertical : ".($vertical ? 'true' : 'false').",
 						sticky : ".($sticky ? 'true' : 'false').",
 						defaultKwick: ".$activebutton . ",
