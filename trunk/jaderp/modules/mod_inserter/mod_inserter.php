@@ -50,7 +50,8 @@ foreach ($menus as $row)
 		$query = 'SELECT m.id as id,
 			m.languagename ,
 			m.url,
-			m.name
+			m.name,
+			m.menu_icon
 			FROM #__jaderp_menu as m 
 			INNER JOIN #__jaderp_menu_user as u 
 			ON m.id=u.menu_id 
@@ -85,7 +86,11 @@ foreach ($menus as $row)
 					$styleb="";
 					$stylee="";
 				}
-				echo '<a href="'.JRoute::_($row1->url."&menuid=".$row1->id).'">'.$styleb.JText::_($row1->languagename).$stylee.'</a><br>';
+				if(isset($row1->menu_icon) && $row1->menu_icon !='')
+					$menuiconstyle = "background-image: url(images/jaderp/icons/".$row1->menu_icon.")";
+				else 
+					$menuiconstyle = "background-image: url(images/jaderp/icons/defaultmenuicon.png)";
+				echo '<a style="'.$menuiconstyle.'" href="'.JRoute::_($row1->url."&menuid=".$row1->id).'">'.$styleb.JText::_($row1->languagename).$stylee.'</a><br>';
 			}
 			echo "</div>";
 			//echo "</div>";

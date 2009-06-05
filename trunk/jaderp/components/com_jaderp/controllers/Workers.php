@@ -37,7 +37,11 @@ class JaderpControllerWorkers extends JaderpController
 	{
 		$user =& JFactory::getUser();
 		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
-		$JAdERPTool=& new JAdERPTools;
+		$JAdERPTool =& new JAdERPTools;
+		/*
+		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'menubar.php');
+		$menubars =& new menuBar;
+		*/
 		if($user->get('id'))
 		{
 			$uid=$user->id;
@@ -60,6 +64,16 @@ class JaderpControllerWorkers extends JaderpController
 		$tacheText= JText::_('MANAGE_PERSONELS');
 		$menubar = $JAdERPTool-> creatMenuBar($buttons, $tache, $tacheText, true, false,true);
 		echo $menubar;
+		
+		/* $menubars->writeHead($tache, $tacheText);
+		$menubars->addButton('save');
+		$menubars->addButton('edit');
+		$menubars->addButton('save');
+		$menubars->addButton('edit');
+		echo $menubars->getNumButtons();
+		$menubars->writeFoot();
+		$menubars->addDeclaration(false,false,'',80);
+		$menubars->render();*/
 		JRequest::setVar( 'view', 'Workers' );
 		JRequest::setVar( 'layout', 'form'  );
 		parent::display();

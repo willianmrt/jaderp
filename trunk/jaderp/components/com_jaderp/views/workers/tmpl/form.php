@@ -51,7 +51,7 @@ defined('_JEXEC') or die('Restricted access');?>
       <div class="FormElements">
         <label for="startdate"><?php echo JText::_('WORKER_BEGIN_DATE'); ?>:</label>
         <br />
-        <input name="startdate" type="text" id="startdate" value="<?php echo $this->worker->startdate;?>"/>
+        <input onBlur = "validateDate(this)" name="startdate" type="text" id="startdate" value="<?php echo $this->worker->startdate;?>"/>
       </div>
       <!--Worker Note-->
       <div class="FormElements">
@@ -74,11 +74,46 @@ defined('_JEXEC') or die('Restricted access');?>
         <input type="radio" name="present" id="notpresent" value="0" <?php echo $this->worker->present ? '':'checked="checked"';?>/>
         <label for="notpresent"><?php echo JText::_('WORKER_NOT_AVAILABLE'); ?></label>
       </div>
+      <div class="FormElements">
+        <label for="canaccess"><?php echo JText::_('WORKER_ACCESS'); ?>:</label>
+        <br />
+        <input type="radio" name="canaccess" id="canaccess" onchange="$('#accessfields').show('slide', {direction: 'up' },800);" value="1"  <?php echo $this->worker->canaccess ? 'checked="checked"':'';?> />
+        <label for="canaccess"><?php echo JText::_('WORKER_CAN_ACCESS'); ?></label>
+        <input type="radio" name="canaccess" id="cantaccess" onchange="$('#accessfields').hide('slide',{direction: 'up' },800);" value="0" <?php echo $this->worker->canaccess ? '':'checked="checked"';?>/>
+        <label for="cantaccess"><?php echo JText::_('WORKER_CANT_ACCESS'); ?></label>
+      </div>
+      <div class="FormElements">
+        <label for="creatcontact"><?php echo JText::_('WORKER_CREAT_CONTACT'); ?>:</label>
+        <br />
+        <input type="radio" name="creatcontact" id="creatcontact" onchange="$('#contactfields').show('slide', {direction: 'up' },800);" value="1"  <?php echo $this->worker->creatcontact ? 'checked="checked"':'';?> />
+        <label for="creatcontact"><?php echo JText::_('WORKER_IS_CONTACT'); ?></label>
+        <input type="radio" name="creatcontact" id="notcreatcontact" onchange="$('#contactfields').hide('slide',{direction: 'up' },800);" value="0" <?php echo $this->worker->creatcontact ? '':'checked="checked"';?>/>
+        <label for="notcreatcontact"><?php echo JText::_('WORKER_ISNT_CONTACT'); ?></label>
+      </div>
+    </fieldset>
+    
+
+  </div>
+  
+  <div id="FormElementsGroup">
+    <fieldset id="accessfields" style="display: <?php echo $this->worker->canaccess ? 'block"':'none';?>;">
+      <legend><?php echo JText::_('WORKER_ACCESS'); ?>:</legend>
+      <div class="FormElements">
+	      <label for="password"><?php echo JText::_('WORKER_PASSWORD'); ?>:</label>
+	      <br />
+	      <input name="password" type="password" id="password" />
+	  </div>
+      <div class="FormElements">
+	      <label for="password1"><?php echo JText::_('WORKER_CONFIRM_PASSWORD'); ?>:</label>
+	      <br />
+	      <input name="password1" type="password" id="password1" />
+	  </div>
     </fieldset>
   </div>
+  
   <div id="FormElementsGroup">
-    <fieldset>
-      <legend><?php echo JText::_('WORKER_ACCESS'); ?>:</legend>
+    <fieldset id="contactfields" style="display: <?php echo $this->worker->canaccess ? 'block"':'none';?>;">
+      <legend><?php echo JText::_('WORKER_CONTACT'); ?>:</legend>
       <div class="FormElements">
 	      <label for="password"><?php echo JText::_('WORKER_PASSWORD'); ?>:</label>
 	      <br />
