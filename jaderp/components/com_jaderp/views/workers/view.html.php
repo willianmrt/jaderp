@@ -14,13 +14,47 @@ class JaderpViewWorkers extends JView
 	function display($tpl = null)
 	{
 		$doc =& JFactory::getDocument();
+		JHTML::script('datepicker.js','components/com_jaderp/js/',false );
+		JHTML::stylesheet('datepicker.css','components/com_jaderp/cs/');
+		
+	/**	$doc->addScriptdeclaration(' 
+			var dp_config = {
+			date: $("#startdate").val(),
+			current: $("#startdate").val(),
+			format: \'d/m/Y\',
+			calendars: 1,
+			starts: 1,
+			view: years,
+			onRender: function(date) {
+					return {
+						disabled: (date.valueOf() < now.valueOf()),
+						className: date.valueOf() == now2.valueOf() ? "datepickerSpecial" : false
+					}
+				},
+			locale: {
+					days: ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"],
+					daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+					daysMin: ["D", "L", "Ma", "Me", "J", "V", "S", "D"],
+					months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+					monthsShort: ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Jui", "Aoû", "Sep", "Oct", "Nov", "Déc"],
+					weekMin: "Sm"
+				}
+			};
+
+			
+
+			$("#startdate").DatePicker();
+		');**/
+			
 		$doc->addScriptdeclaration(' 
 			var dp_config =  
 			{  	maxDate: "+0d",
+				minDate: "-50y",
 				changeMonth: true,
 				changeYear: true,
-				yearRange: "-80:+0",
+				yearRange: "-50:+50",
 				dateFormat: \'dd/mm/yy\',  
+				showOn: "button", buttonImage: "images/calendar.gif", buttonImageOnly: true,
 				dayNamesMin: [\'D\', \'L\', \'Ma\', \'Me\', \'J\', \'V\', \'S\']  
 			};
 			
@@ -31,11 +65,53 @@ class JaderpViewWorkers extends JView
 
 			$(document).ready( initialize );
 		');
-		$worker =& $this->get( 'Data' );
-		$this->assignRef('worker',$worker);
-		parent::display($tpl);
+		$script='
+		 function checkDate(fld) {
+		    var mo, day, yr;
+		    var entry = fld.value;
+		    var re = /\b\d{1,2}[\/-]\d{1,2}[\/-]\d{4}\b/;
+		    if (re.test(entry)) {
+		        var delimChar = (entry.indexOf("/") != -1) ? "/" : "-";
+		        var delim1 = entry.indexOf(delimChar);
+		        var delim2 = entry.lastIndexOf(delimChar);
+		        day = parseInt(entry.substring(0, delim1), 10);
+		        mo = parseInt(entry.substring(delim1+1, delim2), 10);
+		        yr = parseInt(entry.substring(delim2+1), 10);
+		        var testDate = new Date(yr, mo-1, day);
+		       
+		        if (testDate.getDate() == day) {
+		            if (testDate.getMonth() + 1 == mo) {
+		                if (testDate.getFullYear() == yr) {
+		                    return true;
+		                } else {
+		                    alert("'.JText::_('DATE_YEAR_ENTRY_ERROR').'.");
+		                }
+		            } else {
+		                alert("'.JText::_('DATE_MONTH_ENTRY_ERROR').'.");
+		            }
+		        } else {
+		            alert("'.JText::_('DATE_DATE_ENTRY_ERROR').'.");
+		        }
+		    } else {
+		        alert("'.JText::_('DATE_FORMAT_ENTRY_ERROR').'.");
+		    }
+		    return false;
+		}
 		
-		//require_once ('tmpl'.DS.'form.php');
-	}
-}
+		function validateDate(fld) {
+		    if (!checkDate(fld)) {
+		        // focus if validation fails
+		        fld.focus();
+		        fld.select();
+		    }
+		}';
+			$doc->addScriptdeclaration($script);
+	
+			$worker =& $this->get( 'Data' );
+			$this->assignRef('worker',$worker);
+			parent::display($tpl);
+			
+				//require_once ('tmpl'.DS.'form.php');
+			}
+		}
 ?>
