@@ -30,10 +30,10 @@ $query = 'SELECT m.id as id,
 			m.languagename,
 			m.name
 			FROM #__jaderp_menu as m 
-			INNER JOIN #__jaderp_menu_user as u 
+			INNER JOIN #__jaderp_levels_menu as u 
 			ON m.id=u.menu_id 
 			WHERE m.parent_name = "" 
-			AND u.user_id='.$uid.' AND u.active=1 
+			AND u.level_id='.$uid.' AND u.active=1 
 			AND m.active=1
 			ORDER BY u.ordering';
 $db->setQuery( $query );
@@ -53,10 +53,10 @@ foreach ($menus as $row)
 			m.name,
 			m.menu_icon
 			FROM #__jaderp_menu as m 
-			INNER JOIN #__jaderp_menu_user as u 
+			INNER JOIN #__jaderp_levels_menu as u 
 			ON m.id=u.menu_id 
 			WHERE m.parent_name = '.$db->Quote($row->name).' 
-			AND u.user_id='.$uid.' AND u.active=1 
+			AND u.level_id='.$uid.' AND u.active=1 
 			AND m.active=1
 			ORDER BY u.ordering';
 		//$query = 'SELECT * FROM #__jaderp_menu WHERE parent_id='.$row->id.' order by ordering';

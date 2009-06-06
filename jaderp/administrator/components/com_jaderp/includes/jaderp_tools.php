@@ -89,14 +89,14 @@ class JAdERPTools
 		}		
 	}
 
-	function UserAccessLevel($userid, $module, $model, $view)
+	function UserAccessLevel($userid, $module, $controller, $mtask)
 	{
 		$db =& JFactory::getDBO();
 		$request='SELECT access_level FROM #__jaderp_users_access WHERE 
 				  user_id='.$userid.' 
 				  AND module_component = '.$db->Quote($module).' 
-				  AND model = '.$db->Quote($model).' 
-				  AND view = '.$db->Quote($view);
+				  AND controller = '.$db->Quote($controller).' 
+				  AND task = '.$db->Quote($mtask);
 		$db->setQuery($request);
 		$acclvl = $db->loadResult();
 		if ($acclvl )
@@ -104,6 +104,54 @@ class JAdERPTools
 		else 
 			return false;
 			
+	}
+/**
+ * Read a table and return values
+ *
+ * @param string $tablename
+ * @param string asArray : Type of loaded results Array or Object or Assoc
+ * @param boolean $firstOnly : If set to true only the first row of the result is returned
+ * @param string $orderf
+ * @param string $orderdir
+ * @return the table result if success otherwise false
+ */
+	function ReadTable($tablename, $resultType = 'Assoc' , $firstOnly = false, $orderf = 'id', $orderdir = 'ASC')
+	{
+		$db =& JFactory::getDBO();
+		$req = "SELECT * FROM ".$db->nameQuote("#__".$tablename)." ORDER BY ".$db->nameQuote($orderf)." ".$orderdir;
+		$db->setQuery($req);
+		//echo $req;
+		switch ($resultType)
+		{
+			case 'Object': 	
+				if ($firstOnly)
+					$result = $db->loadObject();	
+				else 
+					$result = $db->loadObjectList();
+				break;
+			case 'Array':
+				if ($firstOnly)
+					$result = $db->loadRow();	
+				else 
+					$result = $db->loadRowList();
+				break;
+			case 'Assoc':
+			default:
+				if ($firstOnly)
+					$result = $db->loadAssoc();
+				else
+					$result = $db->loadAssocList();
+				break;
+	/*			
+		if( !$result ) 
+		{
+			if ($asArray)
+				$result = array();
+			else 
+				$result = new stdClass;
+		*/
+		}
+		return $result;
 	}
 }
 	?>
