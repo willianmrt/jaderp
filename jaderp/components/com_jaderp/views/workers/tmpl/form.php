@@ -96,7 +96,7 @@ defined('_JEXEC') or die('Restricted access');?>
   </div>
   
   <div id="FormElementsGroup">
-    <fieldset id="accessfields" style="display: <?php echo $this->worker->canaccess ? 'block"':'block';?>;">
+    <fieldset id="accessfields" style="display: <?php echo $this->worker->canaccess ? 'block"':'none';?>;">
       <legend><?php echo JText::_('WORKER_ACCESS'); ?>:</legend>
       <div class="FormElements">
 	      <label for="accesslevel"><?php echo JText::_('WORKER_ACCESS_LEVEL'); ?>:</label>
@@ -127,7 +127,7 @@ defined('_JEXEC') or die('Restricted access');?>
   </div>
   
   <div id="FormElementsGroup">
-    <fieldset id="contactfields" style="display: <?php echo $this->worker->canaccess ? 'block"':'block';?>;">
+    <fieldset id="contactfields" style="display: <?php echo $this->worker->canaccess ? 'block"':'none';?>;">
       <legend><?php echo JText::_('WORKER_CONTACT'); ?>:</legend>
       <div class="FormElements">
 	      <label for="password"><?php echo JText::_('WORKER_PASSWORD'); ?>:</label>
