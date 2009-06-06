@@ -108,7 +108,11 @@ class JaderpViewWorkers extends JView
 			$doc->addScriptdeclaration($script);
 	
 			$worker =& $this->get( 'Data' );
-			$this->assignRef('worker',$worker);
+			$this->assignRef('worker', $worker);
+			require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
+			$JAdERPTool=& new JAdERPTools;
+			$levels = $JAdERPTool->ReadTable('jaderp_access_levels');
+			$this->assign('acclevels', $levels);
 			parent::display($tpl);
 			
 				//require_once ('tmpl'.DS.'form.php');

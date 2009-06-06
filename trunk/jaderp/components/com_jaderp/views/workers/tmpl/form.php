@@ -96,8 +96,23 @@ defined('_JEXEC') or die('Restricted access');?>
   </div>
   
   <div id="FormElementsGroup">
-    <fieldset id="accessfields" style="display: <?php echo $this->worker->canaccess ? 'block"':'none';?>;">
+    <fieldset id="accessfields" style="display: <?php echo $this->worker->canaccess ? 'block"':'block';?>;">
       <legend><?php echo JText::_('WORKER_ACCESS'); ?>:</legend>
+      <div class="FormElements">
+	      <label for="accesslevel"><?php echo JText::_('WORKER_ACCESS_LEVEL'); ?>:</label>
+	      <br />
+			<select id="access_level" name="access_level">
+				<?php
+				//echo $this->acclevels->id;
+				foreach ($this->acclevels as $level)
+				{
+					echo $level['id'];
+					$selectd = '';//$this->worker->access_level ? 'selected="selected"':'';
+					echo '<option '.$selectd.' value="'.$level['id'].'">'.$level['access_label'].'</option>';
+				}
+				?>
+			</select>
+	  </div>
       <div class="FormElements">
 	      <label for="password"><?php echo JText::_('WORKER_PASSWORD'); ?>:</label>
 	      <br />
@@ -112,7 +127,7 @@ defined('_JEXEC') or die('Restricted access');?>
   </div>
   
   <div id="FormElementsGroup">
-    <fieldset id="contactfields" style="display: <?php echo $this->worker->canaccess ? 'block"':'none';?>;">
+    <fieldset id="contactfields" style="display: <?php echo $this->worker->canaccess ? 'block"':'block';?>;">
       <legend><?php echo JText::_('WORKER_CONTACT'); ?>:</legend>
       <div class="FormElements">
 	      <label for="password"><?php echo JText::_('WORKER_PASSWORD'); ?>:</label>

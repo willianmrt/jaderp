@@ -43,7 +43,7 @@ class menuBar
 		}	
 	}
 
-	function addCustomButton($button, $onClickScript = '',$task='', $showlabels = false, $labelText = '')
+	function addCustomButton($button, $onClickScript = '',$task='', $showlabels = false, $labelText = '', $buttonIcon = '')
 	{
 		$button = trim(strtolower($button));
 		if($task=='')
