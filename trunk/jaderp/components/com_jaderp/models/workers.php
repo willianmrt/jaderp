@@ -62,24 +62,27 @@ class JaderpModelWorkers extends JModel
 	function _initializeWorker() 
 		   {
 		        $workers = new stdClass;
-		        $workers->id = 0;
-		        $workers->name = null;
-				$workers->joomla_id = null;
-				$workers->mat		= null;
+		        $workers->id 				= 0;
+		        $workers->name 				= null;
+				$workers->joomla_id 		= null;
+				$workers->access_leve 		= null;
+				$workers->mat				= null;
+				$workers->department		= null;
+				$workers->branch			= null;
 				$workers->lastname 			= null;
 				
-				$workers->firstname 			= null;
+				$workers->firstname 		= null;
 				
-				$workers->num_piece 			= null;
+				$workers->num_piece 		= null;
 				
 				$workers->type_piece 		= null;
 				
-				$workers->email 				= null;
+				$workers->email 			= null;
 				
-				$workers->phone 				= null;
+				$workers->phone 			= null;
 				$workers->salaire 			= null;
 				
-				$workers->startdate 			= null;
+				$workers->startdate 		= null;
 				
 				$workers->note 				= null;
 				
