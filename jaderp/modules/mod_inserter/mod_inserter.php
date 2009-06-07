@@ -43,7 +43,7 @@ $db->setQuery( $query );
 $menus = $db->loadObjectList();
 
 $attribs['style'] = 'none';
-echo '<div id="jaderMenu"><div id="inserter_accordion">';
+echo '<div class="jaderMenu"><div id="inserter_accordion">';
 $menucode=0;
 $menuid=JRequest::getVar('menuid',1);
 $accnb=0;

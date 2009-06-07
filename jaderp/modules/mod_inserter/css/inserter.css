@@ -1,5 +1,5 @@
 
-.ui-accordion .ui-accordion-header a {font-size:14px; padding:0.5em 36px 0.5em 2.2em; background-position: 95% center; background-repeat:no-repeat;}
-.ui-widget-content a {padding:0.5em 0.5em 0.5em 30px;background-position: 0 center; background-repeat:no-repeat; display:block; line-height:normal; color:#444; font-size:12px;}
-.ui-widget-content a:hover{text-decoration:none; color:#000;}
-.ui-widget-content a.on{color:#000; font-weight:bold;}
+.jaderMenu .ui-accordion .ui-accordion-header a {font-size:14px; padding:0.5em 36px 0.5em 2.2em; background-position: 95% center; background-repeat:no-repeat;}
+.jaderMenu .ui-widget-content a {padding:0.5em 0.5em 0.5em 30px;background-position: 0 center; background-repeat:no-repeat; display:block; line-height:10px; color:#444; font-size:12px;}
+.jaderMenu .ui-widget-content a:hover{text-decoration:none; color:#000;}
+.jaderMenu .ui-widget-content a.on{color:#000; font-weight:bold;}
