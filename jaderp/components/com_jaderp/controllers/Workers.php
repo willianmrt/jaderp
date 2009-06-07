@@ -60,9 +60,9 @@ class JaderpControllerWorkers extends JaderpController
 			$this->setRedirect(JRoute::_('index.php?option=com_user&view=login'), $msg, 'notice');
 		}
 		JTable::addIncludePath('components'.DS.'com_jaderp'.DS.'tables');
-		$table =& JTable::getInstance('Workers');
-		$id = JRequest::getInt('cid', 0);
-		echo $id;
+		//$table =& JTable::getInstance('Workers');
+		//$id = JRequest::getInt('cid', 0);
+		//echo $id;
 		/*
 		$table->load($id);
 		if ($table->isChecekOut($user->get('id')))
