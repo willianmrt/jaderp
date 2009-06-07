@@ -59,6 +59,37 @@ defined('_JEXEC') or die('Restricted access');?>
         <br />
         <input name="note" type="text" id="note" value="<?php echo $this->worker->note;?>"/>
       </div>
+      
+      <div class="FormElements">
+	      <label for="branch"><?php echo JText::_('WORKER_BRANCH'); ?>:</label>
+	      <br />
+			<select id="branch" name="branch">
+				<?php
+				//echo $this->acclevels->id;
+				foreach ($this->branchs as $branch)
+				{
+					$selectd = $this->worker->branch ? 'selected="selected"':'';
+					echo '<option '.$selectd.' value="'.$branch['id'].'">'.$branch['name'].'</option>';
+				}
+				?>
+			</select>
+	  </div>
+      
+      <div class="FormElements">
+	      <label for="department"><?php echo JText::_('WORKER_DEPARTMENT'); ?>:</label>
+	      <br />
+			<select id="department" name="department">
+				<?php
+				//echo $this->acclevels->id;
+				foreach ($this->departments as $dep)
+				{
+					$selectd = $this->worker->department ? 'selected="selected"':'';
+					echo '<option '.$selectd.' value="'.$dep['id'].'">'.$dep['name'].'</option>';
+				}
+				?>
+			</select>
+	  </div>
+      
       <!--Worker Role-->
       <div class="FormElements">
         <label for="position"><?php echo JText::_('WORKER_ROLE'); ?>:</label>
@@ -106,7 +137,6 @@ defined('_JEXEC') or die('Restricted access');?>
 				//echo $this->acclevels->id;
 				foreach ($this->acclevels as $level)
 				{
-					echo $level['id'];
 					$selectd = '';//$this->worker->access_level ? 'selected="selected"':'';
 					echo '<option '.$selectd.' value="'.$level['id'].'">'.$level['access_label'].'</option>';
 				}

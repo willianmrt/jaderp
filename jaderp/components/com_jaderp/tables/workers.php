@@ -13,8 +13,14 @@ class TableWorkers extends JTable
 	var $id 				= null;
 	/** @var int */
 	var $joomla_id 			= null;
+	/** @var int */
+	var $access_level		= null;
 	/** @var string */
 	var $mat				= null;
+	/** @var int */
+	var $department 		= null;
+	/** @var int */
+	var $branch				= null;	
 	/** @var string */
 	var $lastname 			= null;
 	/** @var string */
@@ -56,5 +62,10 @@ class TableWorkers extends JTable
 	function check()
 	{
 		return true;
+	}
+	function load($id)
+	{
+		echo "load mta3i";
+		parent::load($id);
 	}
 }

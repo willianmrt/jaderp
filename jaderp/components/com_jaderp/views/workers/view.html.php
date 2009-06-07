@@ -69,6 +69,11 @@ class JaderpViewWorkers extends JView
 		 function checkDate(fld) {
 		    var mo, day, yr;
 		    var entry = fld.value;
+		    var obj = document.getElementById("ui-datepicker-div");
+		    if (entry == "" && obj.style.display != "none")
+		    {
+		    	return true;
+		    }
 		    var re = /\b\d{1,2}[\/-]\d{1,2}[\/-]\d{4}\b/;
 		    if (re.test(entry)) {
 		        var delimChar = (entry.indexOf("/") != -1) ? "/" : "-";
@@ -113,6 +118,10 @@ class JaderpViewWorkers extends JView
 			$JAdERPTool=& new JAdERPTools;
 			$levels = $JAdERPTool->ReadTable('jaderp_access_levels');
 			$this->assign('acclevels', $levels);
+			$branchs = $JAdERPTool->ReadTable('jaderp_branchs');
+			$this->assign('branchs', $branchs);
+			$departments = $JAdERPTool->ReadTable('jaderp_departments');
+			$this->assign('departments', $departments);
 			parent::display($tpl);
 			
 				//require_once ('tmpl'.DS.'form.php');

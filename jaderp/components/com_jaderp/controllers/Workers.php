@@ -59,6 +59,24 @@ class JaderpControllerWorkers extends JaderpController
 			$msg= JText::_('YOU_MUST_CONNECT');
 			$this->setRedirect(JRoute::_('index.php?option=com_user&view=login'), $msg, 'notice');
 		}
+		JTable::addIncludePath('components'.DS.'com_jaderp'.DS.'tables');
+		$table =& JTable::getInstance('Workers');
+		$id = JRequest::getInt('cid', 0);
+		echo $id;
+		/*
+		$table->load($id);
+		if ($table->isChecekOut($user->get('id')))
+		{
+			$msg= JText::_( 'IS_CHECKEDOUT_ALERT' ) ;
+			$this->setRedirect(JRoute::_('index.php?option=com_jaderp&task=desktop'), $msg, 'notice');	
+		}
+		else 
+		{
+			if (!$table->checkOut($user->get('id')))
+			$msg= JText::_( 'CANT_CHECKOUT_ALERT' ) ;
+			$this->setRedirect(JRoute::_('index.php?option=com_jaderp&task=desktop'), $msg, 'notice');
+		}
+		*/
 		$buttons = array("save", "cancel", "edit", "apply");
 		$tache='manageUsers';
 		$tacheText= JText::_('MANAGE_PERSONELS');

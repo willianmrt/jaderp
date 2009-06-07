@@ -74,9 +74,7 @@ class JaderpController extends JController
 	}
 
 	function Workers()
-	{
-		//Assign Task icon and Task Text
-		//NOTE: Task icon type is charset with NO WIHTE-SPACE		
+	{	
 		$user =& JFactory::getUser();
 		$language =& JFactory::getLanguage();
 		$language->load('com_jaderp');
