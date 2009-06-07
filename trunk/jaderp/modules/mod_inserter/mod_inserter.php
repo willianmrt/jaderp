@@ -20,6 +20,8 @@ $position = trim( $params->get('position', 'inserter') );
 $biblio = trim( $params->get('JavaScript', 'inserter') );
 $inserter = JModuleHelper::getModules( $position );
 
+JHTML::stylesheet('inserter.css','modules/mod_inserter/css/');
+
 //if ( !$inserter ) :  return; endif;
 $users =& JFactory::getUser();
 $uid=$users->id;
@@ -28,7 +30,8 @@ $db =& JFactory::getDBO();
 
 $query = 'SELECT m.id as id,
 			m.languagename,
-			m.name
+			m.name,
+			m.menu_icon
 			FROM #__jaderp_menu as m 
 			INNER JOIN #__jaderp_levels_menu as u 
 			ON m.id=u.menu_id 
@@ -65,7 +68,11 @@ foreach ($menus as $row)
 		if ($sousmenus)
 		{
 			//echo '<div id="sortable">';
-			echo '<h3 class="inserter_toggler atStart"><a href="#" tabindex="-1">'.JText::_($row->languagename).'</a></h3>';
+			if(isset($row->menu_icon) && $row->menu_icon !='')
+					$menuiconstyle = "background-image: url(images/jaderp/icons/".$row->menu_icon.")";
+				else 
+					$menuiconstyle = "background-image: url(images/jaderp/icons/defaultmenuicon.png)";
+			echo '<h3 class="inserter_toggler atStart"><a href="#" tabindex="-1" style="'.$menuiconstyle.'">'.JText::_($row->languagename).'</a></h3>';
 			if($row->id==$menuid) 
 			{
 				$menucode=$menuid;
