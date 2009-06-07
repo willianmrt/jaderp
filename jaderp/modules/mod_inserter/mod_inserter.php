@@ -43,7 +43,7 @@ $db->setQuery( $query );
 $menus = $db->loadObjectList();
 
 $attribs['style'] = 'none';
-echo '<div id="inserter_accordion">';
+echo '<div id="jaderMenu"><div id="inserter_accordion">';
 $menucode=0;
 $menuid=JRequest::getVar('menuid',1);
 $accnb=0;
@@ -85,26 +85,24 @@ foreach ($menus as $row)
 				{
 					$menucode=$menuid;
 					$selectacc=$accnb;
-					$styleb="<b>";
-					$stylee="</b>";
+					$elementStatus='class="on"';
 				}
 				else
 				{
-					$styleb="";
-					$stylee="";
+					$elementStatus='';
 				}
 				if(isset($row1->menu_icon) && $row1->menu_icon !='')
 					$menuiconstyle = "background-image: url(images/jaderp/icons/".$row1->menu_icon.")";
 				else 
 					$menuiconstyle = "background-image: url(images/jaderp/icons/defaultmenuicon.png)";
-				echo '<a style="'.$menuiconstyle.'" href="'.JRoute::_($row1->url."&menuid=".$row1->id).'">'.$styleb.JText::_($row1->languagename).$stylee.'</a><br>';
+				echo '<a '.$elementStatus.' style="'.$menuiconstyle.'" href="'.JRoute::_($row1->url."&menuid=".$row1->id).'">'.JText::_($row1->languagename).'</a><br>';
 			}
 			echo "</div>";
 			//echo "</div>";
 		}
 		$accnb+=1;
 	}
-echo "</div>";
+echo "</div></div>";
 
 //global $inserter_id;
 
