@@ -11,6 +11,11 @@ defined('_JEXEC') or die('Restricted access');
 		$language->load('mod_inserter');
 
 		require_once (JPATH_ADMINISTRATOR.DS.'components'.DS.'com_jaderp'.DS.'includes'.DS.'jaderp_tools.php');
+
+//Define Icons Style
+
+$menuIconPack='style01';//must be charset with NO SPACE to be used as folder name
+
 // Include the syndicate functions only once
 //require_once (dirname(__FILE__).DS.'helper.php');
 
@@ -69,9 +74,9 @@ foreach ($menus as $row)
 		{
 			//echo '<div id="sortable">';
 			if(isset($row->menu_icon) && $row->menu_icon !='')
-					$menuiconstyle = "background-image: url(images/jaderp/icons/".$row->menu_icon.")";
+					$menuiconstyle = "background-image: url(images/jaderp/icons/menu_icons/".$menuIconPack."/".$row->menu_icon.")";
 				else 
-					$menuiconstyle = "background-image: url(images/jaderp/icons/defaultmenuicon.png)";
+					$menuiconstyle = "background-image: url(images/jaderp/icons/menu_icons/".$menuIconPack."/defaultmenuicon.png)";
 			echo '<h3 class="inserter_toggler atStart"><a href="#" tabindex="-1" style="'.$menuiconstyle.'">'.JText::_($row->languagename).'</a></h3>';
 			if($row->id==$menuid) 
 			{
@@ -92,9 +97,9 @@ foreach ($menus as $row)
 					$elementStatus='';
 				}
 				if(isset($row1->menu_icon) && $row1->menu_icon !='')
-					$menuiconstyle = "background-image: url(images/jaderp/icons/".$row1->menu_icon.")";
+					$menuiconstyle = "background-image: url(images/jaderp/icons/menu_icons/".$menuIconPack."/".$row1->menu_icon.")";
 				else 
-					$menuiconstyle = "background-image: url(images/jaderp/icons/defaultmenuicon.png)";
+					$menuiconstyle = "background-image: url(images/jaderp/icons/menu_icons/".$menuIconPack."/defaultmenuicon.png)";
 				echo '<a '.$elementStatus.' style="'.$menuiconstyle.'" href="'.JRoute::_($row1->url."&menuid=".$row1->id).'">'.JText::_($row1->languagename).'</a><br>';
 			}
 			echo "</div>";
