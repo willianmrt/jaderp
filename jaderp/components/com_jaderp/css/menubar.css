@@ -9,9 +9,6 @@
 *********************************************
 * ©2009 JAdEEP All rights reserved
 *********************************************/
-
-
-
 #ToolBarIcons{display:block; overflow:hidden;background:url(../../../images/jaderp/taskbar_bg.png) 0 0 repeat-x;}
 #ToolBarIconsL, #ToolBarIconsR{padding:0; margin:0; height:52px;display:block;}
 #ToolBarIconsL{background:url(../../../images/jaderp/taskbar_bg_ll.png) top left no-repeat;}
@@ -54,21 +51,7 @@
 }
 
 div#TaskIcon{height:52px; margin-left:8px; padding-top:18px;}
-
-#save div#TaskIcon{background:url(../../../images/jaderp/icons/task_save.png) 0px 2px no-repeat;}
-#save div#TaskIcon:hover {color:#000;}
-
-#cancel div#TaskIcon {background:url(../../../images/jaderp/icons/task_cancel.png) 0px 2px no-repeat;}
-#cancel div#TaskIcon:hover {color:#000;}
-
-#edit div#TaskIcon {background:url(../../../images/jaderp/icons/task_edit.png) 0px 2px no-repeat;}
-#edit div#TaskIcon:hover {color:#000;}
-	
-#add div#TaskIcon{background:url(../../../images/jaderp/icons/task_add.png) 0px 2px no-repeat;}
-#add div#TaskIcon:hover {color:#000;}
-
-#apply div#TaskIcon{background:url(../../../images/jaderp/icons/task_apply.png) 0px 2px no-repeat;}
-#apply div#TaskIcon:hover {color:#000;}
+div#TaskIcon:hover {color:#000;}
 
 .kwicks.horizontal #kwick_4 {
 	margin-right: none; /* cancel margin on last kiwck (if you set a margin above) */
