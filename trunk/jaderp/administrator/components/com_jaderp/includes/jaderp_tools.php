@@ -1,5 +1,4 @@
 <?php
-	
 class JAdERPTools
 {
 	/**
@@ -48,10 +47,12 @@ class JAdERPTools
 			$css = $path.'css/menubar.css';
 			$document =& JFactory::getDocument();
 			$document->addStyleSheet($css);
+			//$document->addStyleSheet($path.'css/menubar_css.php','',null);
 			$this->JQueryHeader();
 			//$document->addScript($path.'js/jquery-1.2.6.min.js');
 			$document->addScript($path.'js/jquery.easing.1.3.js');
 			$document->addScript($path.'js/jquery.kwicks-1.5.1.pack.js');
+			JHTML::stylesheet('menubar_css.php','components/com_jaderp/css/');
 			//$document->addScript(JURI::base().'administrator/components/com_jaderp/js/toolbar.js');
 			$script="$(document).ready(function() {
 					$('.kwicks').kwicks({
