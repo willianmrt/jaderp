@@ -195,10 +195,10 @@ class JaderpModelWorkers extends JModel
 	{	
 		$db =& $this->getDBO();
 		$now =& JFactory::getDate();
-		if ($data['id']<0)
+		if ($data['id']<0) // new record
 		{
 			$sql = "INSERT INTO #__users (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`)
-			 VALUES (NULL,".$db->Quote($data['lastname']." ".$data['firstname'])." ,".$db->Quote(strtolower($data['lastname']).".".strtolower($data['firstname'])). ", ".$db->Quote(strtolower($data['email'])).", ".$db->Quote($data['password']).", '', '0', '0', '18',". $db->Quote($now->toMySQL()).", '0000-00-00 00:00:00', '', '');";
+			 VALUES (NULL,".$db->Quote($data['lastname']." ".$data['firstname'])." ,".$db->Quote(strtolower($data['lastname']).".".strtolower($data['firstname'])). ", ".$db->Quote(strtolower($data['email'])).", ".$db->Quote($data['password']).", '',".$db->Quote($data['isblocked']). ", '0', '18',". $db->Quote($now->toMySQL()).", '0000-00-00 00:00:00', '', '');";
 			$db->setQuery($sql);
 			if (!$db->query()) {
 			JError::raiseError(500, $db->getErrorMsg() );
@@ -217,6 +217,10 @@ class JaderpModelWorkers extends JModel
 			if (!$db->query()) {
 			JError::raiseError(500, $db->getErrorMsg() );
 			}
+		}
+		else // record modified
+		{
+			
 		}
 		JTable::addIncludePath('components'.DS.'com_jaderp'.DS.'tables');
 		$row =& $this->getTable('Workers');
