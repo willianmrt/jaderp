@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Sam 06 Juin 2009 à 08:56
+-- Généré le : Lun 08 Juin 2009 à 07:32
 -- Version du serveur: 5.1.33
 -- Version de PHP: 5.2.9
 
@@ -19,6 +19,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Structure de la table `jos_jaderp`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `greeting` varchar(25) NOT NULL,
@@ -40,6 +41,7 @@ INSERT IGNORE INTO `jos_jaderp` (`id`, `greeting`) VALUES
 -- Structure de la table `jos_jaderp_access_levels`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_access_levels`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_access_levels` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `access_label` varchar(255) NOT NULL,
@@ -58,9 +60,56 @@ INSERT IGNORE INTO `jos_jaderp_access_levels` (`id`, `access_label`, `access_lev
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `jos_jaderp_branchs`
+--
+
+DROP TABLE IF EXISTS `jos_jaderp_branchs`;
+CREATE TABLE IF NOT EXISTS `jos_jaderp_branchs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `address` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `jos_jaderp_branchs`
+--
+
+INSERT IGNORE INTO `jos_jaderp_branchs` (`id`, `name`, `description`, `address`) VALUES
+(1, 'Msaken', 'fi msaken', 'bidhabet ma na3rafeh'),
+(2, 'Tunis Rep', 'fil 3asma', '');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `jos_jaderp_departments`
+--
+
+DROP TABLE IF EXISTS `jos_jaderp_departments`;
+CREATE TABLE IF NOT EXISTS `jos_jaderp_departments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+--
+-- Contenu de la table `jos_jaderp_departments`
+--
+
+INSERT IGNORE INTO `jos_jaderp_departments` (`id`, `name`, `description`) VALUES
+(1, 'Ressource humaines', 'bla bla bla ya ressource'),
+(2, 'Commercial', ''),
+(3, 'Approvisionnement', 'Ce département est lahi bil chra');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `jos_jaderp_levels_menu`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_levels_menu`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_levels_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ordering` int(11) NOT NULL DEFAULT '0',
@@ -91,6 +140,7 @@ INSERT IGNORE INTO `jos_jaderp_levels_menu` (`id`, `ordering`, `menu_id`, `level
 -- Structure de la table `jos_jaderp_links_map`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_links_map`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_links_map` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `access_min_level` int(11) NOT NULL,
@@ -113,6 +163,7 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_links_map` (
 -- Structure de la table `jos_jaderp_menu`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_menu`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `active` tinyint(4) NOT NULL,
@@ -153,6 +204,7 @@ INSERT IGNORE INTO `jos_jaderp_menu` (`id`, `active`, `name`, `languagename`, `u
 -- Structure de la table `jos_jaderp_tables`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_tables`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_tables` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_name` varchar(255) NOT NULL,
@@ -172,6 +224,7 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_tables` (
 -- Structure de la table `jos_jaderp_tables_access`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_tables_access`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_tables_access` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) NOT NULL,
@@ -194,11 +247,14 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_tables_access` (
 -- Structure de la table `jos_jaderp_users`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_users`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `joomla_id` int(11) NOT NULL,
+  `joomla_id` int(11) NOT NULL DEFAULT '0',
   `access_level` int(11) NOT NULL DEFAULT '1',
   `mat` varchar(50) NOT NULL,
+  `department` int(11) NOT NULL,
+  `branch` int(11) NOT NULL,
   `lastname` varchar(50) NOT NULL,
   `firstname` varchar(50) NOT NULL,
   `num_piece` varchar(50) NOT NULL,
@@ -210,6 +266,7 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_users` (
   `note` float NOT NULL,
   `position` varchar(50) NOT NULL,
   `present` int(11) NOT NULL,
+  `iscontact` int(11) NOT NULL DEFAULT '0',
   `password` varchar(50) NOT NULL,
   `checked_out` int(11) NOT NULL,
   `checked_out_time` datetime NOT NULL,
@@ -220,12 +277,12 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_users` (
 -- Contenu de la table `jos_jaderp_users`
 --
 
-INSERT IGNORE INTO `jos_jaderp_users` (`id`, `joomla_id`, `access_level`, `mat`, `lastname`, `firstname`, `num_piece`, `type_piece`, `email`, `phone`, `salaire`, `startdate`, `note`, `position`, `present`, `password`, `checked_out`, `checked_out_time`) VALUES
-(1, 0, 0, '2332', 'Feki', 'Hichem', '1222222', 'CIN', 'feki.hichem@gmail.com', '22393233', 2536, '0000-00-00', 25, 'Master', 1, '123456', 0, '0000-00-00 00:00:00'),
-(2, 92, 0, '142536', 'Feki', 'Chaima', '12345679', 'CIN', 'feki.hichem@gmail.cm', '24751419', 0, '2009-06-02', 20, 'Binti', 0, '9ec90510b7d50691459da7e13457a9fb:5favpwMqnxO4qoSwz', 0, '0000-00-00 00:00:00'),
-(3, 86, 0, '253636', 'Feki', 'Eya', '456855222', 'CIN', 'feki.hichem@gmail.com', '74464334', 1234, '1963-11-21', 12, 'Binti', 1, 'ac7e4a54f57f7d90c8510548864a705b:NK64BMx3eLciiACu4', 0, '0000-00-00 00:00:00'),
-(4, 66, 0, '123456', 'Chtourou', 'Souheila', '14253689', 'CIN', 'soussou@sous.com', '24751419', 300, '0000-00-00', 15, 'Marti', 1, '7e39d0d5fadd36b41d0a95c46225ab47:7zb5QvgW72gFDYFLm', 0, '0000-00-00 00:00:00'),
-(5, 67, 0, '147258', 'Feki', 'Chaima', '12345679', 'CIN', 'feki.hichem@gmail.com', '24751419', 1234, '0000-00-00', 15, 'Binti', 1, '0c827f11b42b77943a4e153a5d185361:qkeXcmeK0ChsJuWkd', 0, '0000-00-00 00:00:00');
+INSERT IGNORE INTO `jos_jaderp_users` (`id`, `joomla_id`, `access_level`, `mat`, `department`, `branch`, `lastname`, `firstname`, `num_piece`, `type_piece`, `email`, `phone`, `salaire`, `startdate`, `note`, `position`, `present`, `iscontact`, `password`, `checked_out`, `checked_out_time`) VALUES
+(1, 0, 0, '2332', 0, 0, 'Feki', 'Hichem', '1222222', 'CIN', 'feki.hichem@gmail.com', '22393233', 2536, '0000-00-00', 25, 'Master', 1, 0, '123456', 0, '0000-00-00 00:00:00'),
+(2, 92, 1, '142536', 3, 2, 'Feki', 'Chaima', '12345679', 'CIN', 'feki.hichem@gmail.cm', '24751419', 0, '2009-06-02', 20, 'Binti', 0, 1, '78a785296668bfc5ccde3f647534c048:HWIoLDP5oFfmPXYrJ', 63, '2009-06-08 05:18:47'),
+(3, 86, 0, '253636', 0, 0, 'Feki', 'Eya', '456855222', 'CIN', 'feki.hichem@gmail.com', '74464334', 1234, '1963-11-21', 12, 'Binti', 1, 0, 'ac7e4a54f57f7d90c8510548864a705b:NK64BMx3eLciiACu4', 63, '2009-06-07 03:53:56'),
+(4, 66, 0, '123456', 0, 0, 'Chtourou', 'Souheila', '14253689', 'CIN', 'soussou@sous.com', '24751419', 300, '0000-00-00', 15, 'Marti', 1, 0, '7e39d0d5fadd36b41d0a95c46225ab47:7zb5QvgW72gFDYFLm', 0, '0000-00-00 00:00:00'),
+(5, 67, 0, '147258', 0, 0, 'Feki', 'Chaima', '12345679', 'CIN', 'feki.hichem@gmail.com', '24751419', 1234, '0000-00-00', 15, 'Binti', 1, 0, '0c827f11b42b77943a4e153a5d185361:qkeXcmeK0ChsJuWkd', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -233,6 +290,7 @@ INSERT IGNORE INTO `jos_jaderp_users` (`id`, `joomla_id`, `access_level`, `mat`,
 -- Structure de la table `jos_jaderp_users_access`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_users_access`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_users_access` (
   `user_id` int(11) NOT NULL DEFAULT '0',
   `module_component` varchar(255) NOT NULL,
