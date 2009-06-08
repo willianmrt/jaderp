@@ -41,8 +41,10 @@ class TableWorkers extends JTable
 	var $note 				= null;
 	/** @var string */
 	var $position 			= null;
-	/** @var string */
+	/** @var int */
 	var $present 			= null;
+	/** @var int */
+	var $iscontact 			= 0;
 	/** @var string */
 	var $password 			= null;
 	/** @var int */
@@ -62,10 +64,5 @@ class TableWorkers extends JTable
 	function check()
 	{
 		return true;
-	}
-	function load($id)
-	{
-		echo "load mta3i";
-		parent::load($id);
 	}
 }

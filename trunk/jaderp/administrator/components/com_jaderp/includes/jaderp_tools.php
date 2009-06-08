@@ -154,5 +154,48 @@ class JAdERPTools
 		}
 		return $result;
 	}
+	
+	/**
+	 * Do a checkin or a checkout
+	 *
+	 * @param string $table: The name of table class
+	 * @param int $cid: Item id
+	 * @param int $userid
+	 * @param string $component
+	 * @param boolean $checkIn: True for checkin (default) and false for checkout
+	 */
+	function CheckInOut($table, $cid = 0, $userid = 0, $component = 'com_jaderp', $checkIn = true)
+	{
+		JTable::addIncludePath('components'.DS.$component.DS.'tables');
+		$table =& JTable::getInstance($table, 'Table');
+		if ($checkIn)
+		{
+			if ($cid)	
+			{
+				$table->load($cid);
+				if (!$table->checkin($cid))
+				{
+					return false ;
+				}		
+				return true;	
+			}		
+			return false;	
+		}
+		else //checkout
+		{
+			if (!$userid)
+			{
+				$user =& JFactory::getUser();
+				$userid = $user->get('id');
+			}
+			if(!$table->checkOut($userid))
+			{
+				return false;
+			}
+			return true;
+		}
+
+		return false;	
+	}
 }
 	?>

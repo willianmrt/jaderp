@@ -27,6 +27,7 @@ class JaderpControllerWorkers extends JaderpController
 		// Register Extra tasks
 		$this->registerTask( 'add'  , 	'edit' );
 		$this->registerTask( 'apply', 	'save'  );
+		$this->isEdit = false;
 	}
 
 	/**
@@ -35,6 +36,7 @@ class JaderpControllerWorkers extends JaderpController
 	 */
 	function edit()
 	{
+		$model = & $this->getModel('Workers');
 		$user =& JFactory::getUser();
 		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
 		$JAdERPTool =& new JAdERPTools;
@@ -60,23 +62,25 @@ class JaderpControllerWorkers extends JaderpController
 			$this->setRedirect(JRoute::_('index.php?option=com_user&view=login'), $msg, 'notice');
 		}
 		JTable::addIncludePath('components'.DS.'com_jaderp'.DS.'tables');
-		//$table =& JTable::getInstance('Workers');
-		//$id = JRequest::getInt('cid', 0);
-		//echo $id;
-		/*
+		$table =& JTable::getInstance('workers', 'Table');
+		$id = JRequest::getInt('cid', 0);		
 		$table->load($id);
-		if ($table->isChecekOut($user->get('id')))
+		if ($table->checked_out !== $user->get('id') && $table->checked_out!=0)
 		{
-			$msg= JText::_( 'IS_CHECKEDOUT_ALERT' ) ;
+			$checkuser = & JFactory::getUser($table->checked_out);
+			$msg= JText::sprintf( 'IS_CHECKEDOUT_ALERT', $checkuser->name, $table->checked_out_time ) ;
 			$this->setRedirect(JRoute::_('index.php?option=com_jaderp&task=desktop'), $msg, 'notice');	
 		}
 		else 
 		{
 			if (!$table->checkOut($user->get('id')))
-			$msg= JText::_( 'CANT_CHECKOUT_ALERT' ) ;
-			$this->setRedirect(JRoute::_('index.php?option=com_jaderp&task=desktop'), $msg, 'notice');
+			{
+				$msg= JText::_( 'CANT_CHECKOUT_ALERT' ) ;
+				$this->setRedirect(JRoute::_('index.php?option=com_jaderp&task=desktop'), $msg, 'notice');
+			}
+			
 		}
-		*/
+		
 		$buttons = array("save", "cancel", "edit", "apply");
 		$tache='manageUsers';
 		$tacheText= JText::_('MANAGE_PERSONELS');
@@ -122,18 +126,41 @@ class JaderpControllerWorkers extends JaderpController
 		//$dafter= $post['startdate'];
 		if($post['id']>0 && $post['password']=='')
 			unset($post['password']);
-		if ($model->store($post)) {
-			$msg = JText::_( 'SAVES!' );
-		} else {
+		if ($model->store($post)) 
+		{
+			$msg = JText::sprintf( 'Successfully Saved User %s', $post['firstname']);
+			$table =& JTable::getInstance('workers', 'Table');
+			if($this->getTask() == 'save')
+			{
+				$id = JRequest::getInt('cid', 0);	
+				if ($id)	
+				{
+					$table->load($id);
+					if (!$table->checkin($user->get('id')))
+					{
+						$msg= JText::_( 'CANT_CHECKIN_ALERT' ) ;
+						$this->setRedirect(JRoute::_('index.php?option=com_jaderp&task=desktop'), $msg, 'notice');
+					}			
+				}	
+			}
+		} 
+		else 
+		{
 			$msg = JText::_( 'Error Saving' );
 		}
-		$msg = JText::sprintf( 'Successfully Saved User %s', $post['firstname'] );
+		
+		
 		// Check the table in so it can be edited.... we are done with it anyway
 		switch ( $this->getTask() )
 		{
 			case 'apply':
 				//$msg = JText::sprintf( 'Successfully Saved changes to User %s', $post['firstname'] );
-				$this->setRedirect( 'index.php?option=com_jaderp&func=Workers&task=edit&cid[]='. $post['id'], $msg );
+				$menuid = JRequest::getInt('menuid', 0);
+				if ($menuid > 0)
+					$menulink = '&menuid='.$menuid;
+				else 
+					$menulink = '';
+				$this->setRedirect( 'index.php?option=com_jaderp&func=Workers&task=edit&cid='. $post['id'].$menulink, $msg );
 				break;
 
 			case 'save':
@@ -167,7 +194,17 @@ class JaderpControllerWorkers extends JaderpController
 	 */
 	function cancel()
 	{
-		$msg = JText::_( 'Operation Cancelled' );
+		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
+		$JAdERPTool =& new JAdERPTools;
+		$msg = JText::_('OPERATION_CANCELED');
+		$id = JRequest::getInt('id', 0);	
+		if ($id)
+		{
+			if (!$JAdERPTool->CheckInOut('workers', $id))
+			{
+				$msg= JText::_( 'CANT_CHECKIN_ALERT' ) ;
+			}			
+		}	
 		$this->setRedirect( 'index.php?option=com_Jaderp', $msg );
 	}
 }

@@ -89,7 +89,7 @@ class JaderpModelWorkers extends JModel
 				$workers->position 			= null;
 				
 				$workers->present 			= null;
-				
+				$workers->iscontact			= 0;
 				$workers->password 			= null;
 				
 				$workers->checked_out 		= 0;
@@ -119,11 +119,78 @@ class JaderpModelWorkers extends JModel
 		}
 		jimport('joomla.utilities.date');
 		$date = $this->_worker->startdate;
-		$this->_worker->startdate =  date("d/m/Y", strtotime($date));;
+		if ($date != null)
+			$this->_worker->startdate =  date("d/m/Y", strtotime($date));
 		 return $this->_worker;
 		 
 	}
 	
+	/**
+	 * Tests if user is checked out
+	 *
+	 * @access	public
+	 * @param	int	A user id
+	 * @return	boolean	True if checked out
+	 * @since	1.5
+	 */
+	function isCheckedOut( $uid=0 )
+	{
+		if ($this->_loadArticle())
+		{
+			if ($uid) {
+				return ($this->_article->checked_out && $this->_article->checked_out != $uid);
+			} else {
+				return $this->_article->checked_out;
+			}
+		} elseif ($this->_id < 1) {
+			return false;
+		} else {
+			JError::raiseWarning( 0, 'Unable to Load Data');
+			return false;
+		}
+	}
+
+	/**
+	 * Method to checkin/unlock the user
+	 *
+	 * @access	public
+	 * @return	boolean	True on success
+	 * @since	1.5
+	 */
+	function checkin()
+	{
+		if ($this->_id)
+		{
+			$article = & JTable::getInstance('content');
+			return $article->checkin($this->_id);
+		}
+		return false;
+	}
+
+	/**
+	 * Method to checkout/lock the user
+	 *
+	 * @access	public
+	 * @param	int	$uid	User ID of the user checking the record out
+	 * @return	boolean	True on success
+	 * @since	1.5
+	 */
+	function checkout($uid = null)
+	{
+		if ($this->_id)
+		{
+			// Make sure we have a user id to checkout the article with
+			if (is_null($uid)) {
+				$user	=& JFactory::getUser();
+				$uid	= $user->get('id');
+			}
+			// Lets get to it and checkout the thing...
+			$article = & JTable::getInstance('content');
+			return $article->checkout($uid, $this->_id);
+		}
+		return false;
+	}
+		
 	function store($data)
 	{	
 		$db =& $this->getDBO();
