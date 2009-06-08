@@ -108,18 +108,15 @@ defined('_JEXEC') or die('Restricted access');?>
       <div class="FormElements">
         <label for="canaccess"><?php echo JText::_('WORKER_ACCESS'); ?>:</label>
         <br />
-        <input type="radio" name="canaccess" id="canaccess" onchange="$('#accessfields').show('slide', {direction: 'up' },800);" value="1"  <?php echo $this->worker->canaccess ? 'checked="checked"':'';?> />
+        <input type="checkbox" name="canaccess" id="canaccess" onchange="$('#accessfields').toggle('slide', {direction: 'up' },800);" value="1"  <?php echo $this->worker->joomla_id > 0 ? 'checked="checked"':'';?> />
         <label for="canaccess"><?php echo JText::_('WORKER_CAN_ACCESS'); ?></label>
-        <input type="radio" name="canaccess" id="cantaccess" onchange="$('#accessfields').hide('slide',{direction: 'up' },800);" value="0" <?php echo $this->worker->canaccess ? '':'checked="checked"';?>/>
-        <label for="cantaccess"><?php echo JText::_('WORKER_CANT_ACCESS'); ?></label>
       </div>
       <div class="FormElements">
-        <label for="creatcontact"><?php echo JText::_('WORKER_CREAT_CONTACT'); ?>:</label>
+        <label for="iscontact"><?php echo JText::_('WORKER_CREAT_CONTACT'); ?>:</label>
         <br />
-        <input type="radio" name="creatcontact" id="creatcontact" onchange="$('#contactfields').show('slide', {direction: 'up' },800);" value="1"  <?php echo $this->worker->creatcontact ? 'checked="checked"':'';?> />
-        <label for="creatcontact"><?php echo JText::_('WORKER_IS_CONTACT'); ?></label>
-        <input type="radio" name="creatcontact" id="notcreatcontact" onchange="$('#contactfields').hide('slide',{direction: 'up' },800);" value="0" <?php echo $this->worker->creatcontact ? '':'checked="checked"';?>/>
-        <label for="notcreatcontact"><?php echo JText::_('WORKER_ISNT_CONTACT'); ?></label>
+        <input type="checkbox" name="iscontact" id="iscontact" onchange="$('#contactfields').toggle('slide', {direction: 'up' },800);" value="1"  <?php echo $this->worker->iscontact ? 'checked="checked"':'';?> />
+        <label for="iscontact"><?php echo JText::_('WORKER_IS_CONTACT'); ?></label>
+
       </div>
     </fieldset>
     
@@ -127,7 +124,7 @@ defined('_JEXEC') or die('Restricted access');?>
   </div>
   
   <div id="FormElementsGroup">
-    <fieldset id="accessfields" style="display: <?php echo $this->worker->canaccess ? 'block"':'none';?>;">
+    <fieldset id="accessfields" style="display: <?php echo $this->worker->joomla_id > 0 ? 'block"':'none';?>;">
       <legend><?php echo JText::_('WORKER_ACCESS'); ?>:</legend>
       <div class="FormElements">
 	      <label for="accesslevel"><?php echo JText::_('WORKER_ACCESS_LEVEL'); ?>:</label>
@@ -153,11 +150,17 @@ defined('_JEXEC') or die('Restricted access');?>
 	      <br />
 	      <input name="password1" type="password" id="password1" />
 	  </div>
+      <div class="FormElements">
+        <br />
+        <input type="checkbox" name="isblocked" id="isblocked" value="1"  <?php echo $this->worker->iscontact ? 'checked="checked"':'';?> />
+        <label for="isblocked"><?php echo JText::_('WORKER_IS_BLOCKED'); ?></label>
+
+      </div>	  
     </fieldset>
   </div>
   
   <div id="FormElementsGroup">
-    <fieldset id="contactfields" style="display: <?php echo $this->worker->canaccess ? 'block"':'none';?>;">
+    <fieldset id="contactfields" style="display: <?php echo $this->worker->iscontact ? 'block"':'none';?>;">
       <legend><?php echo JText::_('WORKER_CONTACT'); ?>:</legend>
       <div class="FormElements">
 	      <label for="password"><?php echo JText::_('WORKER_PASSWORD'); ?>:</label>
@@ -179,6 +182,11 @@ defined('_JEXEC') or die('Restricted access');?>
 <input type="hidden" name="option" value="com_jaderp" />
 <input type="hidden" name="id" value="<?php echo $this->worker->id; ?>" />
 <input type="hidden" name="task" value="" />
+<?php
+	$menuid = JRequest::getInt('menuid', 0);
+	if ($menuid > 0)
+		echo '<input type="hidden" name="menuid" value="'.$menuid.'" />';
+?>
 <input type="hidden" name="func" value="Workers" />
 </form>
 </div>
