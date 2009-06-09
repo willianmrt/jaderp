@@ -27,6 +27,7 @@ class JaderpControllerWorkers extends JaderpController
 		// Register Extra tasks
 		$this->registerTask( 'add'  , 	'edit' );
 		$this->registerTask( 'apply', 	'save'  );
+		$this->registerTask( 'listing', 	'listing'  );//added by Mehdi
 		$this->isEdit = false;
 	}
 
@@ -206,5 +207,20 @@ class JaderpControllerWorkers extends JaderpController
 			}			
 		}	
 		$this->setRedirect( 'index.php?option=com_Jaderp', $msg );
+	}
+	
+	// function listing() ADDED BY MEHDI
+	function listing()
+	{
+		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
+		$JAdERPTool =& new JAdERPTools;
+		$buttons = array("save", "cancel", "edit", "apply");
+		$tache='manageUsers';
+		$tacheText= JText::_('MANAGE_PERSONELS');
+		$menubar = $JAdERPTool-> creatMenuBar($buttons, $tache, $tacheText, true, false,true);
+		echo $menubar;
+		JRequest::setVar( 'view', 'workers' );
+		JRequest::setVar( 'layout', 'listing'  );
+		parent::display();
 	}
 }
