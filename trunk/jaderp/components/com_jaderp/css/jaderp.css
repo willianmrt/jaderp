@@ -37,7 +37,7 @@ div#FormElementsGroup{margin:0px;}
 div.FormElements{float:left; margin:5px 15px; min-width:165px; min-height:50px;}
 div.FormElements img{margin-left:5px;}
 label.clickable:hover{cursor:pointer;}
-#JAdERPForm{}
+#JAdERPForm legend{font-weight:normal;}
 /**********************************************
 ************ LISTING STYLES *******************
 **********************************************/
