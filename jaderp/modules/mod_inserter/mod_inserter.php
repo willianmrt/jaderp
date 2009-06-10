@@ -33,19 +33,20 @@ $uid=$users->id;
 if ($uid == 0) return;
 $db =& JFactory::getDBO();
 $jadusers = $JAdERPTool->ReadTable('jaderp_users', 'WHERE '.$db->nameQuote('joomla_id').'='.$db->Quote($uid), 'Assoc', true);
+$jaduserslevel = $JAdERPTool->ReadTable('jaderp_access_levels', 'WHERE '.$db->nameQuote('id').'='.$db->Quote($jadusers['access_level']), 'Assoc', true);
 
 $query = 'SELECT m.id as id,
 			m.languagename,
 			m.name,
 			m.menu_icon
 			FROM #__jaderp_menu as m 
-			INNER JOIN #__jaderp_levels_menu as u 
-			ON m.id=u.menu_id 
 			WHERE m.parent_name = "" 
-			AND u.level_id='.$jadusers['access_level'].' AND u.active=1 
-			AND m.active=1
-			ORDER BY u.ordering';
+			AND m.min_access_level <='.$jaduserslevel['access_level'].'
+			AND m.published=1
+			ORDER BY m.ordering';
 $db->setQuery( $query );
+//AND u.level_id='.$jadusers['access_level'].' AND u.active=1 
+//echo $query;
 $menus = $db->loadObjectList();
 
 $attribs['style'] = 'none';
@@ -56,63 +57,75 @@ $accnb=0;
 $selectacc=0;
 foreach ($menus as $row)
 	{ 
-		$query = 'SELECT m.id as id,
-			m.languagename ,
-			m.url,
-			m.name,
-			m.menu_icon
-			FROM #__jaderp_menu as m 
-			INNER JOIN #__jaderp_levels_menu as u 
-			ON m.id=u.menu_id 
-			WHERE m.parent_name = '.$db->Quote($row->name).' 
-			AND u.level_id='.$jadusers["access_level"].' AND u.active=1 
-			AND m.active=1
-			ORDER BY u.ordering';
-		//$query = 'SELECT * FROM #__jaderp_menu WHERE parent_id='.$row->id.' order by ordering';
-		$db->setQuery( $query );
-		$sousmenus = $db->loadObjectList();
-		if ($sousmenus)
+		$userlevel = $JAdERPTool->ReadTable('jaderp_levels_menu', 'WHERE '.$db->nameQuote('menu_id').'='.$db->Quote($row->id).' AND '.$db->nameQuote('level_id').'='.$db->Quote($jaduserslevel['access_level']), 'Assoc', true);
+		if (!$userlevel || $userlevel['active'])
 		{
-			//echo '<div id="sortable">';
-			if(isset($row->menu_icon) && $row->menu_icon !='')
-					$menuiconstyle = "background-image: url(images/jaderp/icons/menu_icons/".$menuIconPack."/small/".$row->menu_icon.")";
-				else 
-					$menuiconstyle = "background-image: url(images/jaderp/icons/menu_icons/".$menuIconPack."/defaultmenuicon.png)";
-			echo '<h3 class="inserter_toggler atStart"><a href="#" tabindex="-1" style="'.$menuiconstyle.'">'.JText::_($row->languagename).'</a></h3>';
-			if($row->id==$menuid) 
+			$query = 'SELECT m.id as id,
+				m.languagename ,
+				m.url,
+				m.name,
+				m.menu_icon
+				FROM #__jaderp_menu as m 
+				WHERE m.parent_name = '.$db->Quote($row->name).' 
+				AND m.min_access_level <='.$jaduserslevel['access_level'].'
+				AND m.published=1
+				ORDER BY m.ordering';
+			 
+			$db->setQuery( $query );
+			$sousmenus = $db->loadObjectList();
+			if ($sousmenus)
 			{
-				$menucode=$menuid;
-				$selectacc=$accnb;
-			}
-			echo '<div class="inserter_element atStart">';
-			foreach($sousmenus as $row1)
-			{
-				if($row1->id==$menuid) 
+				
+				//echo '<div id="sortable">';
+
+				$lis='';
+				foreach($sousmenus as $row1)
 				{
-					$menucode=$menuid;
-					$selectacc=$accnb;
-					$elementStatus='class="on"';
+					
+					$userlevel1 = $JAdERPTool->ReadTable('jaderp_levels_menu', 'WHERE '.$db->nameQuote('menu_id').'='.$db->Quote($row1->id).' AND '.$db->nameQuote('level_id').'='.$db->Quote($jaduserslevel['access_level']), 'Assoc', true);
+					if (!$userlevel1 || $userlevel1['active'])
+					{
+						{
+							if($row1->id==$menuid) 
+							{
+								$menucode=$menuid;
+								$selectacc=$accnb;
+								$elementStatus='class="on"';
+							}
+							else
+							{
+								$elementStatus='';
+							}
+							if(isset($row1->menu_icon) && $row1->menu_icon !='')
+								$menuiconstyle = "background-image: url(images/jaderp/icons/menu_icons/".$menuIconPack."/small/".$row1->menu_icon.")";
+							else 
+								$menuiconstyle = "background-image: url(images/jaderp/icons/menu_icons/".$menuIconPack."/defaultmenuicon.png)";
+							$lis .= '<a '.$elementStatus.' onclick="checkMenu(this); return false;" style="'.$menuiconstyle.'" href="'.JRoute::_($row1->url."&menuid=".$row1->id).'">'.JText::_($row1->languagename).'</a><br>';
+						}
+					}
 				}
-				else
+				if ($lis !='')
 				{
-					$elementStatus='';
+					if(isset($row->menu_icon) && $row->menu_icon !='')
+							$menuiconstyle = "background-image: url(images/jaderp/icons/menu_icons/".$menuIconPack."/small/".$row->menu_icon.")";
+						else 
+							$menuiconstyle = "background-image: url(images/jaderp/icons/menu_icons/".$menuIconPack."/defaultmenuicon.png)";
+					echo '<h3 class="inserter_toggler atStart"><a href="#" tabindex="-1" style="'.$menuiconstyle.'">'.JText::_($row->languagename).'</a></h3>';
+					if($row->id==$menuid) 
+					{
+						$menucode=$menuid;
+						$selectacc=$accnb;
+					}
+					echo '<div class="inserter_element atStart">';	
+					echo $lis;		
+					echo "</div>";
 				}
-				if(isset($row1->menu_icon) && $row1->menu_icon !='')
-					$menuiconstyle = "background-image: url(images/jaderp/icons/menu_icons/".$menuIconPack."/small/".$row1->menu_icon.")";
-				else 
-					$menuiconstyle = "background-image: url(images/jaderp/icons/menu_icons/".$menuIconPack."/defaultmenuicon.png)";
-				echo '<a '.$elementStatus.' onclick="checkMenu(this); return false;" style="'.$menuiconstyle.'" href="'.JRoute::_($row1->url."&menuid=".$row1->id).'">'.JText::_($row1->languagename).'</a><br>';
 			}
-			echo "</div>";
-			//echo "</div>";
+			$accnb+=1;
 		}
-		$accnb+=1;
 	}
 echo "</div></div>";
 
-//global $inserter_id;
-
-//if ( !$inserter_id ) : $inserter_id = 1; endif;
 
 $doc =& JFactory::getDocument();
 if($biblio=="0")

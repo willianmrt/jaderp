@@ -1,9 +1,6 @@
 <?php // no direct access
 defined('_JEXEC') or die('Restricted access');
 //JHTML::_('behavior.tooltip');
-jimport('joomla.user.helper');
-				$salt  = JUserHelper::genRandomPassword(10);
-				echo $salt;
 ?>
 <div id="JAdERPForm">
 <form action="index.php" method="post" name="adminForm" id="adminForm">

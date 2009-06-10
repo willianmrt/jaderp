@@ -192,24 +192,32 @@ class JaderpControllerWorkers extends JaderpController
 		}
 		$model = $this->getModel('Workers');
 		$post = JRequest::get( 'post' );
+		jimport('joomla.user.helper');
+		$post['password']	= JRequest::getVar('password', '', 'post', 'string', JREQUEST_ALLOWRAW);
 		if ($post['canaccess'])
 		{
 			if ($post['autopassword'])
 			{
-				$salt  = JUserHelper::genRandomPassword(10);
-				echo $salt;
-				
+				$autogenpass  = JUserHelper::genRandomPassword(10);
+				$post['password'] = $autogenpass;
+				$salt  = JUserHelper::genRandomPassword(32);
+				$crypt = JUserHelper::getCryptedPassword($post['password'], $salt);
+				$post['password']=$crypt.':'.$salt;
+				$post['password1'] = $post['password'];
 			}
 			else 
 			{
-				
+				$salt  = JUserHelper::genRandomPassword(32);
+				$crypt = JUserHelper::getCryptedPassword($post['password'], $salt);
+				$post['password']=$crypt.':'.$salt;	
+				$post['password1'] = $post['password'];			
 			}
 		}
-		$post['password']	= JRequest::getVar('password', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		jimport('joomla.user.helper');
-		$salt  = JUserHelper::genRandomPassword(32);
-		$crypt = JUserHelper::getCryptedPassword($post['password'], $salt);
-		$post['password']=$crypt.':'.$salt;
+		else 
+			unset($post['password']);
+		
+		
+
 		jimport('joomla.utilities.date');
 		//$dbefore= $post['startdate'];
 		$date = ereg_replace('/', '-', $post['startdate']);
@@ -220,7 +228,15 @@ class JaderpControllerWorkers extends JaderpController
 			unset($post['password']);
 		if ($model->store($post)) 
 		{
+			if ($post['canaccess'] && $post['autopassword'])
+			{
+				$msgpass = JText::sprintf( 'AUTO_GENERATED_PASSWORD (%s)', $autogenpass);
+			}
+			else
+			$msgpass = '';
+
 			$msg = JText::sprintf( 'Successfully Saved User %s', $post['firstname']);
+			$msg .= ', '.$msgpass;
 			$table =& JTable::getInstance('workers', 'Table');
 			if($this->getTask() == 'save')
 			{

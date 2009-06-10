@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Mer 10 Juin 2009 à 02:34
+-- Généré le : Mer 10 Juin 2009 à 07:25
 -- Version du serveur: 5.1.33
 -- Version de PHP: 5.2.9
 
@@ -112,9 +112,8 @@ INSERT INTO `jos_jaderp_departments` (`id`, `name`, `description`) VALUES
 DROP TABLE IF EXISTS `jos_jaderp_levels_menu`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_levels_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ordering` int(11) NOT NULL DEFAULT '0',
   `menu_id` int(11) NOT NULL DEFAULT '0',
-  `level_id` int(11) NOT NULL DEFAULT '0',
+  `level_id` int(11) NOT NULL,
   `active` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
@@ -124,15 +123,13 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_levels_menu` (
 -- Contenu de la table `jos_jaderp_levels_menu`
 --
 
-INSERT INTO `jos_jaderp_levels_menu` (`id`, `ordering`, `menu_id`, `level_id`, `active`) VALUES
-(1, 1, 1, 63, 1),
-(2, 2, 2, 63, 1),
-(3, 3, 3, 63, 1),
-(4, 2, 4, 63, 1),
-(5, 1, 5, 63, 1),
-(6, 3, 11, 63, 1),
-(7, 1, 9, 63, 1),
-(8, 2, 10, 63, 1);
+INSERT INTO `jos_jaderp_levels_menu` (`id`, `menu_id`, `level_id`, `active`) VALUES
+(2, 2, 5, 0),
+(3, 3, 0, 1),
+(5, 5, 1, 0),
+(6, 11, 0, 1),
+(7, 9, 0, 1),
+(8, 8, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -166,7 +163,8 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_links_map` (
 DROP TABLE IF EXISTS `jos_jaderp_menu`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `active` tinyint(4) NOT NULL,
+  `published` tinyint(1) NOT NULL,
+  `hidden` int(1) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   `languagename` varchar(255) NOT NULL,
   `url` text NOT NULL,
@@ -185,18 +183,18 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_menu` (
 -- Contenu de la table `jos_jaderp_menu`
 --
 
-INSERT INTO `jos_jaderp_menu` (`id`, `active`, `name`, `languagename`, `url`, `ordering`, `parent_name`, `component`, `menu_icon`, `desktop_icon`, `menu_description`, `min_access_level`) VALUES
-(1, 1, 'facture', 'MENU_FACTURES', '', 1, '', 'jaderp', 'invoice/24x24/invoice_config.png', 'add_billing.png', '', 0),
-(2, 1, 'creationfacture', 'MENU_CREAT_FACTURE', 'index.php?option=com_jaderp&task=desktop', 1, 'facture', 'jaderp', 'invoice/24x24/invoice_add.png', 'add_billing.png', '', 0),
-(3, 1, 'consultationfactures', 'MENU_FACTURES_CONS', 'index.php?option=com_jaderp&tast=facturescons', 2, 'facture', 'jaderp', 'invoice/24x24/invoice_zoom.png', 'add_billing.png', '', 0),
-(4, 1, 'articles', 'MENU_ARTICLES', '', 2, '', 'jarerp', 'products/24x24/barcode_config.png', 'add_billing.png', '', 0),
-(5, 1, 'creationarticle', 'MENU_ARTICLES_CREAT', 'index.php?option=com_jaderp&tast=articlescreat', 1, 'articles', 'jaderp', 'products/24x24/barcode_add.png', 'add_billing.png', '', 0),
-(6, 1, 'consultationfactures1', 'MENU_CREAT_FACTURE', 'index.php?option=com_jaderp&task=desktop', 3, 'facture', 'jaderp', '', 'add_billing.png', '', 0),
-(7, 1, 'consultationfactures2', 'MENU_CREAT_FACTURE', 'index.php?option=com_jaderp&task=desktop', 4, 'facture', 'jaderp', '', 'add_billing.png', '', 0),
-(8, 1, 'creationfacture1', 'MENU_CREAT_FACTURE', 'index.php?option=com_jaderp&task=desktop', 5, 'facture', 'jaderp', '', 'add_billing.png', '', 0),
-(9, 1, 'workerscreat', 'MENU_WORKERS_CREAT', 'index.php?option=com_jaderp&func=Workers&task=add', 1, 'workers', 'jaderp', 'workers/executive_add.png', 'add_billing.png', '', 0),
-(10, 1, 'workersedit', 'MENU_WORKERS_EDIT', 'index.php?option=com_jaderp&func=Workers&task=edit&cid=2', 2, 'workers', 'jaderp', 'workers/executive_write.png', 'add_billing.png', '', 0),
-(11, 1, 'workers', 'MENU_WORKERS', '', 3, '', 'jaderp', 'workers/executive_config.png', 'add_billing.png', '', 0);
+INSERT INTO `jos_jaderp_menu` (`id`, `published`, `hidden`, `name`, `languagename`, `url`, `ordering`, `parent_name`, `component`, `menu_icon`, `desktop_icon`, `menu_description`, `min_access_level`) VALUES
+(1, 1, 1, 'facture', 'MENU_FACTURES', '', 1, '', 'jaderp', 'invoice/invoice_config.png', 'add_billing.png', '', 0),
+(2, 1, 1, 'creationfacture', 'MENU_CREAT_FACTURE', 'index.php?option=com_jaderp&task=desktop', 1, 'facture', 'jaderp', 'invoice/invoice_add.png', 'add_billing.png', '', 0),
+(3, 1, 1, 'consultationfactures', 'MENU_FACTURES_CONS', 'index.php?option=com_jaderp&tast=facturescons', 2, 'facture', 'jaderp', 'invoice/invoice_zoom.png', 'add_billing.png', '', 10),
+(4, 1, 1, 'articles', 'MENU_ARTICLES', '', 2, '', 'jarerp', 'products/barcode_config.png', 'add_billing.png', '', 0),
+(5, 1, 1, 'creationarticle', 'MENU_ARTICLES_CREAT', 'index.php?option=com_jaderp&tast=articlescreat', 1, 'articles', 'jaderp', 'products/barcode_add.png', 'add_billing.png', '', 0),
+(6, 1, 1, 'consultationfactures1', 'MENU_CREAT_FACTURE', 'index.php?option=com_jaderp&task=desktop', 3, 'facture', 'jaderp', '', 'add_billing.png', '', 0),
+(7, 1, 1, 'consultationfactures2', 'MENU_CREAT_FACTURE', 'index.php?option=com_jaderp&task=desktop', 4, 'facture', 'jaderp', '', 'add_billing.png', '', 0),
+(8, 1, 1, 'creationfacture1', 'MENU_CREAT_FACTURE', 'index.php?option=com_jaderp&task=desktop', 5, 'facture', 'jaderp', '', 'add_billing.png', '', 0),
+(9, 1, 1, 'workerscreat', 'MENU_WORKERS_CREAT', 'index.php?option=com_jaderp&func=Workers&task=add', 1, 'workers', 'jaderp', 'workers/executive_add.png', 'add_billing.png', '', 0),
+(10, 1, 1, 'workersedit', 'MENU_WORKERS_EDIT', 'index.php?option=com_jaderp&func=Workers&task=edit&cid=2', 2, 'workers', 'jaderp', 'workers/executive_write.png', 'add_billing.png', '', 0),
+(11, 1, 1, 'workers', 'MENU_WORKERS', '', 3, '', 'jaderp', 'workers/executive_config.png', 'add_billing.png', '', 0);
 
 -- --------------------------------------------------------
 
@@ -297,15 +295,15 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_users` (
   `checked_out` int(11) NOT NULL,
   `checked_out_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=14 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Contenu de la table `jos_jaderp_users`
 --
 
 INSERT INTO `jos_jaderp_users` (`id`, `joomla_id`, `access_level`, `mat`, `department`, `branch`, `lastname`, `firstname`, `num_piece`, `type_piece`, `email`, `phone`, `salaire`, `startdate`, `note`, `position`, `present`, `iscontact`, `password`, `forcepasschange`, `checked_out`, `checked_out_time`) VALUES
-(1, 63, 0, '2332', 0, 0, 'Feki', 'Hichem', '1222222', 0, 'feki.hichem@gmail.com', '22393233', 2536, '0000-00-00', 25, 'Master', 1, 0, '123456', 0, 0, '0000-00-00 00:00:00'),
-(2, 92, 1, '142536', 3, 1, 'Feki', 'Chaima', '12345679', 1, 'feki.hichem@gmail.cm', '24751419', 0, '2009-06-02', 20, 'Binti', 0, 1, '96a5775e8bdc3012066b6c5c8b4fe598:RkbMMBI4G02ibuH1e', 1, 63, '2009-06-09 23:21:13'),
+(1, 63, 1, '2332', 0, 0, 'Feki', 'Hichem', '1222222', 0, 'feki.hichem@gmail.com', '22393233', 2536, '0000-00-00', 25, 'Master', 1, 0, '123456', 0, 0, '0000-00-00 00:00:00'),
+(2, 92, 1, '142536', 3, 1, 'Feki', 'Chaima', '12345679', 1, 'feki.hichem@gmail.cm', '24751419', 0, '2009-06-02', 20, 'Binti', 0, 1, '96a5775e8bdc3012066b6c5c8b4fe598:RkbMMBI4G02ibuH1e', 1, 63, '2009-06-10 01:58:38'),
 (3, 86, 0, '253636', 0, 0, 'Feki', 'Eya', '456855222', 0, 'feki.hichem@gmail.com', '74464334', 1234, '1963-11-21', 12, 'Binti', 1, 0, 'ac7e4a54f57f7d90c8510548864a705b:NK64BMx3eLciiACu4', 0, 63, '2009-06-09 05:22:14'),
 (4, 66, 0, '123456', 0, 0, 'Chtourou', 'Souheila', '14253689', 0, 'soussou@sous.com', '24751419', 300, '0000-00-00', 15, 'Marti', 1, 0, '7e39d0d5fadd36b41d0a95c46225ab47:7zb5QvgW72gFDYFLm', 0, 63, '2009-06-09 05:22:19'),
 (5, 67, 0, '147258', 0, 0, 'Feki', 'Chaima', '12345679', 0, 'feki.hichem@gmail.com', '24751419', 1234, '0000-00-00', 15, 'Binti', 1, 0, '0c827f11b42b77943a4e153a5d185361:qkeXcmeK0ChsJuWkd', 0, 63, '2009-06-09 05:22:26'),
@@ -316,7 +314,9 @@ INSERT INTO `jos_jaderp_users` (`id`, `joomla_id`, `access_level`, `mat`, `depar
 (10, 95, 1, 'qsdfqsf', 1, 1, 'bhhghj', 'ghghjg', 'hjgghj', 1, '', '', 0, '2008-12-01', 0, '', 0, 0, 'f55d6fd043e3eb48dbe967094fc1f846:OZjHbCp7BlBHj32xr', 0, 0, '0000-00-00 00:00:00'),
 (11, 0, 1, 'fsqfqsdf', 1, 1, 'hjkjhj', 'hjhkjh', 'hjkhkj', 1, '', '', 0, '2008-12-01', 0, '', 0, 0, '651ec9e1d6f734116d756e3d16de6d66:pUdpuoie90qfjYUTR', 0, 0, '0000-00-00 00:00:00'),
 (12, 96, 1, 'kjkikk', 1, 1, 'soussou', 'qfqsfqsdf', 'hjgghj', 4, 'feki.hichem@gmail.com', '', 0, '2008-12-01', 0, 'LePoeTe', 0, 0, '899edeb57dd3265803cc83f5a42d1b49:mWxmwkFr6d6qRyD6W', 0, 0, '0000-00-00 00:00:00'),
-(13, 97, 1, '258369147', 1, 1, 'soussou', 'chtourou', '251478523', 3, 'feki.hichem@gmail.com', '24751419', 300, '2008-12-01', 0, 'LePoeTe', 0, 0, 'eceb5f0f1e71f452915ad45ae23b707f:lPjLMeW3lp2zv6ROF', 0, 0, '0000-00-00 00:00:00');
+(13, 97, 1, '258369147', 1, 1, 'soussou', 'chtourou', '251478523', 3, 'feki.hichem@gmail.com', '24751419', 300, '2008-12-01', 0, 'LePoeTe', 0, 0, 'eceb5f0f1e71f452915ad45ae23b707f:lPjLMeW3lp2zv6ROF', 0, 0, '0000-00-00 00:00:00'),
+(14, 98, 1, '2332', 2, 2, 'fsdfsdf', 'Eya', '1222222', 3, 'feki.hichem@gmail.cm', '22393233', 0, '2009-06-02', 20, 'Binti', 1, 0, '8111933abda2a1db3212597b6fa7deae:TDkgPbUtpiYSVFXuF', 0, 0, '0000-00-00 00:00:00'),
+(15, 99, 1, 'azerty', 1, 1, 'Feki', 'Souheila', '12345679', 4, 'feki.hichem@gmail.com', '74464334', 1234, '2009-06-03', 20, '', 0, 0, '592803b8f7b0eff3c4f961a37542b739:Gg1DnCX81V9AAVTaK', 0, 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
