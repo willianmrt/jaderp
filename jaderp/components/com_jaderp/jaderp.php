@@ -12,7 +12,7 @@
 defined('_JEXEC') or die('Restricted access');
 // Load JAdERP Stylesheet
 	JHTML::stylesheet('jaderp.css','components/com_jaderp/css/');
-	global $blockMenu;
+
 // Require the base controller
 	$users =& JFactory::getUser();
 	$uid=$users->id;
@@ -22,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');
 	$JAdERPTool=& new JAdERPTools;
 	
 	$row = $JAdERPTool->ReadTable('jaderp_users','WHERE joomla_id='.$uid, 'Assoc', true);
-	
+
 	if ($row['forcepasschange'])
 	{
 		//echo $row['forcepasschange'];
