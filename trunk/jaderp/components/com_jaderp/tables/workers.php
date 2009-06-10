@@ -48,6 +48,8 @@ class TableWorkers extends JTable
 	/** @var string */
 	var $password 			= null;
 	/** @var int */
+	var $forcepasschange	= null;
+	/** @var int */
 	var $checked_out 		= 0;
 	/** @var datetime */
 	var $checked_out_time 	= 0;
@@ -63,6 +65,10 @@ class TableWorkers extends JTable
 	
 	function check()
 	{
+		if(empty($this->mat)) {
+			$this->setError(JText::_('MUST_ENTER_MAT'));
+			return false;
+		}
 		return true;
 	}
 }

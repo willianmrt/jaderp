@@ -122,6 +122,8 @@ class JaderpViewWorkers extends JView
 			$this->assign('branchs', $branchs);
 			$departments = $JAdERPTool->ReadTable('jaderp_departments');
 			$this->assign('departments', $departments);
+			$typespiece = $JAdERPTool->ReadTable('jaderp_types_piece');
+			$this->assign('type_piece', $typespiece);
 			parent::display($tpl);
 			
 				//require_once ('tmpl'.DS.'form.php');

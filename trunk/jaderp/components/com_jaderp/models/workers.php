@@ -91,7 +91,7 @@ class JaderpModelWorkers extends JModel
 				$workers->present 			= null;
 				$workers->iscontact			= 0;
 				$workers->password 			= null;
-				
+				$workers->forcepasschange	= 0;
 				$workers->checked_out 		= 0;
 				
 				$workers->checked_out_time 	= 0;
@@ -125,121 +125,62 @@ class JaderpModelWorkers extends JModel
 		 
 	}
 	
-	/**
-	 * Tests if user is checked out
-	 *
-	 * @access	public
-	 * @param	int	A user id
-	 * @return	boolean	True if checked out
-	 * @since	1.5
-	 */
-	function isCheckedOut( $uid=0 )
-	{
-		if ($this->_loadArticle())
-		{
-			if ($uid) {
-				return ($this->_article->checked_out && $this->_article->checked_out != $uid);
-			} else {
-				return $this->_article->checked_out;
-			}
-		} elseif ($this->_id < 1) {
-			return false;
-		} else {
-			JError::raiseWarning( 0, 'Unable to Load Data');
-			return false;
-		}
-	}
-
-	/**
-	 * Method to checkin/unlock the user
-	 *
-	 * @access	public
-	 * @return	boolean	True on success
-	 * @since	1.5
-	 */
-	function checkin()
-	{
-		if ($this->_id)
-		{
-			$article = & JTable::getInstance('content');
-			return $article->checkin($this->_id);
-		}
-		return false;
-	}
-
-	/**
-	 * Method to checkout/lock the user
-	 *
-	 * @access	public
-	 * @param	int	$uid	User ID of the user checking the record out
-	 * @return	boolean	True on success
-	 * @since	1.5
-	 */
-	function checkout($uid = null)
-	{
-		if ($this->_id)
-		{
-			// Make sure we have a user id to checkout the article with
-			if (is_null($uid)) {
-				$user	=& JFactory::getUser();
-				$uid	= $user->get('id');
-			}
-			// Lets get to it and checkout the thing...
-			$article = & JTable::getInstance('content');
-			return $article->checkout($uid, $this->_id);
-		}
-		return false;
-	}
 		
 	function store($data)
 	{	
 		$db =& $this->getDBO();
 		$now =& JFactory::getDate();
-		if ($data['id']<0) // new record
+		if ($data['id'] < 1 && $data['canaccess']) // new record
 		{
 			$sql = "INSERT INTO #__users (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`)
-			 VALUES (NULL,".$db->Quote($data['lastname']." ".$data['firstname'])." ,".$db->Quote(strtolower($data['lastname']).".".strtolower($data['firstname'])). ", ".$db->Quote(strtolower($data['email'])).", ".$db->Quote($data['password']).", '',".$db->Quote($data['isblocked']). ", '0', '18',". $db->Quote($now->toMySQL()).", '0000-00-00 00:00:00', '', '');";
+			 VALUES (NULL,".$db->Quote($data['lastname']." ".$data['firstname'])." ,".$db->Quote(strtolower($data['mat'])). ", ".$db->Quote(strtolower($data['email'])).", ".$db->Quote($data['password']).", '',".$db->Quote($data['isblocked']). ", '0', '18',". $db->Quote($now->toMySQL()).", '0000-00-00 00:00:00', '', '');";
 			$db->setQuery($sql);
-			if (!$db->query()) {
-			JError::raiseError(500, $db->getErrorMsg() );
+			if (!$db->query())
+			{
+				JError::raiseError(500, $db->getErrorMsg() );
 			}
 			$data['joomla_id'] = $db->insertid();
 			$sql = "INSERT INTO #__core_acl_aro (`id`, `section_value`, `value`, `order_value`, `name`, `hidden`)
 			 VALUES (NULL,'users', ".$db->Quote($data['joomla_id']).", '0', ".$db->Quote($data['lastname']." ".$data['firstname'])." ,'0');";
 			$db->setQuery($sql);
-			if (!$db->query()) {
-			JError::raiseError(500, $db->getErrorMsg() );
+			if (!$db->query()) 
+			{
+				JError::raiseError(500, $db->getErrorMsg() );
 			}
 			$aro=$db->insertid();;
 			$sql = "INSERT INTO #__core_acl_groups_aro_map (`group_id`, `section_value`, `aro_id`)
 			 VALUES ('18','', ".$db->Quote($aro).");";
 			$db->setQuery($sql);
-			if (!$db->query()) {
-			JError::raiseError(500, $db->getErrorMsg() );
+			if (!$db->query()) 
+			{
+				JError::raiseError(500, $db->getErrorMsg() );
 			}
 		}
 		else // record modified
 		{
-			
+			if ($data['id'] > 0)
+			{
+				
+			}
 		}
 		JTable::addIncludePath('components'.DS.'com_jaderp'.DS.'tables');
 		$row =& $this->getTable('Workers');
 
 		// Bind the form fields to the hello table
 		if (!$row->bind($data)) {
-			$this->setError($this->_db->getErrorMsg());
+			$this->setError($row->getErrorMsg() );
 			return false;
 		}
 
 		// Make sure the hello record is valid
 		if (!$row->check()) {
-			$this->setError($this->_db->getErrorMsg());
+			$this->setError($db->getErrorMsg() );
 			return false;
 		}
 
 		// Store the web link table to the database
 		if (!$row->store()) {
-			$this->setError( $row->getErrorMsg() );
+			$this->setError($row->getErrorMsg() );
 			return false;
 		}
 

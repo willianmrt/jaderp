@@ -82,9 +82,22 @@ class JaderpControllerWorkers extends JaderpController
 			
 		}
 		
-		$buttons = array("save", "cancel", "edit", "apply");
-		$tache='manageUsers';
-		$tacheText= JText::_('MANAGE_PERSONELS');
+		$buttons = array("save", "cancel", "apply");
+		$menuid = JRequest::getInt('menuid', 0);
+		if ($menuid)
+		{
+			$db = JFactory::getDBO();
+			$where = "WHERE ".$db->nameQuote('id')."=".$menuid;
+			//echo $where;
+			$menutbl =  $JAdERPTool->ReadTable('jaderp_menu', $where, 'Assoc', true);
+			//echo $menutbl['menu_icon'];
+			if ($menutbl)
+			{
+				
+				$tache=$menutbl['menu_icon'];
+				$tacheText= JText::_($menutbl['languagename']);
+			}
+		}
 		$menubar = $JAdERPTool-> creatMenuBar($buttons, $tache, $tacheText, true, false,true);
 		echo $menubar;
 		
@@ -97,6 +110,71 @@ class JaderpControllerWorkers extends JaderpController
 		$menubars->writeFoot();
 		$menubars->addDeclaration(false,false,'',80);
 		$menubars->render();*/
+		
+		if ($this->getTask() == 'edit')
+		{
+			$doc =& JFactory::getDocument();
+	
+			$doc->addScriptdeclaration('
+			  var blockMenu = true;
+			');
+		}
+		?>
+		<script language="javascript" type="text/javascript">
+		<!--
+		function submitbutton(pressbutton)
+		{
+			var form = document.adminForm;
+			var xy;
+			if (pressbutton == 'cancel') {
+				submitform( pressbutton );
+				return;
+			}
+
+			if (form.mat.value == ""){
+				alert( "<?php echo JText::_( 'MAT_IS_REQUIRED', true ); ?>" );
+			} else if (form.lastname.value == ""){
+				alert( "<?php echo JText::_( 'LASTNAME_IS_REQUIRED', true ); ?>" );
+			} else if (form.firstname.value == ""){
+				alert( "<?php echo JText::_( 'FIRSTNAME_IS_REQUIRED', true ); ?>" );
+ 			} else if (form.num_piece.value == ""){
+ 				alert( "<?php echo JText::_( 'NUMPIECE_IS_REQUIRED', true ); ?>" );
+			} else if (form.startdate.value == ""){
+ 				alert( "<?php echo JText::_( 'STARTDATE_IS_REQUIRED', true ); ?>" );
+			} else if (form.autopassword.checked == false && form.canaccess.checked == true){
+				xy="1";
+				if (form.password.value == '')
+				{
+					xy="2";
+ 					alert( "<?php echo JText::_( 'PASSWORD_IS_REQUIRED', true ); ?>" );
+				} 
+				else
+				{
+					xy="3";
+					if (form.password1.value == "")
+					{
+						xy="4";
+	 					alert( "<?php echo JText::_( 'CONFIRM_PASSWORD_IS_REQUIRED', true ); ?>" );
+					}
+					else
+					{
+						xy="5";
+						if (form.password1.value != form.password.value)
+						{
+							xy="6";
+		 					alert( "<?php echo JText::_( 'CONFIRM_PASSWORD_IS_DIFFERENT', true ); ?>" );
+						} else {
+							submitform( pressbutton );
+					}				
+				}
+			} else {
+				submitform( pressbutton );
+			}
+		}
+		//-->
+		</script>
+		<?php
+		//$blockMenu = true;
 		JRequest::setVar( 'view', 'Workers' );
 		JRequest::setVar( 'layout', 'form'  );
 		parent::display();
@@ -147,7 +225,7 @@ class JaderpControllerWorkers extends JaderpController
 		} 
 		else 
 		{
-			$msg = JText::_( 'Error Saving' );
+			$msg = JText::_( 'ERROR_SAVING_DATA' );
 		}
 		
 		
@@ -157,11 +235,14 @@ class JaderpControllerWorkers extends JaderpController
 			case 'apply':
 				//$msg = JText::sprintf( 'Successfully Saved changes to User %s', $post['firstname'] );
 				$menuid = JRequest::getInt('menuid', 0);
+				$task="add";
+				if ($post['id']>0)
+					$task="edit";
 				if ($menuid > 0)
 					$menulink = '&menuid='.$menuid;
 				else 
 					$menulink = '';
-				$this->setRedirect( 'index.php?option=com_jaderp&func=Workers&task=edit&cid='. $post['id'].$menulink, $msg );
+				$this->setRedirect( 'index.php?option=com_jaderp&func=Workers&task='.$task.'&cid='. $post['id'].$menulink, $msg );
 				break;
 
 			case 'save':
