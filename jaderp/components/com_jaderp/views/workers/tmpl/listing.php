@@ -39,14 +39,14 @@ defined('_JEXEC') or die('Restricted access');?>
           <th width="20"> # </th>
           <th width="20"> <input type="checkbox" onclick="checkAll(20);" value="" name="toggle"/>
           </th>
-          <th width="70" class="title"> <a title="Cliquer pour trier cette colonne" href="javascript:tableOrdering('m.title','desc','');">Matricule </a> </th>
-          <th width="57" class="title"> <a title="Cliquer pour trier cette colonne" href="javascript:tableOrdering('m.title','desc','');">Nom </a> </th>
-          <th width="56" class="title"> <a title="Cliquer pour trier cette colonne" href="javascript:tableOrdering('m.title','desc','');">Pr&eacute;nom </a> </th>
+          <th width="70" class="title"> <a title="Cliquer pour trier cette colonne" href="javascript:tableOrdering('m.title','desc','');"><?php echo JText::_('WORKER_CODE'); ?></a> </th>
+          <th width="57" class="title"> <a title="Cliquer pour trier cette colonne" href="javascript:tableOrdering('m.title','desc','');"><?php echo JText::_('WORKER_LAST_NAME'); ?></a> </th>
+          <th width="56" class="title"> <a title="Cliquer pour trier cette colonne" href="javascript:tableOrdering('m.title','desc','');"><?php echo JText::_('WORKER_FIRST_NAME'); ?></a> </th>
           <th nowrap="nowrap" width="92"> <a title="Cliquer pour trier cette colonne" href="javascript:tableOrdering('m.published','desc','');">D&eacute;partement</a> </th>
           <th nowrap="nowrap" width="76"> <a title="Cliquer pour trier cette colonne" href="javascript:tableOrdering('m.ordering','desc','');">Succursale</a> </th>
           
           <th nowrap="nowrap" width="55"> <a title="Cliquer pour trier cette colonne" href="javascript:tableOrdering('groupname','desc','');">R&ocirc;le</a> </th>
-          <th nowrap="nowrap" width="47"> <a title="Cliquer pour trier cette colonne" href="javascript:tableOrdering('m.position','desc','');">E-mail</a> </th>
+          <th nowrap="nowrap" width="47"> <a title="Cliquer pour trier cette colonne" href="javascript:tableOrdering('m.position','desc','');"><?php echo JText::_('WORKER_EMAIL'); ?></a> </th>
           <th nowrap="nowrap" width="29"> <a title="Cliquer pour trier cette colonne" href="javascript:tableOrdering('pages','desc','');">Pr&eacute;sence</a> </th>
           <th nowrap="nowrap" width="61" class="title"> <a title="Cliquer pour trier cette colonne" href="javascript:tableOrdering('m.module','desc','');">Etat</a></th>
         </tr>

@@ -131,10 +131,10 @@ jimport('joomla.user.helper');
         <label for="canaccess" class="clickable"><?php echo JText::_('WORKER_CAN_ACCESS'); ?></label>
       </div>
       <div class="FormElements">
-        <label for="iscontact"><?php echo JText::_('WORKER_CREAT_CONTACT'); ?>:</label>
+        <label for="iscontact"><?php echo JText::_('WORKER_CONTACT_ACCOUNT'); ?>:</label>
         <br />
         <input type="checkbox" name="iscontact" id="iscontact" onclick="$('#contactfields').toggle('slide', {direction: 'up' },800);" value="1"  <?php echo $this->worker->iscontact ? 'checked="checked"':'';?> />
-        <label for="iscontact" class="clickable"><?php echo JText::_('WORKER_IS_CONTACT'); ?></label>
+        <label for="iscontact" class="clickable"><?php echo JText::_('WORKER_WILL_HAVE_CONTACT_ACCOUNT'); ?></label>
 
       </div>
     </fieldset>
@@ -156,12 +156,7 @@ jimport('joomla.user.helper');
 				}
 				?>
 			</select>
-	  </div>
-      <div class="FormElements">
-        <br />
-        <input type="checkbox" name="autopassword" id="autopassword" value="1" />
-        <label for="autopassword"><?php echo JText::_('GENERATE_PASSWORD'); ?></label>
-      </div>
+	  </div>    
 	  <div class="FormElements">
 	      <label for="password"><?php echo JText::_('WORKER_PASSWORD'); ?>:</label>
 	      <br />
@@ -172,22 +167,27 @@ jimport('joomla.user.helper');
 	      <br />
 	      <input name="password1" type="password" id="password1" />
 	  </div>
-    <div class="FormElements">
+     
+     <fieldset style="float:left;margin-top:5px;">
+        <legend><?php echo JText::_('JARERP_OPTIONS'); ?></legend>
+        <input type="checkbox" name="autopassword" id="autopassword" value="1" />
+        <label for="autopassword"><?php echo JText::_('GENERATE_PASSWORD'); ?></label>
         <br />
         <input type="checkbox" name="isblocked" id="isblocked" value="1"  <?php echo $this->worker->iscontact ? 'checked="checked"':'';?> />
         <label for="isblocked"><?php echo JText::_('WORKER_IS_BLOCKED'); ?></label>
-     </div>	  
-    <div class="FormElements">
         <br />
         <input title="<?php echo JText::_('MUST_CHANGE_PASSWORD_WHEN_LOGIN_DESCRIPTION'); ?>" type="checkbox" name="forcepasschange" id="forcepasschange" value="1"  <?php echo $this->worker->forcepasschange ? 'checked="checked"':'';?> />
-        <label for="forcepasschange" title="<?php echo JText::_('MUST_CHANGE_PASSWORD_WHEN_LOGIN_DESCRIPTION'); ?>"><?php echo JText::_('MUST_CHANGE_PASSWORD_WHEN_LOGIN'); ?></label>
-      </div>	  
+        <label for="forcepasschange" title="<?php echo JText::_('MUST_CHANGE_PASSWORD_WHEN_LOGIN_DESCRIPTION'); ?>"><?php echo JText::_('MUST_CHANGE_PASSWORD_WHEN_LOGIN'); ?></label>  
+        <br />
+        <input type="checkbox" name="isblocked" id="isblocked" value="1"  <?php echo $this->worker->iscontact ? 'checked="checked"':'';?> />
+        <label for="isblocked"><?php echo JText::_('WORKER_IS_BLOCKED'); ?></label>
+      </fieldset>
     </fieldset>
   </div>
-  
   <div id="FormElementsGroup">
     <fieldset id="contactfields" style="display: <?php echo $this->worker->iscontact ? 'block"':'none';?>;">
       <legend><?php echo JText::_('WORKER_CONTACT'); ?>:</legend>
+      <legend><?php echo JText::_('WORKER_CONTACT_ACCOUNT'); ?>:</legend>
       <div class="FormElements">
 	        <br />
 	        <input type="checkbox" name="active_contact" id="active_contact" value="1"  <?php echo $this->worker->active_contact ? 'checked="checked"':'';?> />
