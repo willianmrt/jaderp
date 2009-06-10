@@ -148,16 +148,15 @@ class JAdERPTools
 				else
 					$result = $db->loadAssocList();
 				break;
-	/*			
+		}
+				
 		if( !$result ) 
 		{
-			if ($asArray)
-				$result = array();
-			else 
-				$result = new stdClass;
-		*/
+			return false;
+		
 		}
-		return $result;
+		else
+			return $result;
 	}
 	
 	/**
