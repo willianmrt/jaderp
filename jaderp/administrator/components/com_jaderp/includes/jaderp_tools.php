@@ -16,12 +16,13 @@ class JAdERPTools
 	{
 		$BUTTONS_COLLECTION='save edit cancel add apply';
 		$nbr_bottons = 0;
+		$menuIconPack='style01';
 		if (count($buttons)) {
 			$menubar='
 			<div id="ToolBarIcons">
 			<div id="ToolBarIconsL">
 			<div id="ToolBarIconsR">
-			<div style="background:url(images/jaderp/icons/'.$tache.'.png) 0px 8px no-repeat;" class="tache">'.$tacheText.'</div>
+			<div style="background:url(images/jaderp/icons/menu_icons/'.$menuIconPack.'/medium/'.$tache.') 0px 3px no-repeat;" class="tache">'.$tacheText.'</div>
 			<ul class="kwicks vertical" >';
 			$lis = '';
 			foreach ($buttons as $button) {
@@ -82,9 +83,12 @@ class JAdERPTools
 		if(!$dejadone)
 		{
 			$dejadone=1;
+			$document =& JFactory::getDocument();
 			JHTML::script('jquery-1.3.2.min.js','includes/jquery/',false );
 			JHTML::script('jquery-ui-1.7.1.custom.min.js','includes/jquery/',false );	
 			JHTML::script('jquery-ui-i18n.min.js','includes/jquery/',false );
+			//$document->addScriptDeclaration('jQuery.noConflict();');
+			
 			JHTML::stylesheet('jquery-ui-1.7.1.css','includes/jquery/');
 			return true;
 		}		
@@ -109,17 +113,18 @@ class JAdERPTools
 /**
  * Read a table and return values
  *
- * @param string $tablename
- * @param string asArray : Type of loaded results Array or Object or Assoc
+ * @param string  $tablename
+ * @param string  $where: Where condition
+ * @param string  $resultType : Type of loaded results Array or Object or Assoc
  * @param boolean $firstOnly : If set to true only the first row of the result is returned
- * @param string $orderf
- * @param string $orderdir
+ * @param string  $orderf
+ * @param string  $orderdir
  * @return the table result if success otherwise false
  */
-	function ReadTable($tablename, $resultType = 'Assoc' , $firstOnly = false, $orderf = 'id', $orderdir = 'ASC')
+	function ReadTable($tablename, $where = '', $resultType = 'Assoc' , $firstOnly = false, $orderf = 'id', $orderdir = 'ASC')
 	{
 		$db =& JFactory::getDBO();
-		$req = "SELECT * FROM ".$db->nameQuote("#__".$tablename)." ORDER BY ".$db->nameQuote($orderf)." ".$orderdir;
+		$req = "SELECT * FROM ".$db->nameQuote("#__".$tablename)." ".$where." ORDER BY ".$db->nameQuote($orderf)." ".$orderdir;
 		$db->setQuery($req);
 		//echo $req;
 		switch ($resultType)

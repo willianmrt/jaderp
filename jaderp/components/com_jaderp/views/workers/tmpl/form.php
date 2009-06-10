@@ -1,5 +1,7 @@
 <?php // no direct access
-defined('_JEXEC') or die('Restricted access');?>
+defined('_JEXEC') or die('Restricted access');
+//JHTML::_('behavior.tooltip');
+?>
 <div id="JAdERPForm">
 <form action="index.php" method="post" name="adminForm" id="adminForm">
   <div id="FormElementsGroup">
@@ -25,6 +27,20 @@ defined('_JEXEC') or die('Restricted access');?>
       </div>
       <!--Worker N.I. Card Number-->
       <div class="FormElements">
+        <label for="type_piece"><?php echo JText::_('TYPE_PIECES'); ?>:</label>
+        <br />
+		<select id="type_piece" name="type_piece">
+			<?php
+			//echo $this->acclevels->id;
+			foreach ($this->type_piece as $typepiece)
+			{
+				$selectd = $this->worker->type_piece == $typepiece['id'] ? 'selected="selected"':'';
+				echo '<option '.$selectd.' value="'.$typepiece['id'].'">'.$typepiece['name'].'</option>';
+			}
+			?>
+		</select>
+      </div>	
+	  <div class="FormElements">      	
         <label for="num_piece"><?php echo JText::_('WORKER_CIN_NUMBER'); ?>:</label>
         <br />
         <input name="num_piece" type="text" id="num_piece" value="<?php echo $this->worker->num_piece;?>" />
@@ -68,7 +84,7 @@ defined('_JEXEC') or die('Restricted access');?>
 				//echo $this->acclevels->id;
 				foreach ($this->branchs as $branch)
 				{
-					$selectd = $this->worker->branch ? 'selected="selected"':'';
+					$selectd = $this->worker->branch == $branch['id'] ? 'selected="selected"':'';
 					echo '<option '.$selectd.' value="'.$branch['id'].'">'.$branch['name'].'</option>';
 				}
 				?>
@@ -83,7 +99,7 @@ defined('_JEXEC') or die('Restricted access');?>
 				//echo $this->acclevels->id;
 				foreach ($this->departments as $dep)
 				{
-					$selectd = $this->worker->department ? 'selected="selected"':'';
+					$selectd = $this->worker->department == $dep['id'] ? 'selected="selected"':'';
 					echo '<option '.$selectd.' value="'.$dep['id'].'">'.$dep['name'].'</option>';
 				}
 				?>
@@ -119,28 +135,31 @@ defined('_JEXEC') or die('Restricted access');?>
 
       </div>
     </fieldset>
-    
-
   </div>
   
   <div id="FormElementsGroup">
     <fieldset id="accessfields" style="display: <?php echo $this->worker->joomla_id > 0 ? 'block"':'none';?>;">
       <legend><?php echo JText::_('WORKER_ACCESS'); ?>:</legend>
       <div class="FormElements">
-	      <label for="accesslevel"><?php echo JText::_('WORKER_ACCESS_LEVEL'); ?>:</label>
+	      <label for="access_level"><?php echo JText::_('WORKER_ACCESS_LEVEL'); ?>:</label>
 	      <br />
 			<select id="access_level" name="access_level">
 				<?php
 				//echo $this->acclevels->id;
 				foreach ($this->acclevels as $level)
 				{
-					$selectd = '';//$this->worker->access_level ? 'selected="selected"':'';
+					$selectd = $this->worker->access_level == $level['id'] ? 'selected="selected"':'';
 					echo '<option '.$selectd.' value="'.$level['id'].'">'.$level['access_label'].'</option>';
 				}
 				?>
 			</select>
 	  </div>
       <div class="FormElements">
+        <br />
+        <input type="checkbox" name="autopassword" id="autopassword" value="1" />
+        <label for="autopassword"><?php echo JText::_('GENERATE_PASSWORD'); ?></label>
+      </div>
+	  <div class="FormElements">
 	      <label for="password"><?php echo JText::_('WORKER_PASSWORD'); ?>:</label>
 	      <br />
 	      <input name="password" type="password" id="password" />
@@ -150,11 +169,15 @@ defined('_JEXEC') or die('Restricted access');?>
 	      <br />
 	      <input name="password1" type="password" id="password1" />
 	  </div>
-      <div class="FormElements">
+    <div class="FormElements">
         <br />
         <input type="checkbox" name="isblocked" id="isblocked" value="1"  <?php echo $this->worker->iscontact ? 'checked="checked"':'';?> />
         <label for="isblocked"><?php echo JText::_('WORKER_IS_BLOCKED'); ?></label>
-
+     </div>	  
+    <div class="FormElements">
+        <br />
+        <input title="<?php echo JText::_('MUST_CHANGE_PASSWORD_WHEN_LOGIN_DESCRIPTION'); ?>" type="checkbox" name="forcepasschange" id="forcepasschange" value="1"  <?php echo $this->worker->forcepasschange ? 'checked="checked"':'';?> />
+        <label for="forcepasschange" title="<?php echo JText::_('MUST_CHANGE_PASSWORD_WHEN_LOGIN_DESCRIPTION'); ?>"><?php echo JText::_('MUST_CHANGE_PASSWORD_WHEN_LOGIN'); ?></label>
       </div>	  
     </fieldset>
   </div>
@@ -163,15 +186,21 @@ defined('_JEXEC') or die('Restricted access');?>
     <fieldset id="contactfields" style="display: <?php echo $this->worker->iscontact ? 'block"':'none';?>;">
       <legend><?php echo JText::_('WORKER_CONTACT'); ?>:</legend>
       <div class="FormElements">
-	      <label for="password"><?php echo JText::_('WORKER_PASSWORD'); ?>:</label>
+	        <br />
+	        <input type="checkbox" name="active_contact" id="active_contact" value="1"  <?php echo $this->worker->active_contact ? 'checked="checked"':'';?> />
+	        <label for="active_contact"><?php echo JText::_('WORKER_CONTACT_ACTIVE'); ?></label>
+	   </div>
+	   <div class="FormElements">
+	      <label for="password3"><?php echo JText::_('WORKER_PASSWORD'); ?>:</label>
 	      <br />
-	      <input name="password" type="password" id="password" />
+	      <input name="password3" type="password" id="password3" />
 	  </div>
       <div class="FormElements">
-	      <label for="password1"><?php echo JText::_('WORKER_CONFIRM_PASSWORD'); ?>:</label>
+	      <label for="password13"><?php echo JText::_('WORKER_CONFIRM_PASSWORD'); ?>:</label>
 	      <br />
-	      <input name="password1" type="password" id="password1" />
+	      <input name="password13" type="password" id="password13" />
 	  </div>
+	  
     </fieldset>
   </div>
   
