@@ -32,6 +32,7 @@ $users =& JFactory::getUser();
 $uid=$users->id;
 if ($uid == 0) return;
 $db =& JFactory::getDBO();
+$jadusers = $JAdERPTool->ReadTable('jaderp_users', 'WHERE '.$db->nameQuote('joomla_id').'='.$db->Quote($uid), 'Assoc', true);
 
 $query = 'SELECT m.id as id,
 			m.languagename,
@@ -41,7 +42,7 @@ $query = 'SELECT m.id as id,
 			INNER JOIN #__jaderp_levels_menu as u 
 			ON m.id=u.menu_id 
 			WHERE m.parent_name = "" 
-			AND u.level_id='.$uid.' AND u.active=1 
+			AND u.level_id='.$jadusers['access_level'].' AND u.active=1 
 			AND m.active=1
 			ORDER BY u.ordering';
 $db->setQuery( $query );
@@ -64,7 +65,7 @@ foreach ($menus as $row)
 			INNER JOIN #__jaderp_levels_menu as u 
 			ON m.id=u.menu_id 
 			WHERE m.parent_name = '.$db->Quote($row->name).' 
-			AND u.level_id='.$uid.' AND u.active=1 
+			AND u.level_id='.$jadusers["access_level"].' AND u.active=1 
 			AND m.active=1
 			ORDER BY u.ordering';
 		//$query = 'SELECT * FROM #__jaderp_menu WHERE parent_id='.$row->id.' order by ordering';

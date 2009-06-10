@@ -192,6 +192,19 @@ class JaderpControllerWorkers extends JaderpController
 		}
 		$model = $this->getModel('Workers');
 		$post = JRequest::get( 'post' );
+		if ($post['canaccess'])
+		{
+			if ($post['autopassword'])
+			{
+				$salt  = JUserHelper::genRandomPassword(10);
+				echo $salt;
+				
+			}
+			else 
+			{
+				
+			}
+		}
 		$post['password']	= JRequest::getVar('password', '', 'post', 'string', JREQUEST_ALLOWRAW);
 		jimport('joomla.user.helper');
 		$salt  = JUserHelper::genRandomPassword(32);
