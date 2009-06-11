@@ -27,8 +27,8 @@ class JaderpControllerWorkers extends JaderpController
 		// Register Extra tasks
 		$this->registerTask( 'add'  , 	'edit' );
 		$this->registerTask( 'apply', 	'save'  );
-		$this->registerTask( 'listing', 	'listing'  );//added by Mehdi
-		$this->isEdit = false;
+		$this->registerTask( 'manage', 'manage'  );
+		$this->registerTask( 'remove', 'remove'  );
 	}
 
 	/**
@@ -37,7 +37,7 @@ class JaderpControllerWorkers extends JaderpController
 	 */
 	function edit()
 	{
-		$model = & $this->getModel('Workers');
+		$model = & $this->getModel('Worker');
 		$user =& JFactory::getUser();
 		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
 		$JAdERPTool =& new JAdERPTools;
@@ -64,8 +64,11 @@ class JaderpControllerWorkers extends JaderpController
 		}
 		JTable::addIncludePath('components'.DS.'com_jaderp'.DS.'tables');
 		$table =& JTable::getInstance('workers', 'Table');
-		$id = JRequest::getInt('cid', 0);		
+		$id = JRequest::getInt('cid', 0);
+		if (!$id)
+			$id = JRequest::getInt('id', 0);		
 		$table->load($id);
+		//echo $id."  ".$table->firstname;
 		if ($table->checked_out !== $user->get('id') && $table->checked_out!=0)
 		{
 			$checkuser = & JFactory::getUser($table->checked_out);
@@ -175,7 +178,7 @@ class JaderpControllerWorkers extends JaderpController
 		</script>
 		<?php
 		//$blockMenu = true;
-		JRequest::setVar( 'view', 'Workers' );
+		JRequest::setVar( 'view', 'Worker' );
 		JRequest::setVar( 'layout', 'form'  );
 		parent::display();
 	}
@@ -190,7 +193,7 @@ class JaderpControllerWorkers extends JaderpController
 		{
 		    JError::raiseError('403', JText::_('Request Forbidden'));
 		}
-		$model = $this->getModel('Workers');
+		$model = $this->getModel('Worker');
 		$post = JRequest::get( 'post' );
 		jimport('joomla.user.helper');
 		$post['password']	= JRequest::getVar('password', '', 'post', 'string', JREQUEST_ALLOWRAW);
@@ -277,7 +280,7 @@ class JaderpControllerWorkers extends JaderpController
 			case 'save':
 			default:
 				//$msg = JText::sprintf( $dbefore.'Successfully'.$dafter.' Saved User %s', $post['firstname'] );
-				$this->setRedirect( 'index.php?option=com_jaderp&task=desktop', $msg );
+				$this->setRedirect( 'index.php?option=com_jaderp&func=Workers&task=manage', $msg );
 				break;
 		}
 		
@@ -316,21 +319,75 @@ class JaderpControllerWorkers extends JaderpController
 				$msg= JText::_( 'CANT_CHECKIN_ALERT' ) ;
 			}			
 		}	
-		$this->setRedirect( 'index.php?option=com_Jaderp', $msg );
+		$this->setRedirect( 'index.php?option=com_Jaderp&func=Workers&task=manage', $msg );
 	}
 	
 	// function listing() ADDED BY MEHDI
-	function listing()
+	function manage()
 	{
+		//$model = & $this->getModel('Workers');
+		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'menubar.php');
+		$menubars =& new menuBar;
+		$user =& JFactory::getUser();
 		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
 		$JAdERPTool =& new JAdERPTools;
+		
+		if($user->get('id'))
+		{
+			$uid=$user->id;
+			$access_level = $JAdERPTool->UserAccessLevel($uid,'com_jaderp','Workers','add');
+			if(!$access_level)
+			{
+				$msg= JText::_( 'YOU_DONT_HAVE_PERMISSION' ) ;
+				$this->setRedirect(JRoute::_('index.php?option=com_jaderp&task=desktop'), $msg, 'notice');
+				return;
+			}
+		}
+		else 
+		{
+			$msg= JText::_('YOU_MUST_CONNECT');
+			$this->setRedirect(JRoute::_('index.php?option=com_user&view=login'), $msg, 'notice');
+		}
 		$buttons = array("save", "cancel", "edit", "apply");
-		$tache='manageUsers';
-		$tacheText= JText::_('MANAGE_PERSONELS');
-		$menubar = $JAdERPTool-> creatMenuBar($buttons, $tache, $tacheText, true, false,true);
-		echo $menubar;
+		$menuid = JRequest::getInt('menuid', 0);
+		if ($menuid)
+		{
+			$db = JFactory::getDBO();
+			$where = "WHERE ".$db->nameQuote('id')."=".$menuid;
+			//echo $where;
+			$menutbl =  $JAdERPTool->ReadTable('jaderp_menu', $where, 'Assoc', true);
+			//echo $menutbl['menu_icon'];
+			if ($menutbl)
+			{
+				
+				$tache=$menutbl['menu_icon'];
+				$tacheText= JText::_($menutbl['languagename']);
+			}
+		}
+		
+		$document =& JFactory::getDocument();
+		$script="jQuery.noConflict();";
+		$document->addScriptDeclaration($script);			
+		JHTML::_('behavior.modal', 'a.modal');
+		//$menubar = $JAdERPTool-> creatMenuBar($buttons, $tache, $tacheText, true, false,true);
+		//echo $menubar;?>
+		 <a rel="{handler: 'iframe', size: {x: 870, y: 600}}" href="http://localhost/erp_code/index.php?option=com_jaderp&view=Worker&layout=form" class="modal">
+<span title="Paramètres" class="icon-32-config">
+</span>
+Paramètres
+</a><?php
+		$menubars->writeHead($tache, $tacheText);
+		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value!=1){alert(\'Veuillez sélectionner une ligne de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'edit\')}"';
+		$menubars->addButton('edit',$task);
+		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner au moin un élément de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'remove\')}"';
+		$menubars->addButton('remove', $task);
+		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner au moin un élément de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'print\')}"';
+		$menubars->addButton('print', $task);
+		$menubars->writeFoot();
+		$menubars->addDeclaration(false,false,'',140);
+		$menubars->render();	
 		JRequest::setVar( 'view', 'workers' );
 		JRequest::setVar( 'layout', 'listing'  );
-		parent::display();
+		parent::display(false);
 	}
 }
