@@ -55,8 +55,8 @@ class JAdERPTools
 			$document->addScript($path.'js/jquery.kwicks-1.5.1.pack.js');
 			JHTML::stylesheet('menubar_css.php','components/com_jaderp/css/');
 			//$document->addScript(JURI::base().'administrator/components/com_jaderp/js/toolbar.js');
-			$script="$(document).ready(function() {
-					$('.kwicks').kwicks({
+			$script="jQuery(document).ready(function() {
+					jQuery('.kwicks').kwicks({
 						max : 140,
 						isVertical : ".($vertical ? 'true' : 'false').",
 						sticky : ".($sticky ? 'true' : 'false').",
