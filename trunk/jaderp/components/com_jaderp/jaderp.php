@@ -28,7 +28,7 @@ defined('_JEXEC') or die('Restricted access');
 		//echo $row['forcepasschange'];
 		$msg= JText::_('YOU_MUST_CHANGE_PASSWORD');
 		JController::setRedirect(JRoute::_('index.php?option=com_user&view=login'), $msg, 'notice');
-		//JController::redirect();
+		JController::redirect();
 	}
 	
 	// Require specific controller if requested

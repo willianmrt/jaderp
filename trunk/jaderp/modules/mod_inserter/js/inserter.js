@@ -24,5 +24,5 @@ var accordion = new Accordion('h3.atStart', 'div.atStart', {
 	onBackground: function(toggler, element){
 		toggler.setStyle('color', '#222');
 	}
-}, $('inserter_accordion'));
+}, jQuery('inserter_accordion'));
 });

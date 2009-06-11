@@ -66,45 +66,90 @@ defined('_JEXEC') or die('Restricted access');
 
 function pagination_list_footer($list)
 {
-	$html = "<div class=\"list-footer\">\n";
-
+		// Initialize variables
+	$lang =& JFactory::getLanguage();
+	$html = "<del class=\"container\"><div class=\"pagination\">\n";
 	$html .= "\n<div class=\"limit\">".JText::_('Display Num').$list['limitfield']."</div>";
 	$html .= $list['pageslinks'];
-	$html .= "\n<div class=\"counter\">".$list['pagescounter']."</div>";
+	$html .= "\n<div class=\"limit\">".$list['pagescounter']."</div>";
 
 	$html .= "\n<input type=\"hidden\" name=\"limitstart\" value=\"".$list['limitstart']."\" />";
-	$html .= "\n</div>";
+	$html .= "\n</div></del>";
+	
+	//old
+	//$html = "<div class=\"list-footer\">\n";
+
+	//$html .= "\n<div class=\"limit\">".JText::_('Display Num').$list['limitfield']."</div>";
+	//$html .= $list['pageslinks'];
+	//$html .= "\n<div class=\"counter\">".$list['pagescounter']."</div>";
+
+	//$html .= "\n<input type=\"hidden\" name=\"limitstart\" value=\"".$list['limitstart']."\" />";
+	//$html .= "\n</div>";
 
 	return $html;
 }
 
 function pagination_list_render($list)
 {
-	// Initialize variables
-	$html = "<span class=\"pagination\">";
-	$html .= '<span>&laquo;</span>'.$list['start']['data'];
-	$html .= $list['previous']['data'];
+// Initialize variables
+	$lang =& JFactory::getLanguage();
+	$html = null;
 
-	foreach( $list['pages'] as $page )
-	{
-		if($page['data']['active']) {
-			$html .= '<strong>';
-		}
-
-		$html .= $page['data'];
-
-		if($page['data']['active']) {
-			$html .= '</strong>';
-		}
+	if ($list['start']['active']) {
+		$html .= "<div class=\"button2-right\"><div class=\"start\">".$list['start']['data']."</div></div>";
+	} else {
+		$html .= "<div class=\"button2-right off\"><div class=\"start\">".$list['start']['data']."</div></div>";
+	}
+	if ($list['previous']['active']) {
+		$html .= "<div class=\"button2-right\"><div class=\"prev\">".$list['previous']['data']."</div></div>";
+	} else {
+		$html .= "<div class=\"button2-right off\"><div class=\"prev\">".$list['previous']['data']."</div></div>";
 	}
 
-	$html .= $list['next']['data'];
-	$html .= $list['end']['data'];
-	$html .= '<span>&raquo;</span>';
+	$html .= "\n<div class=\"button2-left\"><div class=\"page\">";
+	foreach( $list['pages'] as $page ) {
+		$html .= $page['data'];
+	}
+	$html .= "\n</div></div>";
 
-	$html .= "</span>";
+	if ($list['next']['active']) {
+		$html .= "<div class=\"button2-left\"><div class=\"next\">".$list['next']['data']."</div></div>";
+	} else {
+		$html .= "<div class=\"button2-left off\"><div class=\"next\">".$list['next']['data']."</div></div>";
+	}
+	if ($list['end']['active']) {
+		$html .= "<div class=\"button2-left\"><div class=\"end\">".$list['end']['data']."</div></div>";
+	} else {
+		$html .= "<div class=\"button2-left off\"><div class=\"end\">".$list['end']['data']."</div></div>";
+	}
+
 	return $html;
 }
+	// Initialize variables
+	//$html = "<span class=\"pagination\">";
+//	$html .= '<span>&laquo;</span>'.$list['start']['data'];
+//	$html .= $list['previous']['data'];
+//
+//	foreach( $list['pages'] as $page )
+//	{
+//		if($page['data']['active']) {
+//			$html .= '<strong>';
+//		}
+//
+//		$html .= $page['data'];
+//
+//		if($page['data']['active']) {
+//			$html .= '</strong>';
+//		}
+//	}
+//
+//	$html .= $list['next']['data'];
+//	$html .= $list['end']['data'];
+//	$html .= '<span>&raquo;</span>';
+//
+//	$html .= "</span>";
+//	return $html;
+
 
 function pagination_item_active(&$item) {
 	return "<a href=\"".$item->link."\" title=\"".$item->text."\">".$item->text."</a>";
