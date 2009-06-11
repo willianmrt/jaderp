@@ -10,7 +10,7 @@ $toolBarIconStyle="style01";// style varialble will be used as the folder name c
 #add div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_add.png) 0px 2px no-repeat;}
 #apply div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_apply.png) 0px 2px no-repeat;}
 #new div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_new.png) 0px 2px no-repeat;}
-#delete div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_delete.png) 0px 2px no-repeat;}
+#remove div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_delete.png) 0px 2px no-repeat;}
 #next div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_next.png) 0px 2px no-repeat;}
 #previous div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_previous.png) 0px 2px no-repeat;}
 #reset div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_reset.png) 0px 2px no-repeat;}
@@ -18,5 +18,5 @@ $toolBarIconStyle="style01";// style varialble will be used as the folder name c
 #unlock div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_unlock.png) 0px 2px no-repeat;}
 #duplicate div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_duplicate.png) 0px 2px no-repeat;}
 #duplicateFrom div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_duplicate_from.png) 0px 2px no-repeat;}
-#printDoc div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_print.png) 0px 2px no-repeat;}
+#print div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_print.png) 0px 2px no-repeat;}
 #validateOp div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_appove.png) 0px 2px no-repeat;}
