@@ -14,6 +14,8 @@ class TableWorkers extends JTable
 	/** @var int */
 	var $joomla_id 			= null;
 	/** @var int */
+	var $canaccess 			= null;
+	/** @var int */
 	var $access_level		= null;
 	/** @var string */
 	var $mat				= null;
