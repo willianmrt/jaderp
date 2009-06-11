@@ -16,7 +16,7 @@ jimport( 'joomla.application.component.model' );
  * @package    Joomla.Tutorials
  * @subpackage Components
  */
-class JaderpModelWorkers extends JModel
+class JaderpModelWorker extends JModel
 {
      /**
      * Foobar ID
@@ -65,6 +65,7 @@ class JaderpModelWorkers extends JModel
 		        $workers->id 				= 0;
 		        $workers->name 				= null;
 				$workers->joomla_id 		= null;
+				$workers->canaccess 		= null;
 				$workers->access_leve 		= null;
 				$workers->mat				= null;
 				$workers->department		= null;
