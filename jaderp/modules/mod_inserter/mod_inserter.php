@@ -119,9 +119,10 @@ foreach ($menus as $row)
 					echo '<div class="inserter_element atStart">';	
 					echo $lis;		
 					echo "</div>";
+					$accnb+=1;
 				}
 			}
-			$accnb+=1;
+
 		}
 	}
 echo "</div></div>";
@@ -131,13 +132,13 @@ $doc =& JFactory::getDocument();
 if($biblio=="0")
 {
 	$doc->addScriptdeclaration('
-	  $(document).ready(function(){
-	    $("#inserter_accordion").accordion({ autoHeight: false, collapsible: true, active: '.$selectacc.' });
+	  jQuery(document).ready(function(){
+	    jQuery("#inserter_accordion").accordion({ autoHeight: false, collapsible: true, active: '.$selectacc.' });
 	  });
 	');
 	$doc->addScriptdeclaration('
-	  $(document).ready(function(){
-	    $("#sortable").sortable({ placeholder: "ui-state-highlight" });
+	  jQuery(document).ready(function(){
+	    jQuery("#sortable").sortable({ placeholder: "ui-state-highlight" });
 	  });
 	');
 
