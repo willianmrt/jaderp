@@ -8,21 +8,21 @@ class menuBar
 	{
 
 		$this->_menubar = null;
-		$this->_BUTTONS_COLLECTION = 'save edit cancel add apply';
+		$this->_BUTTONS_COLLECTION = 'save edit cancel add apply remove print';
 		$this->_numbuttons = 0;
 	}
 	
 	function writeHead($task, $taskText)
 	{
 		$this->_menubar = null;
-		$this->_BUTTONS_COLLECTION = 'save edit cancel add apply';
+		$this->_BUTTONS_COLLECTION = 'save edit cancel add apply remove print';
 		$this->_numbuttons = 0;
-		
+		$menuIconPack='style01';
 		$this->_menubar = '
 			<div id="ToolBarIcons">
 			<div id="ToolBarIconsL">
 			<div id="ToolBarIconsR">
-			<div style="background:url(images/jaderp/icons/'.$task.'.png) 0px 8px no-repeat;" class="tache">'.$taskText.'</div>
+			<div style="background:url(images/jaderp/icons/menu_icons/'.$menuIconPack.'/medium/'.$task.') 0px 3px no-repeat;" class="tache">'.$taskText.'</div>
 			<ul class="kwicks vertical" >';
 	}
 	
@@ -35,9 +35,9 @@ class menuBar
 	{
 		$button = trim(strtolower($button));
 		if($task=='')
-			$task=$button;
+			$task='onclick="javascript:submitbutton(\''.$button.'\')"';
 		if (stripos($this->_BUTTONS_COLLECTION, $button) !== false) {
-			$li = '<li id="'.$button.'" onclick="javascript:submitbutton(\''.$task.'\')"><div id="TaskIcon"><div>'. ($showlabels ? JText::_(strtoupper('Button_'.$button)) : "") .'</div></div></li>';
+			$li = '<li id="'.$button.'"'.$task.'><div id="TaskIcon"><div>'. ($showlabels ? JText::_(strtoupper('Button_'.$button)) : "") .'</div></div></li>';
 			$this->_numbuttons += 1;
 			$this->_menubar .= $li;
 		}	
@@ -75,8 +75,10 @@ class menuBar
 		$this->JQueryHeader();
 		$document->addScript($path.'js/jquery.easing.1.3.js');
 		$document->addScript($path.'js/jquery.kwicks-1.5.1.pack.js');
-		$script="$(document).ready(function() {
-				$('.kwicks').kwicks({
+		JHTML::stylesheet('menubar_css.php','components/com_jaderp/css/');
+		$script="
+		jQuery(document).ready(function() {
+				jQuery('.kwicks').kwicks({
 					max : ".$maxWidth.",
 					isVertical : ".($vertical ? 'true' : 'false').",
 					sticky : ".($sticky ? 'true' : 'false').",
