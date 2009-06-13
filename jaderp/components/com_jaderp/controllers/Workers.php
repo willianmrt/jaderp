@@ -29,6 +29,7 @@ class JaderpControllerWorkers extends JaderpController
 		$this->registerTask( 'apply', 	'save'  );
 		$this->registerTask( 'manage', 'manage'  );
 		$this->registerTask( 'remove', 'remove'  );
+		$this->registerTask( 'unpublish', 'publish'  );
 	}
 
 	/**
@@ -52,7 +53,7 @@ class JaderpControllerWorkers extends JaderpController
 			if(!$access_level)
 			{
 				$msg= JText::_( 'YOU_DONT_HAVE_PERMISSION' ) ;
-				$this->setRedirect(JRoute::_('index.php?option=com_jaderp&task=desktop'), $msg, 'notice');
+				$this->setRedirect(JRoute::_('index.php?option=com_jaderp&func=Workers&task=manage'), $msg, 'notice');
 				return;
 			}
 			//echo $user->get('id');
@@ -73,7 +74,7 @@ class JaderpControllerWorkers extends JaderpController
 		{
 			$checkuser = & JFactory::getUser($table->checked_out);
 			$msg= JText::sprintf( 'IS_CHECKEDOUT_ALERT', $checkuser->name, $table->checked_out_time ) ;
-			$this->setRedirect(JRoute::_('index.php?option=com_jaderp&task=desktop'), $msg, 'notice');	
+			$this->setRedirect(JRoute::_('index.php?option=com_jaderp&func=Workers&task=manage'), $msg, 'notice');	
 		}
 		else 
 		{
@@ -302,6 +303,38 @@ class JaderpControllerWorkers extends JaderpController
 		$this->setRedirect( 'index.php?option=com_Jaderp', $msg );
 	}
 
+	function publish()
+	{
+		JRequest::checkToken() or jexit( 'Invalid Token' );
+
+		$this->setRedirect( 'index.php?option=com_jaderp&func=Workers&task=manage' );
+
+		// Initialize variables
+		$db			=& JFactory::getDBO();
+		$user		=& JFactory::getUser();
+		$cid		= JRequest::getVar( 'cid', array(), 'post', 'array' );
+		$task		= JRequest::getCmd( 'task' );
+		$publish	= ($task == 'publish');
+		$n			= count( $cid );
+
+		if (empty( $cid )) {
+			return JError::raiseWarning( 500, JText::_( 'No items selected' ) );
+		}
+
+		JArrayHelper::toInteger( $cid );
+		$cids = implode( ',', $cid );
+
+		$query = 'UPDATE #__jaderp_users'
+		. ' SET present = ' . (int) $publish
+		. ' WHERE id IN ( '. $cids.'  )'
+		. ' AND ( checked_out = 0 OR ( checked_out = ' .(int) $user->get('id'). ' ) )'
+		;
+		$db->setQuery( $query );
+		if (!$db->query()) {
+			return JError::raiseWarning( 500, $db->getError() );
+		}
+		$this->setMessage( JText::sprintf( $publish ? 'WORKERS_TO_PRESENT' : 'WORKERS_TO_ABSENT', $n ) );
+	}	
 	/**
 	 * cancel editing a record
 	 * @return void
@@ -369,20 +402,27 @@ class JaderpControllerWorkers extends JaderpController
 		$script="jQuery.noConflict();";
 		$document->addScriptDeclaration($script);			
 		JHTML::_('behavior.modal', 'a.modal');
+		JHTML::_('behavior.tooltip');
 		//$menubar = $JAdERPTool-> creatMenuBar($buttons, $tache, $tacheText, true, false,true);
 		//echo $menubar;?>
-		 <a rel="{handler: 'iframe', size: {x: 870, y: 600}}" href="http://localhost/erp_code/index.php?option=com_jaderp&view=Worker&layout=form" class="modal">
+		 <a rel="{handler: 'iframe', size: {x: 870, y: 600}}" href="index.php?option=com_jaderp&view=Workers&tmpl=component&layout=listing" class="modal">
 <span title="Paramètres" class="icon-32-config">
 </span>
 Paramètres
 </a><?php
 		$menubars->writeHead($tache, $tacheText);
+		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner dans la liste les éléments à\');}else{  submitbutton(\'publish\')}"';
+		$menubars->addButton('publish',$task);
+		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner dans la liste les éléments à\');}else{  submitbutton(\'unpublish\')}"';
+		$menubars->addButton('unpublish',$task);				
+		$menubars->addButton('add');	
 		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value!=1){alert(\'Veuillez sélectionner une ligne de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'edit\')}"';
 		$menubars->addButton('edit',$task);
 		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner au moin un élément de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'remove\')}"';
 		$menubars->addButton('remove', $task);
 		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner au moin un élément de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'print\')}"';
 		$menubars->addButton('print', $task);
+		
 		$menubars->writeFoot();
 		$menubars->addDeclaration(false,false,'',140);
 		$menubars->render();	
