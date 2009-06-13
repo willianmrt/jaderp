@@ -15,7 +15,7 @@ class menuBar
 	function writeHead($task, $taskText)
 	{
 		$this->_menubar = null;
-		$this->_BUTTONS_COLLECTION = 'save edit cancel add apply remove print';
+		$this->_BUTTONS_COLLECTION = 'save edit cancel add apply remove print publish unpublish';
 		$this->_numbuttons = 0;
 		$menuIconPack='style01';
 		$this->_menubar = '

@@ -1,5 +1,6 @@
 <?php // no direct access
-defined('_JEXEC') or die('Restricted access');?>
+defined('_JEXEC') or die('Restricted access');
+$user = JFactory::getUser();?>
 
 <div id="JAdERPlist">
   <form action="index.php?option=com_jaderp&func=Workers&task=manage" method="post" name="adminForm" id="adminForm">
@@ -11,7 +12,8 @@ defined('_JEXEC') or die('Restricted access');?>
             <input type="text" onchange="document.adminForm.submit();" class="text_area" value="<?php echo $this->search; ?>" id="filter" name="search"/>
             <button onclick="this.form.submit();">Aller</button>
             <button onclick="document.getElementById('filter').value=''; document.getElementById('filter_dep').value=0; document.getElementById('filter_branch').value=0; document.getElementById('filter_access').value=0; document.getElementById('filter_presence').value=0; this.form.submit();">Remsie � z�ro</button></td>
-          <td nowrap="nowrap"><select onchange="this.form.submit()" size="1" class="inputbox" id="filter_dep" name="filter_dep">
+          <td nowrap="nowrap">
+          <select onchange="this.form.submit()" size="1" class="inputbox" id="filter_dep" name="filter_dep">
             <option value="0">- S&eacute;lectionnez le d&eacute;partement -</option>
             <?php
             	foreach ($this->departments as $department)
@@ -97,17 +99,37 @@ defined('_JEXEC') or die('Restricted access');?>
 		foreach ($this->rows as $row)
 		{
 			$hlink = 'index.php?option=com_jaderp&func=Workers&task=edit&cid='.$row["id"];
-        	echo '<tr class=row"'.$k.'">';
+        	echo '<tr class="row'.$k.'">';
           	echo '<td align="right">'.$this->pagination->getRowOffset( $i ).'</td>';
-          	echo '<td width="20"><input type="checkbox" onclick="isChecked(this.checked);" value="'.$row['id'].'" name="cid[]" id="cb'.$i.'"/></td>';
-          	echo '<td><span class="editlinktip hasTip"> <a href="'.$hlink.'">'.$row['matricule'].'</a> </span></td>';
+          	if ($row['checked_out'] == 0 || $row['checked_out']== $user->get('id'))
+          	{
+          		echo '<td width="20"><input type="checkbox" onclick="isChecked(this.checked);" value="'.$row['id'].'" name="cid[]" id="cb'.$i.'"/></td>';
+          		echo '<td><span> <a href="'.$hlink.'">'.$row['matricule'].'</a> </span></td>';
+          	}
+          	else 
+          	{
+          		$checkuser = & JFactory::getUser($row['checked_out']);
+          		echo '<td align="center">'.JHTML::tooltip("L'utilisateur ".$checkuser->name." 9a3ed ichouf fih mil ".$row['checked_out_time'], 'Locked','../../../administrator/images/checked_out.png', '', '').'</td>';
+          		echo '<td><span> <a>'.$row['matricule'].'</a> </span></td>';
+          	}
+          		//<span class="editlinktip hasTip" title="Houni il tooltip texte za3ma"><a><img border="0" alt="Locked" src="administrator/images/checked_out.png"/></a></span></td>';
+          	
           	echo '<td align="center"><span>'.$row['lastname'].'</span></td>';
           	echo '<td align="center"><span>'.$row['firstname'].'</span></td>';
           	echo '<td align="center"><span>'.$row['department'].'</span></td>';
           	echo '<td align="center"><span>'.$row['branch'].'</span></td>';
           	echo '<td align="center"><span>'.$row['position'].'</span></td>';
           	echo '<td align="center"><span>'.$row['email'].'</span></td>';
-          	echo '<td align="center"><span>'.$row['presence'].'</span></td>';
+          	$hlink = 'index.php?option=com_jaderp&func=Workers&task=present&cid='.$row["id"];
+          	if ($row['presence'])
+          	{
+          		echo '<td align="center"><span><a title="Marquer comme absent" onclick="return listItemTask(\'cb'.$i.'\',\'unpublish\')" href="javascript:void(0);"><img border="0" alt="Présent" src="images/tick.png"/></a></span></td>';
+          	}
+          	else 
+          	{
+          		//$hlink = 'index.php?option=com_jaderp&func=Workers&task=present&cid='.$row["id"];
+          		echo '<td align="center"><span><a title="Marquer comme absent" onclick="return listItemTask(\'cb'.$i.'\',\'publish\')" href="javascript:void(0);"><img border="0" alt="Présent" src="images/publish_x.png"/></a></span></td>';
+          	}
           	echo '<td align="center"><span>'.$row['access'].'</span></td>';
        		echo '</tr>';
 	        $k = 1 - $k;

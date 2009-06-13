@@ -13,6 +13,7 @@ class JaderpViewWorkers extends JView
 {
 	function display($tpl = null)
 	{
+		
 		global  $mainframe;
 		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
 		$JAdERPTool=& new JAdERPTools;
@@ -111,6 +112,8 @@ class JaderpViewWorkers extends JView
 				m.mat as matricule,
 				m.firstname as firstname,
 				m.lastname as lastname,
+				m.checked_out,
+				m.checked_out_time,
 				d.name as department,
 				b.name as branch,
 				m.position as position,

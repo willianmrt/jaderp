@@ -20,3 +20,5 @@ $toolBarIconStyle="style01";// style varialble will be used as the folder name c
 #duplicateFrom div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_duplicate_from.png) 0px 2px no-repeat;}
 #print div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_print.png) 0px 2px no-repeat;}
 #validateOp div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_appove.png) 0px 2px no-repeat;}
+#publish div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_lock.png) 0px 2px no-repeat;}
+#unpublish div#TaskIcon{background:url(../../../images/jaderp/icons/toolbar/<?php echo $toolBarIconStyle; ?>/task_unlock.png) 0px 2px no-repeat;}
