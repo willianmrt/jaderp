@@ -405,10 +405,9 @@ class JaderpControllerWorkers extends JaderpController
 		JHTML::_('behavior.tooltip');
 		//$menubar = $JAdERPTool-> creatMenuBar($buttons, $tache, $tacheText, true, false,true);
 		//echo $menubar;?>
-		 <a rel="{handler: 'iframe', size: {x: 870, y: 600}}" href="index.php?option=com_jaderp&view=Workers&tmpl=component&layout=listing" class="modal">
+		 <a rel="{handler: 'iframe', size: {x: 870, y: 600}}" href="index.php?option=com_jaderp&view=Workers&tmpl=component&layout=print_preview" class="modal">
 <span title="Paramètres" class="icon-32-config">
-</span>
-Paramètres
+Paramètres</span>
 </a><?php
 		$menubars->writeHead($tache, $tacheText);
 		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner dans la liste les éléments à\');}else{  submitbutton(\'publish\')}"';

@@ -38,12 +38,32 @@ div.FormElements{float:left; margin:5px 15px; min-width:165px; min-height:50px;}
 div.FormElements img{margin-left:5px;}
 label.clickable:hover{cursor:pointer;}
 #JAdERPForm legend{font-weight:normal;}
+div.FormElements select{margin-left:15px; display:block;}
+div.FormElements input[type=text], div.FormElements select{
+	border-top:1px solid #9CC2E2;
+	border-left:1px solid #9CC2E2;
+	border-right:1px solid #B9D3EA;
+	border-bottom:1px solid #B9D3EA;
+	background:#FFF;
+	min-width:140px;
+	margin-left:0px;
+	padding-left:0px;
+	}
+div.FormElements input[type=text]:focus, .ie_focus{
+	border-top:1px solid #9CC2E2;
+	border-left:1px solid #9CC2E2;
+	border-right:1px solid #B9D3EA;
+	border-bottom:1px solid #B9D3EA;
+	background:#E7F0F8;
+	}
+#startdate{min-width:90px; width:130px;}
 /**********************************************
 ************ LISTING STYLES *******************
 **********************************************/
-
+#listingTitle {text-align:center; font-size:16px; font-weight:bold; height:40px; display:block;}
 #JAdERPlist{margin-top:10px; font-size:10px; /*border:1px solid silver; padding:5px;*/}
-#JAdERPlist input, #JAdERPlist button, #JAdERPlist select{font-size:10px;}
+#JAdERPlist.lpreview {font-size:12px;}
+#JAdERPlist input, #JAdERPlist button, #JAdERPlist select, #JAdERPlist input#search{font-size:10px;}
 
 table.adminform {
 	background-color: #f9f9f9;
