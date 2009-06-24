@@ -124,13 +124,13 @@ defined('_JEXEC') or die('Restricted access');
       <div class="FormElements">
         <label for="canaccess"><?php echo JText::_('WORKER_ACCESS'); ?>:</label>
         <br />
-        <input type="checkbox" name="canaccess" id="canaccess" onclick="$('#accessfields').toggle('slide', {direction: 'up' },800);" value="1"  <?php echo $this->worker->joomla_id > 0 ? 'checked="checked"':'';?> />
+        <input type="checkbox" name="canaccess" id="canaccess" onclick="jQuery('#accessfields').toggle('slide', {direction: 'up' },800);" value="1"  <?php echo $this->worker->joomla_id > 0 ? 'checked="checked"':'';?> />
         <label for="canaccess" class="clickable"><?php echo JText::_('WORKER_CAN_ACCESS'); ?></label>
       </div>
       <div class="FormElements">
         <label for="iscontact"><?php echo JText::_('WORKER_CONTACT_ACCOUNT'); ?>:</label>
         <br />
-        <input type="checkbox" name="iscontact" id="iscontact" onclick="$('#contactfields').toggle('slide', {direction: 'up' },800);" value="1"  <?php echo $this->worker->iscontact ? 'checked="checked"':'';?> />
+        <input type="checkbox" name="iscontact" id="iscontact" onclick="jQuery('#contactfields').toggle('slide', {direction: 'up' },800);" value="1"  <?php echo $this->worker->iscontact ? 'checked="checked"':'';?> />
         <label for="iscontact" class="clickable"><?php echo JText::_('WORKER_WILL_HAVE_CONTACT_ACCOUNT'); ?></label>
 
       </div>

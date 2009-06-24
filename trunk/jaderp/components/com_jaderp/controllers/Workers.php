@@ -30,6 +30,7 @@ class JaderpControllerWorkers extends JaderpController
 		$this->registerTask( 'manage', 'manage'  );
 		$this->registerTask( 'remove', 'remove'  );
 		$this->registerTask( 'unpublish', 'publish'  );
+		//$this->registerTask( 'topdf', 'topdf'  );
 	}
 
 	/**
@@ -398,9 +399,7 @@ class JaderpControllerWorkers extends JaderpController
 			}
 		}
 		
-		$document =& JFactory::getDocument();
-		$script="jQuery.noConflict();";
-		$document->addScriptDeclaration($script);			
+		$document =& JFactory::getDocument();			
 		JHTML::_('behavior.modal', 'a.modal');
 		JHTML::_('behavior.tooltip');
 		//$menubar = $JAdERPTool-> creatMenuBar($buttons, $tache, $tacheText, true, false,true);
@@ -408,7 +407,9 @@ class JaderpControllerWorkers extends JaderpController
 		 <a rel="{handler: 'iframe', size: {x: 870, y: 600}}" href="index.php?option=com_jaderp&view=Workers&tmpl=component&layout=print_preview" class="modal">
 <span title="Paramètres" class="icon-32-config">
 Paramètres</span>
-</a><?php
+</a>
+		 <a target="_blank" href="http://localhost/tcpdf/examples/example_011.php"><span title="Paramètres" class="icon-32-config">PDF</span></a>
+<?php
 		$menubars->writeHead($tache, $tacheText);
 		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner dans la liste les éléments à\');}else{  submitbutton(\'publish\')}"';
 		$menubars->addButton('publish',$task);
@@ -428,5 +429,28 @@ Paramètres</span>
 		JRequest::setVar( 'view', 'workers' );
 		JRequest::setVar( 'layout', 'listing'  );
 		parent::display(false);
+	}
+
+	function topdf()
+	{
+		//$model = & $this->getModel('Workers');
+		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_pdf.php');
+		$user =& JFactory::getUser();
+		ob_clean();
+		$pdf =& new JAdERPDF;
+		//JRequest::setVar( 'view', 'workers' );
+		//JRequest::setVar( 'layout', 'listing'  );
+
+		//Titres des colonnes
+		$header=array('Pays','Capitale','Superficie (km²)','Pop. (milliers)');
+		//Chargement des données
+		
+		//header('Content-Type: application/pdf');
+		$data=$pdf->LoadData('pays.txt');
+		$pdf->SetFont('Arial','',14);
+		$pdf->AddPage();
+		$pdf->FancyTable($header,$data);
+		$pdf->Output('test.pdf','D');		
+		//parent::display(false);
 	}
 }

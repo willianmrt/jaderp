@@ -51,8 +51,7 @@ $user = JFactory::getUser();?>
       <thead>
         <tr>
           <th width="20"> # </th>
-          <th width="20"> <input type="checkbox" onclick="checkAll(<?php echo count($this->rows); ?>);" value="" name="toggle"/>
-          </th>
+          <th width="20"> <input type="checkbox" onclick="checkAll(<?php echo count($this->rows); ?>);" value="" name="toggle"/> </th>
           <th width="70" class="title">
           	<?php echo JHTML::_('grid.sort',   JText::_('WORKER_CODE'), 'm.mat', $this->neworderdir, $this->neworder ); ?>
           </th>
@@ -119,7 +118,11 @@ $user = JFactory::getUser();?>
           	echo '<td align="center"><span>'.$row['department'].'</span></td>';
           	echo '<td align="center"><span>'.$row['branch'].'</span></td>';
           	echo '<td align="center"><span>'.$row['position'].'</span></td>';
-          	echo '<td align="center"><span>'.$row['email'].'</span></td>';
+          	// echo '<td align="center">'.JHTML::tooltip('Click to contact the user', 'Contact','', '$row['email']', '').'</td>'; $row['email'];
+          	if ($row['email'])
+          		echo '<td align="center"><span>'.JHTML::tooltip('Click to contact the user', 'Contact','', $row['email'], '').'</span></td>';
+          	else 
+          		echo '<td align="center"><span>'.'</span></td>';
           	$hlink = 'index.php?option=com_jaderp&func=Workers&task=present&cid='.$row["id"];
           	if ($row['presence'])
           	{
