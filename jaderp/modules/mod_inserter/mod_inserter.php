@@ -55,13 +55,6 @@ $menucode=0;
 $menuid=JRequest::getVar('menuid',1);
 $accnb=0;
 $selectacc=0;
-		$listing = '	table>'."\r\n";
-		$listing .= '		tbody>'."\r\n";
-		$listing .= '			tr>'."\r\n";	
-		$listing .= '			tr>'."\r\n";	
-		$listing .= '		tbody>'."\r\n";
-		$listing .= '	table>'."\r\n";
-		echo $listing."\n\r"."fsfsdfsdfs";
 foreach ($menus as $row)
 	{ 
 		$userlevel = $JAdERPTool->ReadTable('jaderp_levels_menu', 'WHERE '.$db->nameQuote('menu_id').'='.$db->Quote($row->id).' AND '.$db->nameQuote('level_id').'='.$db->Quote($jaduserslevel['access_level']), 'Assoc', true);

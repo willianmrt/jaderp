@@ -59,8 +59,8 @@ class JaderpViewWorker extends JView
 			};
 			
 			function initialize() {
-			   jQuery.datepicker.setDefaults($.extend({showMonthAfterYear: false}, $.datepicker.regional[\'fr\']));
-			   $(\'#startdate\').datepicker(dp_config);
+			   jQuery.datepicker.setDefaults(jQuery.extend({showMonthAfterYear: false}, jQuery.datepicker.regional[\'fr\']));
+			   jQuery(\'#startdate\').datepicker(dp_config);
 			}
 
 			jQuery(document).ready( initialize );
