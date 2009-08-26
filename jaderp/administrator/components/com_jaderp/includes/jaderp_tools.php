@@ -94,21 +94,42 @@ class JAdERPTools
 		}		
 	}
 
-	function UserAccessLevel($userid, $module, $controller, $mtask)
+	function UserAccessLevel($getlevel = false, $userid = 0, $module = '', $controller = '', $mtask = '')
 	{
+		if (!$userid)
+		{
+			$user = & JFactory::getUser();
+			$userid = $user->id;
+		}
+		if($module == '')
+		{
+			$module = JRequest::getCmd('option', 'com_jaderp');
+			$controller = JRequest::getCmd('func', '');
+			$mtask = JRequest::getCmd('task', 'desktop');
+		}
 		$db =& JFactory::getDBO();
-		$request='SELECT access_level FROM #__jaderp_users_access WHERE 
-				  user_id='.$userid.' 
-				  AND module_component = '.$db->Quote($module).' 
-				  AND controller = '.$db->Quote($controller).' 
-				  AND task = '.$db->Quote($mtask);
-		$db->setQuery($request);
-		$acclvl = $db->loadResult();
-		if ($acclvl )
-			return $acclvl;
+		$req = "SELECT a.access_level FROM #__jaderp_users as u INNER JOIN #__jaderp_access_levels as a ON a.id = u.access_level WHERE u.joomla_id='".$userid."'";
+		$db->setQuery($req);
+		$result = $db->loadAssoc();
+		$userlevel = $result['access_level'];
+		//echo $userlevel.'/';
+		$req = "SELECT min_access_level FROM ".$db->nameQuote("#__jaderp_menu")." WHERE ".$db->nameQuote("option")."=".$db->quote($module)." AND ".$db->nameQuote("controller")."=".$db->quote($controller)." AND ".$db->nameQuote("task")."=".$db->quote($mtask);
+		//echo $req;
+		$db->setQuery($req);
+		$results = $db->loadAssoc();
+		$menulevel = $results['min_access_level'];	
+		//echo $menulevel;
+		if ($getlevel)	
+		{
+			return array($userlevel, $menulevel);
+		}
 		else 
-			return false;
-			
+		{
+			if ($userlevel >= $menulevel)
+				return true;
+			else 
+				return false;
+		}			
 	}
 /**
  * Read a table and return values
@@ -121,10 +142,10 @@ class JAdERPTools
  * @param string  $orderdir
  * @return the table result if success otherwise false
  */
-	function ReadTable($tablename, $where = '', $resultType = 'Assoc' , $firstOnly = false, $orderf = 'id', $orderdir = 'ASC')
+	function ReadTable($tablename, $fields = '*', $where = '', $resultType = 'Assoc' , $firstOnly = false, $orderf = 'id', $orderdir = 'ASC')
 	{
 		$db =& JFactory::getDBO();
-		$req = "SELECT * FROM ".$db->nameQuote("#__".$tablename)." ".$where." ORDER BY ".$db->nameQuote($orderf)." ".$orderdir;
+		$req = "SELECT ".$fields." FROM ".$db->nameQuote("#__".$tablename)." ".$where." ORDER BY ".$db->nameQuote($orderf)." ".$orderdir;
 		$db->setQuery($req);
 		//echo $req;
 		switch ($resultType)
@@ -200,6 +221,222 @@ class JAdERPTools
 		}
 
 		return false;	
+	}
+	
+	function ReadCountries($countries = true, $active_currencies = true, $language = '', $where = '', $resultType = 'Assoc' , $firstOnly = false, $orderf = '', $orderdir = 'ASC')
+	{
+			
+		if ($resultType == '')
+			$resultType = "Assoc";			
+		$db =& JFactory::getDBO();
+		if ($countries)
+		{
+			if ($orderf == '')
+				$orderf = "hits DESC, id";
+			if ($language == '')
+			{
+				jimport('joomla.language.helper');
+				$lg = JLanguageHelper::detectLanguage();
+				$language = substr($lg,0,2);
+			}
+			$req= "select * from #__jaderp_countries";
+			$db->setQuery($req);
+			$row = $db->loadAssoc();
+			if (!array_key_exists($language, $row))
+				$language = "en";
+			$req = "SELECT id, hits, ".$language." as country FROM ".$db->nameQuote("#__jaderp_countries")." ".$where." ORDER BY ".$orderf." ".$orderdir;
+		}
+		else 
+		{
+			if ($orderf == '')
+				$orderf = "id";
+			if ($active_currencies)
+			{
+				if ($where == '')
+				{
+					$where = ' WHERE active_currency = '.$db->quote('1');
+				}
+				else 
+				{
+					$where = ' AND active_currency = '.$db->quote('1');
+				}
+			}
+			$req = "SELECT id, currency, iso4217, currency_symbol, currency_format, hits FROM ".$db->nameQuote("#__jaderp_countries")." ".$where." ORDER BY ".$orderf." ".$orderdir;
+		}
+		
+		$db->setQuery($req);
+		//echo $req;
+		switch ($resultType)
+		{
+			case 'Object': 	
+				if ($firstOnly)
+					$result = $db->loadObject();	
+				else 
+					$result = $db->loadObjectList();
+				break;
+			case 'Array':
+				if ($firstOnly)
+					$result = $db->loadRow();	
+				else 
+					$result = $db->loadRowList();
+				break;
+			case 'Assoc':
+			default:
+				if ($firstOnly)
+					$result = $db->loadAssoc();
+				else
+					$result = $db->loadAssocList();
+				break;
+		}
+				
+		if( !$result ) 
+		{
+			return false;
+		}
+		else
+			return $result;
+	}
+	
+	function tablesAccess($table_name)
+	{
+		if ($table_name =='')
+			return false;
+		$db =& JFactory::getDBO();
+		//$rows = $this->ReadTable('jaderp_tables');
+		$table = $this->ReadTable($table_name,'*', '', 'Assoc', true);
+		$row = $this->ReadTable('jaderp_tables','*', "WHERE table_name='".$table_name."'", 'Assoc', true);
+		if ($table)
+		{
+			$keys = array_keys($table);
+			echo "<pre>";
+			print_r($keys);
+			echo "</pre>";
+			$req = '';
+			foreach ($keys as $key)
+			{
+				$req = "INSERT INTO #__jaderp_tables_access (id, table_id, field_name, field_description,view_min_access_level, edit_min_access_level, add_min_access_level) VALUES ('','".$row['id']."', '".$key."', '', '".$row['del_min_access_level']."', '".$row['del_min_access_level']."', '".$row['del_min_access_level']."');";
+				echo $req;
+				$db->setQuery($req);
+				$re=$db->query();
+				if (!$re)
+				{
+					echo "echoue";
+				}
+			}
+		}		
+	}
+	
+	function accessRights($table, $action = 'ALL', $userid = 0)
+	{
+		$delete = false;
+		if ($userid == 0)
+		{
+			$checkuser = & JFactory::getUser();
+			$userid = $checkuser->get('id');
+		}
+		if ($action == '' || $action == 'ALL')
+		{
+			$actions = array('view', 'edit', 'add');
+		}
+		else 
+		{
+			if (strtolower($action) == 'view' || strtolower($action) == 'edit' || strtolower($action) == 'add')
+			{
+				$actions = array(strtolower($action));
+			}
+			else 
+				$delete = true;
+		}
+		$req = "SELECT a.access_level FROM #__jaderp_users as u INNER JOIN #__jaderp_access_levels as a ON a.id = u.access_level WHERE u.joomla_id='".$userid."'";
+		$db =& JFactory::getDBO();
+		$db->setQuery($req);
+		$result = $db->loadAssoc();
+		$row = $this->ReadTable('jaderp_tables', '*', "WHERE table_name='".$table."'", 'Assoc', true);
+		$access = array();
+		if ($row)
+		{
+			if ($delete)
+			{
+				if ($result['del_min_access_level'] <= $result['access_level'])
+					return true;
+				else 
+					return false;
+			}
+			else 
+			{
+				//echo $row['id'];
+				$fields = $this->ReadTable('jaderp_tables_access', '*', "WHERE table_id='".$row['id']."'");
+				if ($fields)
+				{
+					foreach ($fields as $field)
+					{
+						foreach ($actions as $action)
+						{
+							if (count($actions) == 1)
+								$caction = 'task';
+							else 
+								$caction = $action;
+							//echo $field[$action.'_min_access_level'];
+							if ($field[$action.'_min_access_level'] <= $result['access_level'])
+								$access[$field['field_name']][$caction] = true;
+							else 
+								$access[$field['field_name']][$caction] = false;
+						}	
+					}
+					return $access;
+				}
+				else 
+					return false;
+			}
+		}
+		else 
+			return false;
+		
+		//echo $result['access_level'];
+		
+	}
+	
+	function selectHTML($options, $name, $id = '', $firstoption='', $selected = '', $params='')
+	{
+		$idtag='';
+		if ($id != '')
+			$idtag = 'id="'.$id.'"';
+			
+		$html = '<select '.$idtag.' name="'.$name.'" '.$params.' >';
+		if ($firstoption != '')
+			$html .= '<option value="">'.$firstoption.'</option>';
+			foreach ($options as $option)
+			{
+				$selectd = '';
+				if ($selected != '')
+					$selectd = $selected == $option[0] ? 'selected="selected"':'';		
+				$html .= '<option '.$selectd.' value="'.$option[0].'">'.$option[1].'</option>';
+			}
+		$html .= '</select>';
+		
+		return $html;
+	}
+	
+	function getmenuId($option = '', $controler = '', $task = '')
+	{
+		$db =& JFactory::getDBO();
+		if ($option == '')
+		{
+			$option = JRequest::getCmd('option', 'com_jaderp');
+			$controller = JRequest::getCmd('func', '');
+			$task = JRequest::getCmd('task', 'desktop');
+		}
+		$req = "SELECT id FROM ".$db->nameQuote("#__jaderp_menu")." WHERE ".$db->nameQuote("option")."=".$db->quote($option)." AND ".$db->nameQuote("controller")."=".$db->quote($controller)." AND ".$db->nameQuote("task")."=".$db->quote($task);
+		$db->setQuery($req);
+		//echo $req;
+		$result = $db->loadAssoc();	
+		if( !$result ) 
+		{
+			return 0;
+		
+		}
+		else
+			return $result['id'];
 	}
 }
 	?>

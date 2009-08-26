@@ -93,7 +93,7 @@ class JaderpViewWorkers extends JView
 			
 		}
 		
-		$users = $JAdERPTool->ReadTable('jaderp_users', '', 'Array');
+		$users = $JAdERPTool->ReadTable('jaderp_users', '*', '', 'Array');
  		if (!$users)
  		{
 	 		$msg= JText::_('NO_USERS_IN_THE_BASE');

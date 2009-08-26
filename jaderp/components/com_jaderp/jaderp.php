@@ -21,7 +21,7 @@ defined('_JEXEC') or die('Restricted access');
 	require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
 	$JAdERPTool=& new JAdERPTools;
 	
-	$row = $JAdERPTool->ReadTable('jaderp_users','WHERE joomla_id='.$uid, 'Assoc', true);
+	$row = $JAdERPTool->ReadTable('jaderp_users', '*', 'WHERE joomla_id='.$uid, 'Assoc', true);
 
 	if ($row['forcepasschange'])
 	{

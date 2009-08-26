@@ -209,7 +209,6 @@ defined('_JEXEC') or die('Restricted access');
 <input type="hidden" value="<?php echo $this->worker->id;?>" name="cid[]"/>
 <?php echo JHTML::_( 'form.token' ); ?> 
 <input type="hidden" name="option" value="com_jaderp" />
-<input type="hidden" name="id" value="<?php echo $this->worker->id; ?>" />
 <input type="hidden" name="task" value="" />
 <?php
 	$menuid = JRequest::getInt('menuid', 0);

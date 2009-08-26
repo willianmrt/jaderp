@@ -385,7 +385,7 @@ class listingForm
 		if (count($contents) > 1)
 		{
 			$contentstring = '';
-			for ($i=0, $i < count($contents), $i+=2)
+			for ($i=0; $i < count($contents); $i+=2)
 			{
 				$contentstring .= $contents($i).$row[$contents($i+1)];
 			}
