@@ -32,8 +32,8 @@ $users =& JFactory::getUser();
 $uid=$users->id;
 if ($uid == 0) return;
 $db =& JFactory::getDBO();
-$jadusers = $JAdERPTool->ReadTable('jaderp_users', 'WHERE '.$db->nameQuote('joomla_id').'='.$db->Quote($uid), 'Assoc', true);
-$jaduserslevel = $JAdERPTool->ReadTable('jaderp_access_levels', 'WHERE '.$db->nameQuote('id').'='.$db->Quote($jadusers['access_level']), 'Assoc', true);
+$jadusers = $JAdERPTool->ReadTable('jaderp_users', '*', 'WHERE '.$db->nameQuote('joomla_id').'='.$db->Quote($uid), 'Assoc', true);
+$jaduserslevel = $JAdERPTool->ReadTable('jaderp_access_levels', '*', 'WHERE '.$db->nameQuote('id').'='.$db->Quote($jadusers['access_level']), 'Assoc', true);
 
 $query = 'SELECT m.id as id,
 			m.languagename,
@@ -57,7 +57,7 @@ $accnb=0;
 $selectacc=0;
 foreach ($menus as $row)
 	{ 
-		$userlevel = $JAdERPTool->ReadTable('jaderp_levels_menu', 'WHERE '.$db->nameQuote('menu_id').'='.$db->Quote($row->id).' AND '.$db->nameQuote('level_id').'='.$db->Quote($jaduserslevel['access_level']), 'Assoc', true);
+		$userlevel = $JAdERPTool->ReadTable('jaderp_levels_menu', '*', 'WHERE '.$db->nameQuote('menu_id').'='.$db->Quote($row->id).' AND '.$db->nameQuote('level_id').'='.$db->Quote($jaduserslevel['access_level']), 'Assoc', true);
 		if (!$userlevel || $userlevel['active'])
 		{
 			$query = 'SELECT m.id as id,
@@ -82,7 +82,7 @@ foreach ($menus as $row)
 				foreach($sousmenus as $row1)
 				{
 					
-					$userlevel1 = $JAdERPTool->ReadTable('jaderp_levels_menu', 'WHERE '.$db->nameQuote('menu_id').'='.$db->Quote($row1->id).' AND '.$db->nameQuote('level_id').'='.$db->Quote($jaduserslevel['access_level']), 'Assoc', true);
+					$userlevel1 = $JAdERPTool->ReadTable('jaderp_levels_menu', '*', 'WHERE '.$db->nameQuote('menu_id').'='.$db->Quote($row1->id).' AND '.$db->nameQuote('level_id').'='.$db->Quote($jaduserslevel['access_level']), 'Assoc', true);
 					if (!$userlevel1 || $userlevel1['active'])
 					{
 						{

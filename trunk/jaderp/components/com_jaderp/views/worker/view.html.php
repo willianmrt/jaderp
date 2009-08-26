@@ -15,7 +15,7 @@ class JaderpViewWorker extends JView
 	{
 		$doc =& JFactory::getDocument();
 		JHTML::script('datepicker.js','components/com_jaderp/js/',false );
-		JHTML::stylesheet('datepicker.css','components/com_jaderp/cs/');
+		JHTML::stylesheet('datepicker.css','components/com_jaderp/css/');
 		
 	/**	$doc->addScriptdeclaration(' 
 			var dp_config = {

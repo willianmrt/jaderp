@@ -14,7 +14,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
  * @package    Joomla.Tutorials
  * @subpackage Components
  */
-class JaderpControllerWorkers extends JaderpController
+class JaderpControllerSuppliers extends JaderpController
 {
 	/**
 	 * constructor (registers additional tasks to methods)
@@ -39,14 +39,14 @@ class JaderpControllerWorkers extends JaderpController
 	 */
 	function edit()
 	{
-		$model = & $this->getModel('Worker');
+		$model = & $this->getModel('Supplier');
 		$user =& JFactory::getUser();
 		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
 		$JAdERPTool =& new JAdERPTools;
-		/*
+		
 		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'menubar.php');
 		$menubars =& new menuBar;
-		*/
+		
 		if($user->get('id'))
 		{
 			$uid=$user->id;
@@ -54,7 +54,7 @@ class JaderpControllerWorkers extends JaderpController
 			if(!$access_level)
 			{
 				$msg= JText::_( 'YOU_DONT_HAVE_PERMISSION' ) ;
-				$this->setRedirect(JRoute::_('index.php?option=com_jaderp&task=desktop'), $msg, 'notice');
+				$this->setRedirect(JRoute::_('index.php?option=com_jaderp&func=Workers&task=manage'), $msg, 'notice');
 				return;
 			}
 			//echo $user->get('id');
@@ -87,7 +87,6 @@ class JaderpControllerWorkers extends JaderpController
 			
 		}
 		
-		$buttons = array("save", "cancel", "apply");
 		$menuid = JRequest::getInt('menuid', 0);
 		if ($menuid == 0)
 		{
@@ -107,18 +106,7 @@ class JaderpControllerWorkers extends JaderpController
 				$tacheText= JText::_($menutbl['languagename']);
 			}
 		}
-		$menubar = $JAdERPTool-> creatMenuBar($buttons, $tache, $tacheText, true, false,true);
-		echo $menubar;
-		
-		/* $menubars->writeHead($tache, $tacheText);
-		$menubars->addButton('save');
-		$menubars->addButton('edit');
-		$menubars->addButton('save');
-		$menubars->addButton('edit');
-		echo $menubars->getNumButtons();
-		$menubars->writeFoot();
-		$menubars->addDeclaration(false,false,'',80);
-		$menubars->render();*/
+
 		
 		if ($this->getTask() == 'edit')
 		{
@@ -139,52 +127,41 @@ class JaderpControllerWorkers extends JaderpController
 				submitform( pressbutton );
 				return;
 			}
-
-			if (form.mat.value == ""){
-				alert( "<?php echo JText::_( 'MAT_IS_REQUIRED', true ); ?>" );
-			} else if (form.lastname.value == ""){
-				alert( "<?php echo JText::_( 'LASTNAME_IS_REQUIRED', true ); ?>" );
-			} else if (form.firstname.value == ""){
-				alert( "<?php echo JText::_( 'FIRSTNAME_IS_REQUIRED', true ); ?>" );
- 			} else if (form.num_piece.value == ""){
- 				alert( "<?php echo JText::_( 'NUMPIECE_IS_REQUIRED', true ); ?>" );
-			} else if (form.startdate.value == ""){
- 				alert( "<?php echo JText::_( 'STARTDATE_IS_REQUIRED', true ); ?>" );
-			} else if (form.autopassword.checked == false && form.canaccess.checked == true){
-				xy="1";
-				if (form.password.value == '')
-				{
-					xy="2";
- 					alert( "<?php echo JText::_( 'PASSWORD_IS_REQUIRED', true ); ?>" );
-				} 
-				else
-				{
-					xy="3";
-					if (form.password1.value == "")
-					{
-						xy="4";
-	 					alert( "<?php echo JText::_( 'CONFIRM_PASSWORD_IS_REQUIRED', true ); ?>" );
-					}
-					else
-					{
-						xy="5";
-						if (form.password1.value != form.password.value)
-						{
-							xy="6";
-		 					alert( "<?php echo JText::_( 'CONFIRM_PASSWORD_IS_DIFFERENT', true ); ?>" );
-						} else {
-							submitform( pressbutton );
-					}				
-				}
+			alert (form.elements["country[]"].value);
+			if (form.elements["country[]"].value == ""){
+				alert( "<?php echo JText::_( 'COUNTRY_IS_REQUIRED', true ); ?>" );
+			} else if (form.code.value == ""){
+				alert( "<?php echo JText::_( 'CODE_IS_REQUIRED', true ); ?>" );
+			} else if (form.rsoc.value == ""){
+				alert( "<?php echo JText::_( 'COMPANY_NAME_IS_REQUIRED', true ); ?>" );
+ 			} else if (form.currency.value == ""){
+ 				alert( "<?php echo JText::_( 'CURRENCY_IS_REQUIRED', true ); ?>" );
+			} else if (form.address(0).value == ""){
+ 				alert( "<?php echo JText::_( 'ADDRESS_IS_REQUIRED', true ); ?>" );
 			} else {
 				submitform( pressbutton );
 			}
 		}
 		//-->
+
 		</script>
 		<?php
 		//$blockMenu = true;
-		JRequest::setVar( 'view', 'Worker' );
+		$menubars->writeHead($tache, $tacheText);			
+		$menubars->addButton('save');	
+		$menubars->addButton('cancel');
+		$menubars->addButton('apply');
+		/*$task = 'onclick="javascript:if(document.adminForm.boxchecked.value!=1){alert(\'Veuillez sélectionner une ligne de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'edit\')}"';
+		$menubars->addButton('edit',$task);
+		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner au moin un élément de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'remove\')}"';
+		$menubars->addButton('remove', $task);
+		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner au moin un élément de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'print\')}"';
+		$menubars->addButton('print', $task);*/
+		
+		$menubars->writeFoot();
+		$menubars->addDeclaration(false,false,'',140);
+		$menubars->render();
+		JRequest::setVar( 'view', 'Supplier' );
 		JRequest::setVar( 'layout', 'form'  );
 		parent::display();
 	}
@@ -357,7 +334,7 @@ class JaderpControllerWorkers extends JaderpController
 				$msg= JText::_( 'CANT_CHECKIN_ALERT' ) ;
 			}			
 		}	
-		$this->setRedirect( 'index.php?option=com_jaderp&func=Workers&task=manage', $msg );
+		$this->setRedirect( 'index.php?option=com_Jaderp&func=Workers&task=manage', $msg );
 	}
 	
 	// function listing() ADDED BY MEHDI
@@ -368,14 +345,10 @@ class JaderpControllerWorkers extends JaderpController
 		$user =& JFactory::getUser();
 		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
 		$JAdERPTool =& new JAdERPTools;
-		//$JAdERPTool->tablesAccess('jaderp_contacts');
-		/*$accesses = $JAdERPTool->accessRights('jaderp_contacts', 'add');
-		echo $accesses['name']['add'];
-		echo '<pre>';
-			print_r($accesses);
-		echo '</pre>';*/
+		
 		if($user->get('id'))
 		{
+			$uid=$user->id;
 			$access_level = $JAdERPTool->UserAccessLevel();
 			if(!$access_level)
 			{
@@ -391,10 +364,6 @@ class JaderpControllerWorkers extends JaderpController
 		}
 		$buttons = array("save", "cancel", "edit", "apply");
 		$menuid = JRequest::getInt('menuid', 0);
-		if ($menuid == 0)
-		{
-			$menuid = JAdERPTools::getmenuId();
-		}
 		if ($menuid)
 		{
 			$db = JFactory::getDBO();
@@ -436,7 +405,7 @@ Paramètres</span>
 		
 		$menubars->writeFoot();
 		$menubars->addDeclaration(false,false,'',140);
-		$menubars->render();	
+		$menubars->render();
 		JRequest::setVar( 'view', 'workers' );
 		JRequest::setVar( 'layout', 'listing'  );
 		parent::display(false);
