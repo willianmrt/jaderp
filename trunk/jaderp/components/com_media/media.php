@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: media.php 10381 2008-06-01 03:35:53Z pasamio $
+ * @version		$Id: media.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla
  * @subpackage	Massmail
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant to the
  * GNU General Public License, and as distributed it includes or is derivative
@@ -14,18 +14,15 @@
 
 // no direct access
 defined('_JEXEC') or die('Restricted access');
-
+$params =& JComponentHelper::getParams('com_media');
 // Make sure the user is authorized to view this page
 $user = & JFactory::getUser();
 if (!$user->authorize( 'com_media', 'popup' )) {
 	$mainframe->redirect('index.php', JText::_('ALERTNOTAUTH'));
 }
 
-// Get the media component configuration settings
-$params =& JComponentHelper::getParams('com_media');
-
 // Set the path definitions
-define('COM_MEDIA_BASE',    JPATH_ROOT.DS.$params->get('image_path', 'images'.DS.'stories'));
+define('COM_MEDIA_BASE',    JPath::clean(JPATH_ROOT.DS.$params->get('image_path', 'images'.DS.'stories')));
 define('COM_MEDIA_BASEURL', JURI::root(true).'/'.$params->get('image_path', 'images/stories'));
 
 // Load the admin HTML view

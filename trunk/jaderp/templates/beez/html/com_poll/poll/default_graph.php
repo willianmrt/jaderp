@@ -1,4 +1,4 @@
-<?php // @version $Id: default_graph.php 10381 2008-06-01 03:35:53Z pasamio $
+<?php // @version $Id: default_graph.php 12230 2009-06-21 02:07:34Z ian $
 defined('_JEXEC') or die('Restricted access');
 ?>
 
@@ -12,10 +12,10 @@ defined('_JEXEC') or die('Restricted access');
 </dl>
 
 <h3>
-	<?php echo $this->poll->title; ?>
+	<?php echo $this->escape($this->poll->title); ?>
 </h3>
 
-<table class="pollstableborder">
+<table class="pollstableborder"><?php JPlugin::loadLanguage( 'tpl_beez' ); ?>
 	<tr>
 		<th id="itema" class="td_1"><?php echo JText::_( 'Hits' ); ?></th>
 		<th id="itemb" class="td_2"><?php echo JText::_( 'Percent' ); ?></th>

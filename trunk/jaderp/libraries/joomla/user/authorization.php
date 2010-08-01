@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: authorization.php 10834 2008-08-28 10:38:50Z eddieajau $
+* @version		$Id: authorization.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla.Framework
 * @subpackage	User
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -147,6 +147,9 @@ class JAuthorization extends gacl_api
 		$this->addACL( 'com_media', 'popup', 'users', 'author' );
 		$this->addACL( 'com_media', 'popup', 'users', 'editor' );
 		$this->addACL( 'com_media', 'popup', 'users', 'publisher' );
+		$this->addACL( 'com_media', 'upload', 'users', 'super administrator' );
+		$this->addACL( 'com_media', 'upload', 'users', 'administrator' );
+		$this->addACL( 'com_media', 'upload', 'users', 'manager' );
 
 		$this->addACL( 'com_menus', 'manage', 'users', 'administrator' );
 		$this->addACL( 'com_menus', 'manage', 'users', 'super administrator' );

@@ -1,9 +1,9 @@
 <?php
 /**
- * @version		$Id: file.php 11656 2009-03-08 20:05:54Z willebil $
+ * @version		$Id: file.php 14401 2010-01-26 14:10:00Z louis $
  * @package		Joomla.Framework
  * @subpackage	FileSystem
- * @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
  * @license		GNU/GPL, see LICENSE.php
  * Joomla! is free software. This version may have been modified pursuant
  * to the GNU General Public License, and as distributed it includes or
@@ -334,9 +334,10 @@ class JFile
 			$dest = JPath::clean(str_replace(JPATH_ROOT, $FTPOptions['root'], $dest), '/');
 
 			// Copy the file to the destination directory
-			if ($ftp->store($src, $dest)) {
-				$ftp->chmod($dest, 0777);
-				$ret = true;
+			if (is_uploaded_file($src) && $ftp->store($src, $dest))
+			{
+			            $ret = true;
+                		unlink($src);
 			} else {
 				JError::raiseWarning(21, JText::_('WARNFS_ERR02'));
 			}
@@ -374,7 +375,11 @@ class JFile
 	 * @since 1.5
 	 */
 	function getName($file) {
-		$slash = strrpos($file, DS) + 1;
-		return substr($file, $slash);
+		$slash = strrpos($file, DS);
+		if ($slash !== false) {
+			return substr($file, $slash + 1);
+		} else {
+			return $file;
+		}
 	}
 }

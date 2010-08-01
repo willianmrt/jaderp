@@ -29,8 +29,8 @@ class JA_Tools {
 		if (isset($_COOKIE[$this->template.'_tpl']) && $_COOKIE[$this->template.'_tpl'] == $this->template){
 			foreach($this->_params_cookie as $k=>$v) {
 				$kc = $this->template."_".$k;
-				if (isset($_GET[$k])){
-					$v = $_GET[$k];
+				if (JRequest::getVar($k, null, 'GET') !== null) {
+					$v = preg_replace('/[\x00-\x1F\x7F<>;\/\"\'%()]/', '', JRequest::getString($k, '', 'GET'));
 					setcookie ($kc, $v, $exp, '/');
 				}else{
 					if (isset($_COOKIE[$kc])){
@@ -48,9 +48,9 @@ class JA_Tools {
 
 	function getParam ($param, $default='') {
 		if (isset($this->_params_cookie[$param])) {
-			return $this->_params_cookie[$param];
+			return preg_replace('/[\x00-\x1F\x7F<>;\/\"\'%()]/', '', $this->_params_cookie[$param]);
 		}
-		return $this->_tpl->params->get($param, $default);
+		return preg_replace('/[\x00-\x1F\x7F<>;\/\"\'%()]/', '', $this->_tpl->params->get($param, $default));
 	}
 
 	function setParam ($param, $value) {
@@ -103,14 +103,13 @@ class JA_Tools {
 		}
 
 		$user	=& JFactory::getUser();
-		if (isset($user))
-		{
+		$sql = 'SELECT count(*) FROM #__menu AS m'
+			. ' WHERE menutype=' . $database -> Quote($menutype)
+			. ' AND published=1 AND parent=0 and ordering < ' . $ordering
+		;
+		if (isset($user)) {
 			$aid = $user->get('aid', 0);
-			$sql = "SELECT count(*) FROM #__menu AS m"
-			. "\nWHERE menutype='". $menutype ."' AND published='1' AND access <= '$aid' AND parent=0 and ordering < $ordering";
-		} else {
-			$sql = "SELECT count(*) FROM #__menu AS m"
-			. "\nWHERE menutype='". $menutype ."' AND published='1' AND parent=0 and ordering < $ordering";
+			$sql .= " AND access <= '$aid'";
 		}
 		$database->setQuery($sql);
 
@@ -180,7 +179,7 @@ class JA_Tools {
 
 		//read all files from the  directory, checks if are images and ads them to a list (see below how to display flash banners)
 		while ($file = $imgs->read()) {
-			if (eregi("gif", $file) || eregi("jpg", $file) || eregi("png", $file))
+			if (preg_match("#gif#i", $file) || preg_match("#jpg#i", $file) || preg_match("#png#i", $file))
 				$imglist[] = $file;
 		}
 		closedir($imgs->handle);
