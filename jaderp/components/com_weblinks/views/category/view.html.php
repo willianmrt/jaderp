@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: view.html.php 10752 2008-08-23 01:53:31Z eddieajau $
+* @version		$Id: view.html.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla
 * @subpackage	Weblinks
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -48,7 +48,7 @@ class WeblinksViewCategory extends JView
 		$state		= &$this->get('state');
 
 		$model =& JModel::getInstance('categories', 'weblinksmodel');
-		$categories =& $model->getData();
+		$categories = $model->getData();
 
 		// Get the page/component configuration
 		$params = &$mainframe->getParams();
@@ -117,7 +117,7 @@ class WeblinksViewCategory extends JView
 
 			$link = JRoute::_( 'index.php?view=weblink&catid='.$category->slug.'&id='. $item->slug);
 
-			$menuclass = 'category'.$params->get( 'pageclass_sfx' );
+			$menuclass = 'category'.$this->escape($params->get( 'pageclass_sfx' ));
 
 			$itemParams = new JParameter($item->params);
 			switch ($itemParams->get('target', $params->get('target')))

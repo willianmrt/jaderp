@@ -1,8 +1,8 @@
 <?php
 /**
-* @version		$Id: helper.php 11674 2009-03-08 20:42:10Z willebil $
+* @version		$Id: helper.php 14401 2010-01-26 14:10:00Z louis $
 * @package		Joomla
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -28,7 +28,7 @@ jimport('joomla.utilities.simplexml');
  */
 class modMainMenuHelper
 {
-	function buildXML(&$params)
+	function buildXML($params)
 	{
 		$menu = new JMenuTree($params);
 		$items = &JSite::getMenu();
@@ -300,8 +300,22 @@ class JMenuTree extends JTree
 
 		$iParams = new JParameter($tmp->params);
 		if ($params->get('menu_images') && $iParams->get('menu_image') && $iParams->get('menu_image') != -1) {
-			$imgalign = $params->get('menu_images_align', 0) == 1 ? 'right' : 'left';
-			$image = '<img src="'.JURI::base(true).'/images/stories/'.$iParams->get('menu_image').'" align="'.$imgalign.'" alt="'.$item->alias.'" />';
+			switch ($params->get('menu_images_align', 0)){
+				case 0 : 
+				$imgalign='align="left"';
+				break;
+				
+				case 1 :
+				$imgalign='align="right"';
+				break;
+				
+				default :
+				$imgalign='';
+				break;
+			}
+				
+			
+			$image = '<img src="'.JURI::base(true).'/images/stories/'.$iParams->get('menu_image').'" '.$imgalign.' alt="'.$item->alias.'" />';
 			if($tmp->ionly){
 				 $tmp->name = null;
 			 }
