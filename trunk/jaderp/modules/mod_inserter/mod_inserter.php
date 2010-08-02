@@ -128,6 +128,10 @@ if ($menus)
 			}
 		}
 }
+else
+{
+	echo "you don't have access";
+}
 echo "</div></div>";
 
 
