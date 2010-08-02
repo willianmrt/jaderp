@@ -90,6 +90,14 @@ div#logo {
 	margin-left: 30px;
 	margin-top: 25px;
 }
+div#jaderpLogo {
+	left: 0;
+	top: 0;
+	float: right;
+	width: 298px;
+	height: 75px;
+	background: url(../images/jaderp_logo.png) 0 0 no-repeat;
+}
 
 div#newsflash {
 	width: auto;
