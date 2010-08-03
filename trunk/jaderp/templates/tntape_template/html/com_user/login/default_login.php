@@ -11,7 +11,7 @@
 		$document->addScriptDeclaration( $langScript );
 		JHTML::_('script', 'openid.js');
 endif; ?>
-<form action="<?php echo JRoute::_( 'index.php', true, $this->params->get('usesecure')); ?>" method="post" name="com-login" id="com-form-login">
+<form action="<?php echo JRoute::_( 'index.php', true, $this->params->get('usesecure')); ?>" method="post" name="login" id="com-form-login">
 	<p id="com-form-login-username">
 		<label for="username"><?php echo JText::_('Username') ?></label><br />
 		<input name="username" id="username" type="text" class="inputbox" alt="username" size="18" />
@@ -29,7 +29,7 @@ endif; ?>
 	<div class="button_holder">
 	<div class="button1">
 		<div class="next">
-			<a onclick="com-login.submit();">
+			<a onclick="login.submit();">
 				<?php echo JText::_( 'LOGIN' ); ?></a>
 		</div>
 	</div>
