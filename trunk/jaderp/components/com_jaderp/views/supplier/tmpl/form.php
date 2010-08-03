@@ -4,7 +4,7 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 		<div id="readroot" style="display: none">
 			<fieldset id="contactfields" style="display: block">
-			  <legend><?php echo JText::_('CONTACT_INFO'); ?>:</legend>
+			  <legend><?php echo JText::_('SUPPLIER_CONTACT_INFO'); ?>:</legend>
 			  <!--Supplier Country-->
 			  <fieldset id="contactfields" style="display: block">
 			  	<?php if ($this->contactAccesses['name']['task']) { ?>
@@ -62,7 +62,7 @@ defined('_JEXEC') or die('Restricted access');
 				 <?php } ?>
 				 <?php if ($this->contactAccesses['telephone2']['task']) { ?> 
 				  <div class="FormElements">
-				    <label for="telephone1"><?php echo JText::_('PHONE_NUMBER'); ?>:</label>
+				    <label for="telephone1"><?php echo JText::_('PHONE_NUMBER2'); ?>:</label>
 				    <br />
 				    <input name="telephone1[]" type="text" id="telephone1" size="25"/>
 				  </div>
@@ -215,10 +215,10 @@ defined('_JEXEC') or die('Restricted access');
   <span id="writeroot"></span>
   </div>
  <div style="float:left;">
- <input type="button" id="moreFields"  value="<?php echo JText::_('MORE_CONTACTS'); ?>"  /> 
+ <input type="button" id="moreFields"  value="<?php echo JText::_('SUPPLIER_MORE_CONTACTS'); ?>"  /> 
  </div>
  <div id="removelast" style="display: none; float:left;" >
- <input type="button" id="removeFields"  value="<?php echo JText::_('REMOVE_LAST_CONTACTS'); ?>"  />
+ <input type="button" id="removeFields"  value="<?php echo JText::_('SUPPLIER_REMOVE_LAST_CONTACTS'); ?>"  />
  </div>
  <input type="hidden" value="<?php echo $this->supplier->id;?>" name="id"/>
 <input type="hidden" value="<?php echo $this->supplier->id;?>" name="cid[]"/>
