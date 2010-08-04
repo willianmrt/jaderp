@@ -1,6 +1,6 @@
 <?php defined('_JEXEC') or die('Restricted access'); ?>
 <?php 
-echo JHTML::script('mootools.js','media/system/js/',true );
+echo JHTML::stylesheet('login.css','templates/tntape_template/css/');
 ?>
 <div id="element-box" class="login">
 	<div class="t">

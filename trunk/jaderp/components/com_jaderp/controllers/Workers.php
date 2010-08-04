@@ -423,9 +423,9 @@ Paramètres</span>
 <?php
 		$menubars->writeHead($tache, $tacheText);
 		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner dans la liste les éléments à\');}else{  submitbutton(\'publish\')}"';
-		$menubars->addButton('publish',$task);
+		//$menubars->addButton('publish',$task);
 		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner dans la liste les éléments à\');}else{  submitbutton(\'unpublish\')}"';
-		$menubars->addButton('unpublish',$task);				
+		//$menubars->addButton('unpublish',$task);				
 		$menubars->addButton('add');	
 		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value!=1){alert(\'Veuillez sélectionner une ligne de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'edit\')}"';
 		$menubars->addButton('edit',$task);
