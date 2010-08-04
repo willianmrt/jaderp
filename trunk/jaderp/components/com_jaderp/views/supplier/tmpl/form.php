@@ -17,7 +17,7 @@ defined('_JEXEC') or die('Restricted access');
 			  	<?php } ?>
 			  	<?php if ($this->contactAccesses['con_position']['task']) { ?>
 				  <div class="FormElements">
-				    <label for="supplierposition"><?php echo JText::_('POSITION'); ?>:</label>
+				    <label for="supplierposition"><?php echo JText::_('ROLE'); ?>:</label>
 				    <br />
 				    <input name="position[]" type="text" id="supplierposition" size="25"/>
 				  </div>
@@ -57,28 +57,28 @@ defined('_JEXEC') or die('Restricted access');
 				  <div class="FormElements">
 				    <label for="telephone"><?php echo JText::_('PHONE_NUMBER'); ?>:</label>
 				    <br />
-				    <input name="telephone[]" type="text" id="telephone" size="25" />
+				    <input name="telephone[]" type="text" id="telephone" size="25" class="numeric" />
 				  </div>
 				 <?php } ?>
 				 <?php if ($this->contactAccesses['telephone2']['task']) { ?> 
 				  <div class="FormElements">
 				    <label for="telephone1"><?php echo JText::_('PHONE_NUMBER2'); ?>:</label>
 				    <br />
-				    <input name="telephone1[]" type="text" id="telephone1" size="25"/>
+				    <input name="telephone1[]" type="text" id="telephone1" size="25" class="numeric" />
 				  </div>
 				 <?php } ?>
 				 <?php if ($this->contactAccesses['mobile']['task']) { ?> 
 				  <div class="FormElements">
 				    <label for="mobile"><?php echo JText::_('MOBILE_NUMBER'); ?>:</label>
 				    <br />
-				    <input name="mobile[]" type="text" id="mobile" size="25"/>
+				    <input name="mobile[]" type="text" id="mobile" size="25" class="numeric" />
 				  </div>
 				 <?php } ?>
 				 <?php if ($this->contactAccesses['fax']['task']) { ?> 		  
 				  <div class="FormElements">
 				    <label for="fax"><?php echo JText::_('FAX_NUMBER'); ?>:</label>
 				    <br />
-				    <input name="fax[]" type="text" id="fax" size="25"/>
+				    <input name="fax[]" type="text" id="fax" size="25" class="numeric" />
 				  </div>
 				<?php } ?>
 				</fieldset>
@@ -135,15 +135,15 @@ defined('_JEXEC') or die('Restricted access');
       <!--Supplier Code-->
 	<?php if ($this->supplierAccesses['code']['task']) { ?> 
       <div class="FormElements">
-        <label for="supplierCode"><?php echo JText::_('SUPPLIER_CODE'); ?>:</label>
+        <label for="supplierCode"><?php echo JText::_('CODE'); ?>:</label>
         <br />
-        <input name="code" size="20" type="text" id="supplierCode" />
+        <input name="code" size="20" type="text" id="supplierCode" class="numeric" />
       </div>
     <?php } ?>
 	<?php if ($this->supplierAccesses['rsoc']['task']) { ?> 
       <!--Supplier Company -->
       <div class="FormElements">
-        <label for="supplierCompany"><?php echo JText::_('SUPPLIER_COMPANY'); ?>:</label>
+        <label for="supplierCompany"><?php echo JText::_('COMPANY'); ?>:</label>
         <br />
         <input name="rsoc" type="text" id="supplierCompany" size="80" />
       </div>
@@ -151,7 +151,7 @@ defined('_JEXEC') or die('Restricted access');
 	<?php if ($this->supplierAccesses['responsable']['task']) { ?> 
       <!--Supplier Responsible -->
       <div class="FormElements">
-        <label for="supplierResponsible"><?php echo JText::_('SUPPLIER_RESPONSIBLE'); ?>:</label>
+        <label for="supplierResponsible"><?php echo JText::_('RESPONSIBLE'); ?>:</label>
         <br />
         <input name="responsable" type="text" id="supplierResponsible" size="40" />
       </div>
@@ -159,7 +159,7 @@ defined('_JEXEC') or die('Restricted access');
 	<?php if ($this->supplierAccesses['currency']['task']) { ?> 
       <!--Supplier Currency-->
       <div class="FormElements">
-        <label for="supplierCurrency"><?php echo JText::_('SUPPLIER_CURRENCY'); ?>:</label>
+        <label for="supplierCurrency"><?php echo JText::_('CURRENCY'); ?>:</label>
         <br />
         <?php echo $this->currencies; ?>
         <!--<input name="currency" type="text" id="supplierCurrency" />-->
@@ -168,24 +168,24 @@ defined('_JEXEC') or die('Restricted access');
 	<?php if ($this->supplierAccesses['max_credit']['task']) { ?> 
       <!--Supplier Allowed Credit-->
       <div class="FormElements">
-        <label for="supplierAllowedCredit"><?php echo JText::_('SUPPLIER_ALLOWED_CREDIT'); ?>:</label>
+        <label for="supplierAllowedCredit"><?php echo JText::_('ALLOWED_CREDIT'); ?>:</label>
         <br />
-        <input name="max_credit" type="text" id="supplierAllowedCredit" />
+        <input name="max_credit" type="text" id="supplierAllowedCredit" class="numeric" />
       </div>
     <?php } ?>
 	<?php if ($this->supplierAccesses['initial_credit']['task']) { ?> 
       <!--Supplier Initial Balance-->
       <div class="FormElements">
-        <label for="supplieInitialBalance"><?php echo JText::_('SUPPLIER_BALANCE'); ?>:</label>
+        <label for="supplieInitialBalance"><?php echo JText::_('BALANCE'); ?>:</label>
         <br />
-        <input name="initial_credit" type="text" id="supplieInitialBalance" />
+        <input name="initial_credit" type="text" id="supplieInitialBalance" class="numeric" />
       </div>
     <?php } ?>
 	<?php if ($this->supplierAccesses['swift']['task']) { ?> 
       <div class="FormElements">
         <label for="supplierSwift"><?php echo JText::_('SWIFT_NUMBER'); ?>:</label>
         <br />
-        <input name="swift" type="text" id="supplierSwift" />
+        <input name="swift" type="text" id="supplierSwift" class="numeric" />
       </div>
     <?php } ?>
 	<?php if ($this->supplierAccesses['bank_name']['task']) { ?> 
@@ -206,7 +206,7 @@ defined('_JEXEC') or die('Restricted access');
       <div class="FormElements">
         <label for="supplierBankAccount"><?php echo JText::_('BANK_ACCOUNT_NUMBER'); ?>:</label>
         <br />
-        <input name="account_number" type="text" id="supplierBankAccount" size="40" />
+        <input name="account_number" type="text" id="supplierBankAccount" size="40" class="numeric" />
       </div>
     <?php } ?>
     </fieldset>
@@ -215,7 +215,7 @@ defined('_JEXEC') or die('Restricted access');
   <span id="writeroot"></span>
   </div>
  <div style="float:left;">
- <input type="button" id="moreFields"  value="<?php echo JText::_('SUPPLIER_MORE_CONTACTS'); ?>"  /> 
+ <input type="button" id="moreFields"  value="<?php echo JText::_('MORE_CONTACTS'); ?>"  /> 
  </div>
  <div id="removelast" style="display: none; float:left;" >
  <input type="button" id="removeFields"  value="<?php echo JText::_('SUPPLIER_REMOVE_LAST_CONTACTS'); ?>"  />
