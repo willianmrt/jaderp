@@ -11,10 +11,10 @@ $user = JFactory::getUser();?>
           <td width="100%" align="left"> Filtre:
             <input type="text" onchange="document.adminForm.submit();" class="text_area" value="<?php echo $this->search; ?>" id="filter" name="search"/>
             <button onclick="this.form.submit();">Aller</button>
-            <button onclick="document.getElementById('filter').value=''; document.getElementById('filter_dep').value=0; document.getElementById('filter_branch').value=0; document.getElementById('filter_access').value=0; document.getElementById('filter_presence').value=0; this.form.submit();">Remsie � z�ro</button></td>
+            <button onclick="document.getElementById('filter').value=''; document.getElementById('filter_dep').value=0; document.getElementById('filter_branch').value=0; document.getElementById('filter_access').value=0; document.getElementById('filter_presence').value=0; this.form.submit();">Remsie à zéro</button></td>
           <td nowrap="nowrap">
           <select onchange="this.form.submit()" size="1" class="inputbox" id="filter_dep" name="filter_dep">
-            <option value="0">- S&eacute;lectionnez le d&eacute;partement -</option>
+            <option value="0">- <?php echo JText::_('WORKERLIST_SELECT_DEPARTMENT');?> -</option>
             <?php
             	foreach ($this->departments as $department)
             	{	
@@ -24,7 +24,7 @@ $user = JFactory::getUser();?>
             ?>
           </select>
             <select onchange="submitform( );" size="1" class="inputbox" id="filter_branch" name="filter_branch">
-              <option value="0">- S&eacute;lectionner Succursale -</option>
+              <option value="0">- <?php echo JText::_('WORKERLIST_SELECT_SUCCURSALE');?> -</option>
 	            <?php
 	            	foreach ($this->branchs as $branch)
 	            	{	
@@ -34,15 +34,15 @@ $user = JFactory::getUser();?>
 	            ?>
             </select>
             <select onchange="this.form.submit()" size="1" class="inputbox" id="filter_access" name="filter_access">
-              <option value="0">- S&eacute;lectionnez un &eacute;tat -</option>
-              <option <?php echo $this->filter_access == 1 ? 'selected="selected"':''; ?> value="1">n'a pas acc&egrave;s</option>
-			  <option <?php echo $this->filter_access == 2 ? 'selected="selected"':''; ?> value="2">a un acc&egrave;s</option>              
-              <option <?php echo $this->filter_access == 3 ? 'selected="selected"':''; ?> value="3">bloqu&eacute;</option>
+              <option value="0">- <?php echo JText::_('WORKERLIST_SELECT_ETAT');?> -</option>
+              <option <?php echo $this->filter_access == 1 ? 'selected="selected"':''; ?> value="1"><?php echo JText::_('WORKERLIST_SELECT_HAVENT_ACCESS');?></option>
+			  <option <?php echo $this->filter_access == 2 ? 'selected="selected"':''; ?> value="2"><?php echo JText::_('WORKERLIST_SELECT_HAVE_ACCESS');?></option>              
+              <option <?php echo $this->filter_access == 3 ? 'selected="selected"':''; ?> value="3"><?php echo JText::_('WORKERLIST_SELECT_HAVENT_BLOCKED_ACCESS');?></option>
             </select>
             <select onchange="this.form.submit()" size="1" class="inputbox" id="filter_presence" name="filter_presence">
-              <option value="0">- S&eacute;lectionnez la pr&eacute;sence -</option>
-              <option <?php echo $this->filter_presence == 2 ? 'selected="selected"':''; ?> value="2">Pr&eacute;sent</option>
-              <option <?php echo $this->filter_presence == 1 ? 'selected="selected"':''; ?> value="1">Absent</option>
+              <option value="0">- <?php echo JText::_('WORKERLIST_SELECT_PRESENCE');?> -</option>
+              <option <?php echo $this->filter_presence == 2 ? 'selected="selected"':''; ?> value="2"><?php echo JText::_('WORKERLIST_SELECT_PRESENT');?></option>
+              <option <?php echo $this->filter_presence == 1 ? 'selected="selected"':''; ?> value="1"><?php echo JText::_('WORKERLIST_SELECT_ABSENT');?></option>
             </select></td>
         </tr>
       </tbody>
@@ -62,23 +62,23 @@ $user = JFactory::getUser();?>
           	<?php echo JHTML::_('grid.sort',   JText::_('WORKER_FIRST_NAME'), 'm.firstname', $this->neworderdir, $this->neworder ); ?>
           </th>
           <th nowrap="nowrap" width="92">
-         	 <?php echo JHTML::_('grid.sort',   JText::_('DEPARTMENT_NAME'), 'm.department', $this->neworderdir, $this->neworder ); ?>
+         	 <?php echo JHTML::_('grid.sort',   JText::_('WORKER_DEPARTMENT'), 'm.department', $this->neworderdir, $this->neworder ); ?>
           </th>
           <th nowrap="nowrap" width="76">
-          	<?php echo JHTML::_('grid.sort',   JText::_('BRANCH_NAME'), 'm.branch', $this->neworderdir, $this->neworder ); ?>
+          	<?php echo JHTML::_('grid.sort',   JText::_('WORKER_BRANCH'), 'm.branch', $this->neworderdir, $this->neworder ); ?>
           </th>
           
           <th nowrap="nowrap" width="55">
-          	<?php echo JHTML::_('grid.sort',   JText::_('POSITION_NAME'), 'm.position', $this->neworderdir, $this->neworder ); ?>
+          	<?php echo JHTML::_('grid.sort',   JText::_('WORKER_ROLE'), 'm.position', $this->neworderdir, $this->neworder ); ?>
           </th>
           <th nowrap="nowrap" width="47">
           	<?php echo JHTML::_('grid.sort',   JText::_('WORKER_EMAIL'), 'm.email', $this->neworderdir, $this->neworder ); ?>
           </th>
           <th nowrap="nowrap" width="29">
-          	<?php echo JHTML::_('grid.sort',   JText::_('PRESENCE_NAME'), 'm.present', $this->neworderdir, $this->neworder ); ?>
+          	<?php echo JHTML::_('grid.sort',   JText::_('WORKER_AVAIBILITY'), 'm.present', $this->neworderdir, $this->neworder ); ?>
           </th>
           <th nowrap="nowrap" width="61" class="title">
-          	<?php echo JHTML::_('grid.sort',   JText::_('WORKER_STATE'), 'm.canaccess', $this->neworderdir, $this->neworder ); ?>
+          	<?php echo JHTML::_('grid.sort',   JText::_('WORKER_ACCESS'), 'm.canaccess', $this->neworderdir, $this->neworder ); ?>
           </th>
         </tr>
       </thead>
