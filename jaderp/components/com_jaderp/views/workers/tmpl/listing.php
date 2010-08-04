@@ -56,10 +56,10 @@ $user = JFactory::getUser();?>
           	<?php echo JHTML::_('grid.sort',   JText::_('WORKER_CODE'), 'm.mat', $this->neworderdir, $this->neworder ); ?>
           </th>
           <th width="57" class="title">
-         	 <?php echo JHTML::_('grid.sort',   JText::_('WORKER_LAST_NAME'), 'm.lastname', $this->neworderdir, $this->neworder ); ?>
+         	 <?php echo JHTML::_('grid.sort',   JText::_('LAST_NAME'), 'm.lastname', $this->neworderdir, $this->neworder ); ?>
           </th>
           <th width="56" class="title">
-          	<?php echo JHTML::_('grid.sort',   JText::_('WORKER_FIRST_NAME'), 'm.firstname', $this->neworderdir, $this->neworder ); ?>
+          	<?php echo JHTML::_('grid.sort',   JText::_('FIRST_NAME'), 'm.firstname', $this->neworderdir, $this->neworder ); ?>
           </th>
           <th nowrap="nowrap" width="92">
          	 <?php echo JHTML::_('grid.sort',   JText::_('WORKER_DEPARTMENT'), 'm.department', $this->neworderdir, $this->neworder ); ?>
@@ -69,10 +69,10 @@ $user = JFactory::getUser();?>
           </th>
           
           <th nowrap="nowrap" width="55">
-          	<?php echo JHTML::_('grid.sort',   JText::_('WORKER_ROLE'), 'm.position', $this->neworderdir, $this->neworder ); ?>
+          	<?php echo JHTML::_('grid.sort',   JText::_('ROLE'), 'm.position', $this->neworderdir, $this->neworder ); ?>
           </th>
           <th nowrap="nowrap" width="47">
-          	<?php echo JHTML::_('grid.sort',   JText::_('WORKER_EMAIL'), 'm.email', $this->neworderdir, $this->neworder ); ?>
+          	<?php echo JHTML::_('grid.sort',   JText::_('EMAIL'), 'm.email', $this->neworderdir, $this->neworder ); ?>
           </th>
           <th nowrap="nowrap" width="29">
           	<?php echo JHTML::_('grid.sort',   JText::_('WORKER_AVAIBILITY'), 'm.present', $this->neworderdir, $this->neworder ); ?>

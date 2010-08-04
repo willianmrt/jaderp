@@ -11,17 +11,17 @@ defined('_JEXEC') or die('Restricted access');
       <div class="FormElements">
         <label for="mat"><?php echo JText::_('WORKER_CODE'); ?>:</label>
         <br />
-        <input name="mat" type="text" id="mat" value="<?php echo $this->worker->mat;?>" />
+        <input name="mat" type="text" id="mat" value="<?php echo $this->worker->mat;?>" class="numeric" />
       </div>
       <!--Worker Last Name-->
       <div class="FormElements">
-        <label for="lastname"><?php echo JText::_('WORKER_LAST_NAME'); ?>:</label>
+        <label for="lastname"><?php echo JText::_('LAST_NAME'); ?>:</label>
         <br />
         <input name="lastname" type="text" id="lastname" value="<?php echo $this->worker->lastname;?>"/>
       </div>
       <!--Worker First Name-->
       <div class="FormElements">
-        <label for="firstname"><?php echo JText::_('WORKER_FIRST_NAME'); ?>:</label>
+        <label for="firstname"><?php echo JText::_('FIRST_NAME'); ?>:</label>
         <br />
         <input name="firstname" type="text" id="firstname" value="<?php echo $this->worker->firstname;?>"/>
       </div>
@@ -41,39 +41,39 @@ defined('_JEXEC') or die('Restricted access');
 		</select>
       </div>	
 	  <div class="FormElements">      	
-        <label for="num_piece"><?php echo JText::_('WORKER_CIN_NUMBER'); ?>:</label>
+        <label for="num_piece"><?php echo JText::_('CIN_NUMBER'); ?>:</label>
         <br />
-        <input name="num_piece" type="text" id="num_piece" value="<?php echo $this->worker->num_piece;?>" />
+        <input name="num_piece" type="text" id="num_piece" value="<?php echo $this->worker->num_piece;?>" class="numeric" />
       </div>
       <!--Worker Email-->
       <div class="FormElements">
-        <label for="email"><?php echo JText::_('WORKER_EMAIL'); ?>:</label>
+        <label for="email"><?php echo JText::_('EMAIL'); ?>:</label>
         <br />
         <input name="email" type="text" id="email" value="<?php echo $this->worker->email;?>" />
       </div>
       <!--Worker Phone-->
       <div class="FormElements">
-        <label for="phone"><?php echo JText::_('WORKER_PHONE'); ?>:</label>
+        <label for="phone"><?php echo JText::_('PHONE_NUMBER'); ?>:</label>
         <br />
-        <input name="phone" type="text" id="phone" value="<?php echo $this->worker->phone;?>"/>
+        <input name="phone" type="text" id="phone" value="<?php echo $this->worker->phone;?>" class="numeric" />
       </div>
       <!--Worker Salary-->
       <div class="FormElements">
-        <label for="salaire"><?php echo JText::_('WORKER_SALARY'); ?>:</label>
+        <label for="salaire"><?php echo JText::_('SALARY'); ?>:</label>
         <br />
-        <input name="salaire" type="text" id="salaire" value="<?php echo $this->worker->salaire;?>"/>
+        <input name="salaire" type="text" id="salaire" value="<?php echo $this->worker->salaire;?>" class="numeric" />
       </div>
       <!--Worker Begin Date-->
       <div class="FormElements">
         <label for="startdate"><?php echo JText::_('WORKER_BEGIN_DATE'); ?>:</label>
         <br />
-        <input onBlur = "validateDate(this)" name="startdate" type="text" id="startdate" value="<?php echo $this->worker->startdate;?>"/>
+        <input onBlur = "validateDate(this)" name="startdate" type="text" id="startdate" value="<?php echo $this->worker->startdate;?>" class="numeric" />
       </div>
       <!--Worker Note-->
       <div class="FormElements">
         <label for="note"><?php echo JText::_('WORKER_RATING'); ?>:</label>
         <br />
-        <input name="note" type="text" id="note" value="<?php echo $this->worker->note;?>"/>
+        <input name="note" type="text" id="note" value="<?php echo $this->worker->note;?>" class="numeric" />
       </div>
       
       <div class="FormElements">
@@ -108,7 +108,7 @@ defined('_JEXEC') or die('Restricted access');
       
       <!--Worker Role-->
       <div class="FormElements">
-        <label for="position"><?php echo JText::_('WORKER_ROLE'); ?>:</label>
+        <label for="position"><?php echo JText::_('ROLE'); ?>:</label>
         <br />
         <input name="position" type="text" id="position" value="<?php echo $this->worker->position;?>"/>
       </div>
@@ -155,12 +155,12 @@ defined('_JEXEC') or die('Restricted access');
 			</select>
 	  </div>    
 	  <div class="FormElements">
-	      <label for="password"><?php echo JText::_('WORKER_PASSWORD'); ?>:</label>
+	      <label for="password"><?php echo JText::_('PASSWORD'); ?>:</label>
 	      <br />
 	      <input name="password" type="password" id="password" />
 	  </div>
       <div class="FormElements">
-	      <label for="password1"><?php echo JText::_('WORKER_CONFIRM_PASSWORD'); ?>:</label>
+	      <label for="password1"><?php echo JText::_('CONFIRM_PASSWORD'); ?>:</label>
 	      <br />
 	      <input name="password1" type="password" id="password1" />
 	  </div>
@@ -183,20 +183,20 @@ defined('_JEXEC') or die('Restricted access');
   </div>
   <div id="FormElementsGroup">
     <fieldset id="contactfields" style="display: <?php echo $this->worker->iscontact ? 'block"':'none';?>;">
-      <legend><?php echo JText::_('WORKER_CONTACT'); ?>:</legend>
-      <legend><?php echo JText::_('WORKER_CONTACT_ACCOUNT'); ?>:</legend>
+      <legend><?php echo JText::_('WORKER_INTERNAL_MESSAGING'); ?>:</legend>
+      <legend><?php echo JText::_('WORKER_INTERNAL_MESSAGING_ACCOUNT'); ?>:</legend>
       <div class="FormElements">
 	        <br />
 	        <input type="checkbox" name="active_contact" id="active_contact" value="1"  <?php echo $this->worker->active_contact ? 'checked="checked"':'';?> />
-	        <label for="active_contact"><?php echo JText::_('WORKER_CONTACT_ACTIVE'); ?></label>
+	        <label for="active_contact"><?php echo JText::_('WORKER_INTERNAL_MESSAGING_CONTACT_ACTIVE'); ?></label>
 	   </div>
 	   <div class="FormElements">
-	      <label for="password3"><?php echo JText::_('WORKER_PASSWORD'); ?>:</label>
+	      <label for="password3"><?php echo JText::_('PASSWORD'); ?>:</label>
 	      <br />
 	      <input name="password3" type="password" id="password3" />
 	  </div>
       <div class="FormElements">
-	      <label for="password13"><?php echo JText::_('WORKER_CONFIRM_PASSWORD'); ?>:</label>
+	      <label for="password13"><?php echo JText::_('CONFIRM_PASSWORD'); ?>:</label>
 	      <br />
 	      <input name="password13" type="password" id="password13" />
 	  </div>
