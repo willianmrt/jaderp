@@ -4,8 +4,7 @@ defined('_JEXEC') or die('Restricted access');
 ?>
 		<div id="readroot" style="display: none">
 			<fieldset id="contactfields" style="display: block">
-			  <legend><?php echo JText::_('SUPPLIER_CONTACT_INFO'); ?>:</legend>
-			  <!--Supplier Country-->
+			  <legend> <span class="xdelete"><?php echo JText::_('SUPPLIER_CONTACT_INFO'); ?>: <a href="#"></a></span></legend>
 			  <fieldset id="contactfields" style="display: block">
 			  	<?php if ($this->contactAccesses['name']['task']) { ?>
 				  <div class="FormElements">
