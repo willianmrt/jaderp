@@ -5,7 +5,7 @@ defined('_JEXEC') or die('Restricted access');
 		<div id="readroot" name="0" style="display: none">
 			<fieldset id="contactfields" style="display: block">
 			
-			  <legend> <span id="span" class="xdelete"><?php echo JText::_('SUPPLIER_CONTACT_INFO'); ?>: <a onclick="removeFields(this.parentNode.parentNode.parentNode.parentNode.name);" href="#" class="removeBTN" style="display:none"></a></span></legend>
+			  <legend class="xdelete"><span><?php echo JText::_('SUPPLIER_CONTACT_INFO'); ?>:</span><span id="span"><a onclick="removeFields(this.parentNode.parentNode.parentNode.parentNode.name);" href="#" class="removeBTN" style="display:none"></a></span></legend>
 			  
 			  <fieldset id="contactfields" style="display: block">
 			  	<?php if ($this->contactAccesses['name']['task']) { ?>
