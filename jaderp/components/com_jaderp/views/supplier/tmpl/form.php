@@ -259,6 +259,7 @@ echo JText::_ ( 'SUPPLIER_INFOS' );
     <?php
 	}
 	?>
+		<div class="clr"></div>
 		<fieldset><legend><?php
 		echo JText::_ ( 'BANK_INFOS' );
 		?></legend>
