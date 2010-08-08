@@ -225,5 +225,12 @@ table.adminlist .pagination { display:table; padding:0;  margin:0 auto;	white-sp
 .button2-left .blank	 	{ background: url(../../../images/jaderp/j_button2_blank.png) 100% 0 no-repeat; }
 .xdelete{ line-height: 20px; white-space: nowrap;}
 .xdelete span{float:left; line-height: 20px; margin:0 5px;}
-.xdelete a{display: inline-block; height: 20px; width: 93px; background: url(../../../images/jaderp/x_button.png) 0 0 no-repeat; text-decoration: none;}
+.xdelete a{color:#fff; display: inline-block; height: 20px; width: 93px; background: url(../../../images/jaderp/x_button.png) 0 0 no-repeat; text-decoration: none;}
 .xdelete a:hover{background: url(../../../images/jaderp/x_button.png) 0px -21px no-repeat;}
+#infosLine{width:100%; overflow: hidden;}
+.addNewLine{overflow: hidden;}
+.addNewLine div.FormElements{color:#C9CBDC; }
+.addNewLine div.FormElements input[type="text"]{background: #C9CBDC;}
+.addLine{float: left; padding: 15px 0px; height: 30px; margin: 5px 0px; overflow: hidden;}
+.addLine a{ color:#fff; display: block; height: 20px; width: 73px; background: url(../../../images/jaderp/plus_button.png) 0 0 no-repeat; text-decoration: none;}
+.addLine a:hover{background: url(../../../images/jaderp/plus_button.png) 0px -21px no-repeat;}
