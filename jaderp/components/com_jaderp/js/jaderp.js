@@ -8,7 +8,7 @@ function countryChanged(country)
 		  		var valeur = "(+"+data+")";
 		  		var strToTest = "";
 		  		var result = "";
-		  		if (counter == 1)
+		  		if (counters == 1)
 		  		{
 
 		  				
@@ -30,7 +30,7 @@ function countryChanged(country)
 		  		}
 		  		else
 		  		{
-		  			for (var i = 0; i < counter; i++)
+		  			for (var i = 0; i < counters; i++)
 		  			{
 		  				if (form.elements["country[]"][i].value == country.value)
 		  				{
