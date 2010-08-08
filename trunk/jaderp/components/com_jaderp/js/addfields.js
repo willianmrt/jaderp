@@ -2,6 +2,8 @@ var counter = 0;
 var counters = 0;
 var counter1 = 0;
 var counters1 = 0;
+
+
 function moreFields() {
 	counter++;
 	counters++;
@@ -13,7 +15,7 @@ function moreFields() {
 	insertHere.parentNode.insertBefore(newFields,insertHere);
 	if (counters>1)
 	{
-		for (var i=1; i<=document.getElementsByClassName('removeBTN').length; i++)
+		for (var i=0; i<document.getElementsByClassName('removeBTN').length; i++)
 			document.getElementsByClassName('removeBTN')[i].style.display='inline-block';
 	}
 	return false;
@@ -30,7 +32,7 @@ function moreFields1() {
 	insertHere.parentNode.insertBefore(newFields,insertHere);
 	if (counters1>1)
 	{
-		for (var i=1; i<=document.getElementsByClassName('removeBTN1').length; i++)
+		for (var i=0; i<document.getElementsByClassName('removeBTN1').length; i++)
 			document.getElementsByClassName('removeBTN1')[i].style.display='block';
 	}
 	return false;
@@ -74,10 +76,9 @@ function removeFields1(nodenb) {
 }
 
 function init() {
- document.getElementById('moreFields').onclick = moreFields;
- document.getElementById('moreFields1').onclick = moreFields1;
- //document.getElementById('removeFields').onclick = removeFields;
- moreFields();
- moreFields1();
+document.getElementById('moreFields').onclick = moreFields;
+document.getElementById('moreFields1').onclick = moreFields1;
+moreFields();
+moreFields1();
 }
 window.onload = init;
