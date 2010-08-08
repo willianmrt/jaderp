@@ -21,7 +21,7 @@ class listingForm
 	function startListing($formAction='index.php', $method='post', $name='adminForm', $divID='JAdERPlist' )
 	{
 		$this->_listing = '<div id="'.$divID.'">'."\r\n";
-		$this->_listing .= '	<form action="'.$formAction.'" method=".'$method.'" name="'.$name.'" id="'.$name.'">'."\r\n";
+		$this->_listing .= '	<form action="'.$formAction.'" method="'.$method.'" name="'.$name.'" id="'.$name.'">'."\r\n";
 		$this->_formName = $name."\r\n";
 	}
 	

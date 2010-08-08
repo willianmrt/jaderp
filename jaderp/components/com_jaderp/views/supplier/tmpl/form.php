@@ -2,12 +2,62 @@
 defined ( '_JEXEC' ) or die ( 'Restricted access' );
 //JHTML::_('behavior.tooltip');
 ?>
+		<!-- ------------------------------BANK INFOS LINE ------------------------------ -->
+		
+<div id="infosLine1" name="0" style="display:none; width:100%; overflow:hidden;">
+		<?php
+		if ($this->supplierAccesses ['bank_name'] ['task']) {
+			?> 
+	
+	      <div class="FormElements"><label for="supplierBank"><?php
+			echo JText::_ ( 'BANK_NAME' );
+			?>:</label> <br />
+<input name="bank_name[]" type="text" id="supplierBank" /></div>
+	    <?php
+		}
+		?>
+		<?php
+		if ($this->supplierAccesses ['bank_address'] ['task']) {
+			?> 
+	      <div class="FormElements"><label for="supplierBankAddress"><?php
+			echo JText::_ ( 'BANK_ADDRESS' );
+			?>:</label> <br />
+<input name="bank_address[]" type="text" id="supplierBankAddress"
+	size="30" /></div>
+	    <?php
+		}
+		?>
+	  	<?php
+				if ($this->supplierAccesses ['account_number'] ['task']) {
+					?> 
+	      <div class="FormElements"><label for="supplierBankAccount"><?php
+					echo JText::_ ( 'BANK_ACCOUNT_NUMBER' );
+					?>:</label> <br />
+<input name="account_number[]" type="text" id="supplierBankAccount"
+	size="30" class="numeric" /></div>
+	    <?php
+				}
+				?>
+	    <?php
+					if ($this->supplierAccesses ['swift'] ['task']) {
+						?> 
+	      <div class="FormElements"><label for="supplierSwift"><?php
+						echo JText::_ ( 'SWIFT_NUMBER' );
+						?>:</label> <br />
+<input name="swift[]" type="text" id="supplierSwift" class="numeric" /></div>
+	    <?php
+					}
+					?>
+					<div class="delLine"><a onclick="removeFields1(this.parentNode.parentNode.name); return false;" href="#" class="removeBTN1" style="display: none"></a></div>
+	    </div>
+
+
 <div id="readroot" name="0" style="display: none">
 <fieldset id="contactfields" style="display: block"><legend
 	class="xdelete"><span><?php
 	echo JText::_ ( 'SUPPLIER_CONTACT_INFO' );
 	?>:</span><span id="span"><a
-	onclick="removeFields(this.parentNode.parentNode.parentNode.parentNode.name);"
+	onclick="removeFields(this.parentNode.parentNode.parentNode.parentNode.name); return false;"
 	href="#" class="removeBTN" style="display: none"></a></span></legend>
 
 <fieldset id="contactfields" style="display: block">
@@ -264,54 +314,8 @@ echo JText::_ ( 'SUPPLIER_INFOS' );
 		echo JText::_ ( 'BANK_INFOS' );
 		?></legend>
 		
-		<!-- ------------------------------BANK INFOS LINE ------------------------------ -->
-		
-<div id="infosLine" style="diplay:block">
-		<?php
-		if ($this->supplierAccesses ['bank_name'] ['task']) {
-			?> 
-	
-	      <div class="FormElements"><label for="supplierBank"><?php
-			echo JText::_ ( 'BANK_NAME' );
-			?>:</label> <br />
-<input name="bank_name" type="text" id="supplierBank" /></div>
-	    <?php
-		}
-		?>
-		<?php
-		if ($this->supplierAccesses ['bank_address'] ['task']) {
-			?> 
-	      <div class="FormElements"><label for="supplierBankAddress"><?php
-			echo JText::_ ( 'BANK_ADDRESS' );
-			?>:</label> <br />
-<input name="bank_address" type="text" id="supplierBankAddress"
-	size="30" /></div>
-	    <?php
-		}
-		?>
-	  	<?php
-				if ($this->supplierAccesses ['account_number'] ['task']) {
-					?> 
-	      <div class="FormElements"><label for="supplierBankAccount"><?php
-					echo JText::_ ( 'BANK_ACCOUNT_NUMBER' );
-					?>:</label> <br />
-<input name="account_number" type="text" id="supplierBankAccount"
-	size="30" class="numeric" /></div>
-	    <?php
-				}
-				?>
-	    <?php
-					if ($this->supplierAccesses ['swift'] ['task']) {
-						?> 
-	      <div class="FormElements"><label for="supplierSwift"><?php
-						echo JText::_ ( 'SWIFT_NUMBER' );
-						?>:</label> <br />
-<input name="swift" type="text" id="supplierSwift" class="numeric" /></div>
-	    <?php
-					}
-					?>
-					<div class="delLine"><a href="#"></a></div>
-	    </div>
+<div id="infosLine"><span id="writeroot1"></span></div>
+
 <!-- ************************* Inactive BANK Fiels befor to choose to add secondary Bank ********************  -->
 
 <div class="addNewLine">
@@ -359,7 +363,7 @@ echo JText::_ ( 'SUPPLIER_INFOS' );
 		    <?php
 						}
 						?>
-    <div class="addLine"><a href="#"></a></div>
+    <div class="addLine"><a href="#" id="moreFields1"></a></div>
 </div>
 </fieldset>
 <!-- --------------------- END Inactive BANK Fiels befor to choose to add secondary Bank ----------------- -->
