@@ -231,6 +231,8 @@ table.adminlist .pagination { display:table; padding:0;  margin:0 auto;	white-sp
 .addNewLine{overflow: hidden;}
 .addNewLine div.FormElements{color:#C9CBDC; }
 .addNewLine div.FormElements input[type="text"]{background: #C9CBDC;}
-.addLine{float: left; padding: 15px 0px; height: 30px; margin: 5px 0px; overflow: hidden;}
+.addLine, .delLine{float: left; padding: 15px 0px; height: 20px; margin: 5px 0px; overflow: hidden;}
 .addLine a{ color:#fff; display: block; height: 20px; width: 73px; background: url(../../../images/jaderp/plus_button.png) 0 0 no-repeat; text-decoration: none;}
 .addLine a:hover{background: url(../../../images/jaderp/plus_button.png) 0px -21px no-repeat;}
+.delLine a{ color:#fff; display: block; height: 20px; width: 73px; background: url(../../../images/jaderp/del_line_button.png) 0 0 no-repeat; text-decoration: none;}
+.delLine a:hover{background: url(../../../images/jaderp/del_line_button.png) 0px -21px no-repeat;}

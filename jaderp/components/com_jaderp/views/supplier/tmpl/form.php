@@ -263,7 +263,7 @@ echo JText::_ ( 'SUPPLIER_INFOS' );
 		echo JText::_ ( 'BANK_INFOS' );
 		?></legend>
 		
-		<!-- BANK INFOS LINE -->
+		<!-- ------------------------------BANK INFOS LINE ------------------------------ -->
 		
 <div id="infosLine" style="diplay:block">
 		<?php
@@ -309,8 +309,10 @@ echo JText::_ ( 'SUPPLIER_INFOS' );
 	    <?php
 					}
 					?>
+					<div class="delLine"><a href="#"></a></div>
 	    </div>
-<!-- Inactive BANK Fiels befor to choose to add secondary Bank -->
+<!-- ************************* Inactive BANK Fiels befor to choose to add secondary Bank ********************  -->
+
 <div class="addNewLine">
 	<?php
 	if ($this->supplierAccesses ['bank_name'] ['task']) {
@@ -358,8 +360,8 @@ echo JText::_ ( 'SUPPLIER_INFOS' );
 						?>
     <div class="addLine"><a href="#"></a></div>
 </div>
-
-<!-- END Inactive BANK Fiels befor to choose to add secondary Bank --></fieldset>
+</fieldset>
+<!-- --------------------- END Inactive BANK Fiels befor to choose to add secondary Bank ----------------- -->
 </fieldset>
 </div>
 <div id="contacts"><span id="writeroot"></span></div>
