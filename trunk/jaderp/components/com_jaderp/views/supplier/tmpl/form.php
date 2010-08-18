@@ -87,8 +87,9 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 				if ($this->contactAccesses ['image'] ['task']) {
 					?> 				  
 				  <div class="FormElements"><label for="photo"><?php
-					echo JText::_ ( 'PHOTO' );
-					?>:</label> <br />
+					echo JText::_ ( 'PHOTO' );?>: <span class="idImage"><?php echo JText::_ ( 'ACTUALLY' )." ";?>
+					<a href="#"><?php echo JText::_ ( 'CLICK_TO_SEE' );?></a></span></label> <br />
+					
 <input name="photo[]" type="text" id="photo" size="25" /> <input
 	type="button" id="browse"
 	value="<?php
