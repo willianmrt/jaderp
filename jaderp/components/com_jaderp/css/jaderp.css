@@ -52,6 +52,7 @@ div.FormElements input[type=text], div.FormElements select{
 	margin-left:0px;
 	padding-left:0px;
 	}
+#supplierCountry{width: 200px;}
 div.FormElements input[type=text]:focus, .ie_focus{
 	border-top:1px solid #9CC2E2;
 	border-left:1px solid #9CC2E2;
@@ -239,3 +240,5 @@ table.adminlist .pagination { display:table; padding:0;  margin:0 auto;	white-sp
 .addLine a:hover{background: url(../../../images/jaderp/plus_button.png) 0px -21px no-repeat;}
 .delLine a{ color:#fff; display: block; height: 20px; width: 73px; background: url(../../../images/jaderp/del_line_button.png) 0 0 no-repeat; text-decoration: none;}
 .delLine a:hover{background: url(../../../images/jaderp/del_line_button.png) 0px -21px no-repeat;}
+.idImage{font-size: 11px; font-style: italic;}
+.idImage a{background: url("../../../images/jaderp/icon-16-user.png") 100% 50% no-repeat; padding-right: 18px;}
