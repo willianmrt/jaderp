@@ -34,7 +34,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 					echo JText::_ ( 'BANK_ACCOUNT_NUMBER' );
 					?>:</label> <br />
 <input name="account_number[]" type="text" id="supplierBankAccount"
-	size="30" class="numeric" /></div>
+	size="30" /></div>
 	    <?php
 				}
 				?>
@@ -44,7 +44,7 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 	      <div class="FormElements"><label for="supplierSwift"><?php
 						echo JText::_ ( 'SWIFT_NUMBER' );
 						?>:</label> <br />
-<input name="swift[]" type="text" id="supplierSwift" class="numeric" /></div>
+<input name="swift[]" type="text" id="supplierSwift" /></div>
 	    <?php
 					}
 					?>
@@ -243,8 +243,7 @@ echo JText::_ ( 'SUPPLIER_INFOS' );
       <div class="FormElements"><label for="supplierCode"><?php
 		echo JText::_ ( 'CODE' );
 		?>:</label> <br />
-<input name="code" size="20" type="text" id="supplierCode"
-	class="numeric" /></div>
+<input name="code" size="20" type="text" id="supplierCode" /></div>
     <?php
 	}
 	?>
@@ -271,6 +270,20 @@ echo JText::_ ( 'SUPPLIER_INFOS' );
     <?php
 	}
 	?>
+
+	<?php
+	if ($this->supplierAccesses ['codetva'] ['task']) {
+		?> 
+      <!--Supplier TVA -->
+<div class="FormElements"><label for="supplierTVA"><?php
+		echo JText::_ ( 'TVA' );
+		?>:</label> <br />
+<input name="tvacode" type="text" id="supplierTVA" size="40" />
+</div>
+    <?php
+	}
+	?>
+	
 	<?php
 	if ($this->supplierAccesses ['currency'] ['task']) {
 		?> 
