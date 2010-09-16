@@ -20,7 +20,7 @@ class JaderpViewWorkers extends JView
 		$doc =& JFactory::getDocument();
 		$searchreq = '';
 		JHTML::script('datepicker.js','components/com_jaderp/js/',false );
-		JHTML::stylesheet('datepicker.css','components/com_jaderp/cs/');
+		JHTML::stylesheet('datepicker.css','components/com_jaderp/css/');
 		jimport('joomla.html.pagination');
 		$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'));
 		//$limitstart = $mainframe->getUserStateFromRequest('com_jaderp.limitstart', 'limitstart', 0);
