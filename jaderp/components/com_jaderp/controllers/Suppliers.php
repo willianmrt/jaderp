@@ -54,7 +54,7 @@ class JaderpControllerSuppliers extends JaderpController
 			if(!$access_level)
 			{
 				$msg= JText::_( 'YOU_DONT_HAVE_PERMISSION' ) ;
-				$this->setRedirect(JRoute::_('index.php?option=com_jaderp&func=Workers&task=manage'), $msg, 'notice');
+				$this->setRedirect(JRoute::_('index.php?option=com_jaderp&func=Suppliers&task=manage'), $msg, 'notice');
 				return;
 			}
 			//echo $user->get('id');
@@ -65,7 +65,7 @@ class JaderpControllerSuppliers extends JaderpController
 			$this->setRedirect(JRoute::_('index.php?option=com_user&view=login'), $msg, 'notice');
 		}
 		JTable::addIncludePath('components'.DS.'com_jaderp'.DS.'tables');
-		$table =& JTable::getInstance('workers', 'Table');
+		$table =& JTable::getInstance('suppliers', 'Table');
 		$id = JRequest::getInt('cid', 0);
 		if (!$id)
 			$id = JRequest::getInt('id', 0);		
@@ -75,7 +75,7 @@ class JaderpControllerSuppliers extends JaderpController
 		{
 			$checkuser = & JFactory::getUser($table->checked_out);
 			$msg= JText::sprintf( 'IS_CHECKEDOUT_ALERT', $checkuser->name, $table->checked_out_time ) ;
-			$this->setRedirect(JRoute::_('index.php?option=com_jaderp&func=Workers&task=manage'), $msg, 'notice');	
+			$this->setRedirect(JRoute::_('index.php?option=com_jaderp&func=Suppliers&task=manage'), $msg, 'notice');	
 		}
 		else 
 		{
@@ -127,7 +127,6 @@ class JaderpControllerSuppliers extends JaderpController
 				submitform( pressbutton );
 				return;
 			}
-			alert (form.elements["country[]"].value);
 			if (form.elements["country[]"].value == ""){
 				alert( "<?php echo JText::_( 'COUNTRY_IS_REQUIRED', true ); ?>" );
 			} else if (form.code.value == ""){
@@ -136,8 +135,6 @@ class JaderpControllerSuppliers extends JaderpController
 				alert( "<?php echo JText::_( 'COMPANY_NAME_IS_REQUIRED', true ); ?>" );
  			} else if (form.currency.value == ""){
  				alert( "<?php echo JText::_( 'CURRENCY_IS_REQUIRED', true ); ?>" );
-			} else if (form.address(0).value == ""){
- 				alert( "<?php echo JText::_( 'ADDRESS_IS_REQUIRED', true ); ?>" );
 			} else {
 				submitform( pressbutton );
 			}
@@ -176,54 +173,14 @@ class JaderpControllerSuppliers extends JaderpController
 		{
 		    JError::raiseError('403', JText::_('Request Forbidden'));
 		}
-		$model = $this->getModel('Worker');
+		$model = $this->getModel('supplier');
 		$post = JRequest::get( 'post' );
 		jimport('joomla.user.helper');
-		$post['password']	= JRequest::getVar('password', '', 'post', 'string', JREQUEST_ALLOWRAW);
-		if ($post['canaccess'])
-		{
-			if ($post['autopassword'])
-			{
-				$autogenpass  = JUserHelper::genRandomPassword(10);
-				$post['password'] = $autogenpass;
-				$salt  = JUserHelper::genRandomPassword(32);
-				$crypt = JUserHelper::getCryptedPassword($post['password'], $salt);
-				$post['password']=$crypt.':'.$salt;
-				$post['password1'] = $post['password'];
-			}
-			else 
-			{
-				$salt  = JUserHelper::genRandomPassword(32);
-				$crypt = JUserHelper::getCryptedPassword($post['password'], $salt);
-				$post['password']=$crypt.':'.$salt;	
-				$post['password1'] = $post['password'];			
-			}
-		}
-		else 
-			unset($post['password']);
-		
-		
 
-		jimport('joomla.utilities.date');
-		//$dbefore= $post['startdate'];
-		$date = ereg_replace('/', '-', $post['startdate']);
-		$date1 = new JDate($date);
-		$post['startdate'] = $date1->toMySQL();
-		//$dafter= $post['startdate'];
-		if($post['id']>0 && $post['password']=='')
-			unset($post['password']);
 		if ($model->store($post)) 
 		{
-			if ($post['canaccess'] && $post['autopassword'])
-			{
-				$msgpass = JText::sprintf( 'AUTO_GENERATED_PASSWORD (%s)', $autogenpass);
-			}
-			else
-			$msgpass = '';
-
-			$msg = JText::sprintf( 'Successfully Saved User %s', $post['firstname']);
-			$msg .= ', '.$msgpass;
-			$table =& JTable::getInstance('workers', 'Table');
+			$msg = JText::sprintf( 'Successfully Saved Supplier %s', $post['rsoc']);
+			$table =& JTable::getInstance('suppliers', 'Table');
 			if($this->getTask() == 'save')
 			{
 				$id = JRequest::getInt('cid', 0);	
@@ -257,13 +214,13 @@ class JaderpControllerSuppliers extends JaderpController
 					$menulink = '&menuid='.$menuid;
 				else 
 					$menulink = '';
-				$this->setRedirect( 'index.php?option=com_jaderp&func=Workers&task='.$task.'&cid='. $post['id'].$menulink, $msg );
+				$this->setRedirect( 'index.php?option=com_jaderp&func=Suppliers&task='.$task.'&cid='. $post['id'].$menulink, $msg );
 				break;
 
 			case 'save':
 			default:
 				//$msg = JText::sprintf( $dbefore.'Successfully'.$dafter.' Saved User %s', $post['firstname'] );
-				$this->setRedirect( 'index.php?option=com_jaderp&func=Workers&task=manage', $msg );
+				$this->setRedirect( 'index.php?option=com_jaderp&func=Suppliers&task=manage', $msg );
 				break;
 		}
 		
@@ -334,7 +291,7 @@ class JaderpControllerSuppliers extends JaderpController
 				$msg= JText::_( 'CANT_CHECKIN_ALERT' ) ;
 			}			
 		}	
-		$this->setRedirect( 'index.php?option=com_Jaderp&func=Workers&task=manage', $msg );
+		$this->setRedirect( 'index.php?option=com_Jaderp&func=Suppliers&task=manage', $msg );
 	}
 	
 	// function listing() ADDED BY MEHDI
@@ -406,7 +363,7 @@ Paramètres</span>
 		$menubars->writeFoot();
 		$menubars->addDeclaration(false,false,'',140);
 		$menubars->render();
-		JRequest::setVar( 'view', 'workers' );
+		JRequest::setVar( 'view', 'suppliers' );
 		JRequest::setVar( 'layout', 'listing'  );
 		parent::display(false);
 	}

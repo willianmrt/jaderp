@@ -25,21 +25,17 @@ class JaderpModelSupplier extends JModel
      */
 	var $_id;
 	var $_supplier;
-//	var $_joomla_id;
-//	var $_mat;
-//	var $_lastname;
-//	var $_firstname;
-//	var $_num_piece;
-//	var $_type_piece;
-//	var $_email;
-//	var $_phone;
-//	var $_salaire;
-//	var $_startdate;
-//	var $_note;
-//	var $_position;
-//	var $_present;
-//	var $_password;
-	 function __construct()
+/*	var $_code;	 		
+	var $_rsoc;	 		
+	var $_responsable;		
+	var $_country;	
+	var $_currency;	 		
+	var $_max_credit;		
+	var $_solde;		
+	var $_chaff; 			
+	var $_codetva;			
+*/
+	function __construct()
      {
 	       parent::__construct();
 	       // get the cid array from the default request hash
@@ -62,47 +58,27 @@ class JaderpModelSupplier extends JModel
 	function _initializeSupplier() 
 		   {
 		        $supplier = new stdClass;
-		        $supplier->id 				= 0;
-		        $supplier->name 				= null;
-				$supplier->joomla_id 		= null;
-				$supplier->canaccess 		= null;
-				$supplier->access_leve 		= null;
-				$supplier->mat				= null;
-				$supplier->department		= null;
-				$supplier->branch			= null;
-				$supplier->lastname 			= null;
-				
-				$supplier->firstname 		= null;
-				
-				$workers->num_piece 		= null;
-				
-				$workers->type_piece 		= null;
-				
-				$workers->email 			= null;
-				
-				$workers->phone 			= null;
-				$workers->salaire 			= null;
-				
-				$workers->startdate 		= null;
-				
-				$workers->note 				= null;
-				
-				$workers->position 			= null;
-				
-				$workers->present 			= null;
-				$workers->iscontact			= 0;
-				$workers->password 			= null;
-				$workers->forcepasschange	= 0;
-				$workers->checked_out 		= 0;
-				
-				$workers->checked_out_time 	= 0;
-		       return $workers;
+		        $supplier->id 					= 0;
+		        $supplier->code 				= null;
+				$supplier->rsoc		 			= null;
+				$supplier->responsable 			= null;
+				$supplier->pcountry	 			= 0;
+				$supplier->currency				= 0;
+				$supplier->max_credit			= 0;
+				$supplier->solde				= 0;
+				$supplier->chaff 				= 0;
+				$supplier->codetva 				= null;
+				$supplier->checked_out 			= 0;		
+				$supplier->checked_out_time 	= 0;
+				$supplier->creation_date 		= 0;		
+				$supplier->creator_id 			= 0;
+				return $supplier;
 		   }
 	function &getData()
 	{
 		if($this->_id)
 		{
-			 if (!$this->_worker)
+			 if (!$this->_supplier)
 			 {
 			     $db =& $this->getDBO();
 			     $query = "SELECT * FROM #__jaderp_suppliers
@@ -118,38 +94,37 @@ class JaderpModelSupplier extends JModel
 		if (empty($this->_supplier)) {
 			$this->_supplier = $this->_initializeSupplier();
 		}
-		jimport('joomla.utilities.date');
+/*		jimport('joomla.utilities.date');
 		$date = $this->_worker->startdate;
 		if ($date != null)
-			$this->_worker->startdate =  date("d/m/Y", strtotime($date));
-		 return $this->_worker;
+			$this->_worker->startdate =  date("d/m/Y", strtotime($date));*/
+		 return $this->_supplier;
 		 
 	}
 	
 		
 	function store($data)
 	{	
+		//JController::setRedirect(JRoute::_('index.php?option=com_jaderp&view=Suppliers&task=add'), $msg, 'notice');
 		$db =& $this->getDBO();
 		$now =& JFactory::getDate();
-		if ($data['id'] < 1 && $data['canaccess']) // new record
+		$countries = $data['country'];
+		$data['pcountry'] = $countries[0];
+		$data['creation_date'] = $now->toMySQL(true);
+		$user		=& JFactory::getUser();
+		$data['creator_id'] = $user->get('id');
+		/*if ($data['id'] < 1) // new record
 		{
-			$sql = "INSERT INTO #__users (`id`, `name`, `username`, `email`, `password`, `usertype`, `block`, `sendEmail`, `gid`, `registerDate`, `lastvisitDate`, `activation`, `params`)
-			 VALUES (NULL,".$db->Quote($data['lastname']." ".$data['firstname'])." ,".$db->Quote(strtolower($data['mat'])). ", ".$db->Quote(strtolower($data['email'])).", ".$db->Quote($data['password']).", '',".$db->Quote($data['isblocked']). ", '0', '18',". $db->Quote($now->toMySQL()).", '0000-00-00 00:00:00', '', '');";
+			$sql = "INSERT INTO #__jaderp_suppliers (`id`, `code`, `rsoc`, `responsable`, `country`, `currency`, `max_credit`, `solde`, `chaff`, `codetva`, `checked_out`, `checked_out_time`)
+			 VALUES (NULL,".$db->Quote($data['code'].", ".$data['rsoc'])." , ".$db->Quote($data['responsable']). " , ".$db->Quote($data['country']).", ".$db->Quote($data['currency']).",".$db->Quote($data['max_credit'])." ,".$db->Quote($data['solde']). ", '0',". $db->Quote($data['codetva'])." '0','0000-00-00 00:00:00');";
 			$db->setQuery($sql);
 			if (!$db->query())
 			{
 				JError::raiseError(500, $db->getErrorMsg() );
 			}
-			$data['joomla_id'] = $db->insertid();
-			$sql = "INSERT INTO #__core_acl_aro (`id`, `section_value`, `value`, `order_value`, `name`, `hidden`)
-			 VALUES (NULL,'users', ".$db->Quote($data['joomla_id']).", '0', ".$db->Quote($data['lastname']." ".$data['firstname'])." ,'0');";
-			$db->setQuery($sql);
-			if (!$db->query()) 
-			{
-				JError::raiseError(500, $db->getErrorMsg() );
-			}
-			$aro=$db->insertid();;
-			$sql = "INSERT INTO #__core_acl_groups_aro_map (`group_id`, `section_value`, `aro_id`)
+			$aro=$db->insertid();
+			
+			/*$sql = "INSERT INTO #__core_acl_groups_aro_map (`group_id`, `section_value`, `aro_id`)
 			 VALUES ('18','', ".$db->Quote($aro).");";
 			$db->setQuery($sql);
 			if (!$db->query()) 
@@ -163,23 +138,23 @@ class JaderpModelSupplier extends JModel
 			{
 				
 			}
-		}
+		}*/
 		JTable::addIncludePath('components'.DS.'com_jaderp'.DS.'tables');
-		$row =& $this->getTable('Workers');
+		$row =& $this->getTable('Suppliers');
 
-		// Bind the form fields to the hello table
+		// Bind the form fields to the table
 		if (!$row->bind($data)) {
 			$this->setError($row->getErrorMsg() );
 			return false;
 		}
 
-		// Make sure the hello record is valid
+		// Make sure the record is valid
 		if (!$row->check()) {
 			$this->setError($db->getErrorMsg() );
 			return false;
 		}
 
-		// Store the web link table to the database
+		// Store the table to the database
 		if (!$row->store()) {
 			$this->setError($row->getErrorMsg() );
 			return false;

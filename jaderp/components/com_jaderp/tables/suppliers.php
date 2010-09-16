@@ -18,25 +18,25 @@ class TableSuppliers extends JTable
 	/** @var string */
 	var $responsable		= null;
 	/** @var int */
-	var $country			= null;
+	var $pcountry			= null;
 	/** @var int */
 	var $currency	 		= null;
 	/** @var double */
 	var $max_credit			= null;	
 	/** @var double */
-	var $initial_credit		= null;
+	var $solde				= null;
 	/** @var double */
 	var $chaff	 			= null;
-	/** @var string */
-	var $swift	 			= null;
-	/** @var string */
-	var $bankaccount 		= null;
 	/** @var string */
 	var $codetva			= null;
 	/** @var int */
 	var $checked_out 		= 0;
 	/** @var datetime */
 	var $checked_out_time 	= 0;
+	/** @var datetime */
+	var $creation_date 		= 0;
+	/** @var int */
+	var $creator_id 		= 0;
 	/**
 	 * Constructor
 	 *
@@ -49,6 +49,16 @@ class TableSuppliers extends JTable
 	
 	function check()
 	{
+		$db =& $this->getDBO();
+		$req = "SELECT 0 FROM #__jaderp_suppliers WHERE code='".$this->code."'";
+		$db->setQuery($req);
+		$rows = $db->loadAssocList();
+		if ($rows)
+		{
+			$this->setError(JText::_('ERROR_CODE_EXISTS'));
+			return false;
+		}
+		
 		return true;
 	}
 }
