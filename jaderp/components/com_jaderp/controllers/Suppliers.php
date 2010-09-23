@@ -176,8 +176,8 @@ class JaderpControllerSuppliers extends JaderpController
 		$model = $this->getModel('supplier');
 		$post = JRequest::get( 'post' );
 		jimport('joomla.user.helper');
-
-		if ($model->store($post)) 
+		$result = $model->store($post);
+		if ($result->success) 
 		{
 			$msg = JText::sprintf( 'Successfully Saved Supplier %s', $post['rsoc']);
 			$table =& JTable::getInstance('suppliers', 'Table');
@@ -197,7 +197,10 @@ class JaderpControllerSuppliers extends JaderpController
 		} 
 		else 
 		{
-			$msg = JText::_( 'ERROR_SAVING_DATA' );
+			if ($result->msg == '')
+				$msg = JText::_( 'ERROR_SAVING_DATA' );
+			else
+				$msg = $result->msg;
 		}
 		
 		

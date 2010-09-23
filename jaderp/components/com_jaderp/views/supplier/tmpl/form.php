@@ -270,7 +270,31 @@ echo JText::_ ( 'SUPPLIER_INFOS' );
     <?php
 	}
 	?>
-
+				<?php
+				if ($this->supplierAccesses ['pcountry'] ['task']) {
+					?>
+				 <div class="FormElements"><label for="supplierCountry"><?php
+					echo JText::_ ( 'COUNTRY' );
+					?>:</label> <br />
+<select id="supplierCountry" name="pcountry"
+	onchange="pcountryChanged(this)">
+						<?php
+					//echo $this->acclevels->id;
+					$t = 0;
+					echo '<option value="">' . JText::_ ( 'SELECT_COUNTRY' ) . '</option>';
+					foreach ( $this->countries as $country ) {
+						$selectd = $this->supplier->country == $country ['id'] ? 'selected="selected"' : '';
+						if ($t == 0 && $country ['hits'] == 0) {
+							$t = 1;
+							echo '<option value="">-------------------------------------------------</option>';
+						}
+						echo '<option ' . $selectd . ' value="' . $country ['id'] . '">' . $country ['country'] . '</option>';
+					}
+					?>
+					</select></div>
+				<?php
+				}
+				?>
 	<?php
 	if ($this->supplierAccesses ['codetva'] ['task']) {
 		?> 
