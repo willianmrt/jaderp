@@ -108,10 +108,8 @@ class JaderpModelSupplier extends JModel
 		//JController::setRedirect(JRoute::_('index.php?option=com_jaderp&view=Suppliers&task=add'), $msg, 'notice');
 		$db =& $this->getDBO();
 		$now =& JFactory::getDate();
-		$countries = $data['country'];
-		$data['pcountry'] = $countries[0];
 		$data['creation_date'] = $now->toMySQL(true);
-		$user		=& JFactory::getUser();
+		$user =& JFactory::getUser();
 		$data['creator_id'] = $user->get('id');
 		/*if ($data['id'] < 1) // new record
 		{
@@ -141,25 +139,40 @@ class JaderpModelSupplier extends JModel
 		}*/
 		JTable::addIncludePath('components'.DS.'com_jaderp'.DS.'tables');
 		$row =& $this->getTable('Suppliers');
-
+		$resul = new stdClass();
+		$resul->success = true;
+		$resul->msg = "";
+		
 		// Bind the form fields to the table
 		if (!$row->bind($data)) {
 			$this->setError($row->getErrorMsg() );
-			return false;
+			$resul->success = false;
+			$resul->msg = $row->getErrorMsg();
 		}
 
 		// Make sure the record is valid
 		if (!$row->check()) {
 			$this->setError($db->getErrorMsg() );
-			return false;
+			$resul->success = false;
+			$resul->msg = $row->getErrorMsg();
 		}
 
 		// Store the table to the database
 		if (!$row->store()) {
 			$this->setError($row->getErrorMsg() );
-			return false;
+			$resul->success = false;
+			$resul->msg = $row->getErrorMsg();
 		}
-
-		return true;
+		
+		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
+		$JAdERPTool =& new JAdERPTools;
+		if (!$JAdERPTool->CountryHits($data['pcountry']))
+		{
+			$resul->success = false;
+			$resul->msg = "Error saving country hits";
+		}
+			
+		return $resul;
+		
 	}
 }

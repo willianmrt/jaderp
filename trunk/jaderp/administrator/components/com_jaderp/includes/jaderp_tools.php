@@ -222,6 +222,25 @@ class JAdERPTools
 
 		return false;	
 	}
+	/**
+	 * Function to increment the country hits by 1
+	 * 
+	 * @author FEKI Hichem
+	 * @var num countryid: The country ID
+	 */
+	function CountryHits($countryid)
+	{
+		$db =& JFactory::getDBO();
+		$req = "UPDATE #__jaderp_suppliers SET hits = hits+1 WHERE id=".$db->quote($countryid).";";
+		//echo $req;
+		$db->setQuery($req);
+		$re = $db->query();
+		if (!$re)
+		{
+			return false;
+		}
+		return true;
+	}
 	
 	function ReadCountries($countries = true, $active_currencies = true, $language = '', $where = '', $resultType = 'Assoc' , $firstOnly = false, $orderf = '', $orderdir = 'ASC')
 	{
@@ -315,7 +334,7 @@ class JAdERPTools
 			foreach ($keys as $key)
 			{
 				$req = "INSERT INTO #__jaderp_tables_access (id, table_id, field_name, field_description,view_min_access_level, edit_min_access_level, add_min_access_level) VALUES ('','".$row['id']."', '".$key."', '', '".$row['del_min_access_level']."', '".$row['del_min_access_level']."', '".$row['del_min_access_level']."');";
-				echo $req;
+				//echo $req;
 				$db->setQuery($req);
 				$re=$db->query();
 				if (!$re)
