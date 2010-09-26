@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.2.0.1
+-- version 3.1.3.1
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Ven 30 Juillet 2010 à 09:58
--- Version du serveur: 5.1.36
--- Version de PHP: 5.3.0
+-- Généré le : Lun 27 Septembre 2010 à 01:14
+-- Version du serveur: 5.1.33
+-- Version de PHP: 5.2.9
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -19,6 +19,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- Structure de la table `jos_jaderp`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `greeting` varchar(25) NOT NULL,
@@ -40,6 +41,7 @@ INSERT DELAYED INTO `jos_jaderp` (`id`, `greeting`) VALUES
 -- Structure de la table `jos_jaderp_access_levels`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_access_levels`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_access_levels` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `access_label` varchar(255) NOT NULL,
@@ -61,6 +63,7 @@ INSERT DELAYED INTO `jos_jaderp_access_levels` (`id`, `access_label`, `access_le
 -- Structure de la table `jos_jaderp_branchs`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_branchs`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_branchs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -83,6 +86,7 @@ INSERT DELAYED INTO `jos_jaderp_branchs` (`id`, `name`, `description`, `address`
 -- Structure de la table `jos_jaderp_contacts`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_contacts`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_contacts` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL DEFAULT '',
@@ -120,6 +124,7 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_contacts` (
 -- Structure de la table `jos_jaderp_countries`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_countries`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_countries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `hits` int(11) NOT NULL DEFAULT '0',
@@ -199,14 +204,14 @@ INSERT DELAYED INTO `jos_jaderp_countries` (`id`, `hits`, `iso`, `iso3`, `numcod
 (55, 0, 'DK', 'DNK', 208, '45', 'Danish krone', 'DKK', 'Kr', 0, '', 'Danemark', 'Denmark'),
 (56, 0, 'DJ', 'DJI', 262, '253', 'Djiboutian franc', 'DJF', 'Fdj', 0, '', 'Djibouti', 'Djibouti'),
 (57, 0, 'DM', 'DMA', 212, '1767', '', '', '', 0, '', 'Dominique', 'Dominica'),
-(58, 0, 'EG', 'EGY', 818, '20', 'Egyptian pound', 'EGP', '£', 0, '', 'Égypte', 'Egypt'),
-(59, 0, 'AE', 'ARE', 784, '971', 'UAE dirham', 'AED', '', 0, '', 'Émirats arabes unis', 'United Arab Emirates'),
-(60, 0, 'EC', 'ECU', 218, '593', '', '', '', 0, '', 'Équateur', 'Ecuador'),
-(61, 0, 'ER', 'ERI', 232, '291', 'Eritrean nakfa', 'ERN', 'Nfa', 0, '', 'Érythrée', 'Eritrea'),
+(58, 0, 'EG', 'EGY', 818, '20', 'Egyptian pound', 'EGP', '£', 0, '', 'Egypte', 'Egypt'),
+(59, 0, 'AE', 'ARE', 784, '971', 'UAE dirham', 'AED', '', 0, '', 'Emirats arabes unis', 'United Arab Emirates'),
+(60, 0, 'EC', 'ECU', 218, '593', '', '', '', 0, '', 'Equateur', 'Ecuador'),
+(61, 0, 'ER', 'ERI', 232, '291', 'Eritrean nakfa', 'ERN', 'Nfa', 0, '', 'Erythrée', 'Eritrea'),
 (62, 0, 'ES', 'ESP', 724, '34', 'European euro', 'EUR', '€', 0, '', 'Espagne', 'Spain'),
 (63, 0, 'EE', 'EST', 233, '372', 'Estonian kroon', 'EEK', 'KR', 0, '', 'Estonie', 'Estonia'),
-(64, 0, 'US', 'USA', 840, '1', 'United States dollar', 'USD', 'US$', 1, '2/''.''/'',''', 'États-Unis', 'United States'),
-(65, 0, 'ET', 'ETH', 231, '251', 'Ethiopian birr', 'ETB', 'Br', 0, '', 'Éthiopie', 'Ethiopia'),
+(64, 0, 'US', 'USA', 840, '1', 'United States dollar', 'USD', 'US$', 1, '2/''.''/'',''', 'Etats-Unis', 'United States'),
+(65, 0, 'ET', 'ETH', 231, '251', 'Ethiopian birr', 'ETB', 'Br', 0, '', 'Ethiopie', 'Ethiopia'),
 (66, 0, 'FI', 'FIN', 246, '358', 'European euro', 'EUR', '€', 0, '', 'Finlande', 'Finland'),
 (67, 1, 'FR', 'FRA', 250, '33', 'European euro', 'EUR', '€', 1, '2/''.''/'' ''', 'France', 'France'),
 (68, 0, 'GE', 'GEO', 268, '995', 'Georgian lari', 'GEL', '', 0, '', 'Géorgie', 'Georgia'),
@@ -247,13 +252,13 @@ INSERT DELAYED INTO `jos_jaderp_countries` (`id`, `hits`, `iso`, `iso3`, `numcod
 (103, 0, 'VI', 'VIR', 850, '1', '', '', '', 0, '', 'Iles Vierges américaines', 'Virgin Islands, U.s.'),
 (104, 0, 'VG', 'VGB', 92, '1284', '', '', '', 0, '', 'Iles Vierges britanniques', 'Virgin Islands, British'),
 (105, 0, 'CC', '', 0, '', '', '', '', 0, '', 'Iles des Cocos (Keeling)', 'Cocos (Keeling) Islands'),
-(106, 0, 'UM', '', 0, '', '', '', '', 0, '', 'Iles mineures éloignées des États-Unis', 'United States Minor Outlying Islands'),
+(106, 0, 'UM', '', 0, '', '', '', '', 0, '', 'Iles mineures éloignées des Etats-Unis', 'United States Minor Outlying Islands'),
 (107, 0, 'IN', 'IND', 356, '91', 'Indian rupee', 'INR', 'Rs', 0, '', 'Inde', 'India'),
 (108, 0, 'ID', 'IDN', 360, '62', 'Indonesian rupiah', 'IDR', 'Rp', 0, '', 'Indonésie', 'Indonesia'),
 (109, 0, 'IR', 'IRN', 364, '98', 'Iranian rial', 'IRR', '', 0, '', 'Iran', 'Iran, Islamic Republic of'),
 (110, 0, 'IQ', 'IRQ', 368, '964', 'Iraqi dinar', 'IQD', '', 0, '', 'Iraq', 'Iraq'),
 (111, 0, 'IE', 'IRL', 372, '353', 'European euro', 'EUR', '€', 0, '', 'Irlande', 'Ireland'),
-(112, 0, 'IS', 'ISL', 352, '354', 'Icelandic króna', 'ISK', 'kr', 0, '', 'Islande', 'Iceland'),
+(112, 0, 'IS', 'ISL', 352, '354', 'Icelandic kr?na', 'ISK', 'kr', 0, '', 'Islande', 'Iceland'),
 (114, 1, 'IT', 'ITA', 380, '39', 'European euro', 'EUR', '€', 0, '', 'Italie', 'Italy'),
 (115, 0, 'JM', 'JAM', 388, '1876', 'Jamaican dollar', 'JMD', 'J$', 0, '', 'Jamaïque', 'Jamaica'),
 (116, 1, 'JP', 'JPN', 392, '81', 'Japanese yen', 'JPY', '¥', 1, '2/''.''/'' ''', 'Japon', 'Japan'),
@@ -295,7 +300,7 @@ INSERT DELAYED INTO `jos_jaderp_countries` (`id`, `hits`, `iso`, `iso3`, `numcod
 (152, 0, 'NP', 'NPL', 524, '977', 'Nepalese rupee', 'NPR', 'NRs', 0, '', 'Népal', 'Nepal'),
 (153, 0, 'NA', 'NAM', 516, '264', 'Namibian dollar', 'NAD', 'N$', 0, '', 'Namibie', 'Namibia'),
 (154, 0, 'NR', 'NRU', 520, '674', '', '', '', 0, '', 'Nauru', 'Nauru'),
-(155, 0, 'NI', 'NIC', 558, '505', 'Nicaraguan córdoba', 'NIO', 'C$', 0, '', 'Nicaragua', 'Nicaragua'),
+(155, 0, 'NI', 'NIC', 558, '505', 'Nicaraguan c?rdoba', 'NIO', 'C$', 0, '', 'Nicaragua', 'Nicaragua'),
 (156, 0, 'NE', 'NER', 562, '227', '', '', '', 0, '', 'Niger', 'Niger'),
 (157, 0, 'NG', 'NGA', 566, '234', 'Nigerian naira', 'NGN', '?', 0, '', 'Nigeria', 'Nigeria'),
 (158, 0, 'NU', 'NIU', 570, '683', '', '', '', 0, '', 'Nioué', 'Niue'),
@@ -338,7 +343,7 @@ INSERT DELAYED INTO `jos_jaderp_countries` (`id`, `hits`, `iso`, `iso3`, `numcod
 (195, 0, 'SV', 'SLV', 222, '503', '', '', '', 0, '', 'Salvador', 'El Salvador'),
 (196, 0, 'WS', 'WSM', 882, '685', 'Samoan tala', 'WST', 'WS$', 0, '', 'Samoa', 'Samoa'),
 (197, 0, 'AS', 'ASM', 16, '684', '', '', '', 0, '', 'Samoa américaines', 'American Samoa'),
-(198, 0, 'ST', 'STP', 678, '239', 'São Tomé and Príncipe dobra', 'STD', 'Db', 0, '', 'Sao Tomé-et-Principe', 'Sao Tome and Principe'),
+(198, 0, 'ST', 'STP', 678, '239', 'S?o Tomé and Pr?ncipe dobra', 'STD', 'Db', 0, '', 'Sao Tomé-et-Principe', 'Sao Tome and Principe'),
 (199, 0, 'SC', 'SYC', 690, '248', 'Seychellois rupee', 'SCR', 'SR', 0, '', 'Seychelles', 'Seychelles'),
 (200, 0, 'SL', 'SLE', 694, '232', 'Sierra Leonean leone', 'SLL', 'Le', 0, '', 'Sierra Leone', 'Sierra Leone'),
 (201, 1, 'SG', 'SGP', 702, '65', 'Singapore dollar', 'SGD', 'S$', 0, '', 'Singapour', 'Singapore'),
@@ -352,7 +357,7 @@ INSERT DELAYED INTO `jos_jaderp_countries` (`id`, `hits`, `iso`, `iso3`, `numcod
 (209, 0, 'SR', 'SUR', 740, '597', 'Surinamese dollar', 'SRD', '$', 0, '', 'Suriname', 'Suriname'),
 (210, 0, 'SZ', 'SWZ', 748, '268', 'Swazi lilangeni', 'SZL', 'E', 0, '', 'Swaziland', 'Swaziland'),
 (211, 0, 'SY', 'SYR', 760, '963', 'Syrian pound', 'SYP', '', 0, '', 'Syrie', 'Syrian Arab Republic'),
-(212, 5, 'TW', 'TWN', 158, '886', 'New Taiwan dollar', 'TWD', 'NT$', 0, '', 'Taïwan', 'Taiwan, Province of China'),
+(212, 9, 'TW', 'TWN', 158, '886', 'New Taiwan dollar', 'TWD', 'NT$', 0, '', 'Taïwan', 'Taiwan, Province of China'),
 (213, 0, 'TJ', 'TJK', 762, '992', 'Tajikistani somoni', 'TJS', '', 0, '', 'Tadjikistan', 'Tajikistan'),
 (214, 0, 'TZ', 'TZA', 834, '255', 'Tanzanian shilling', 'TZS', '', 0, '', 'Tanzanie', 'Tanzania, United Republic of'),
 (215, 0, 'TD', 'TCD', 148, '235', '', '', '', 0, '', 'Tchad', 'Chad'),
@@ -364,7 +369,7 @@ INSERT DELAYED INTO `jos_jaderp_countries` (`id`, `hits`, `iso`, `iso3`, `numcod
 (221, 0, 'TK', 'TKL', 772, '690', '', '', '', 0, '', 'Tokélaou', 'Tokelau'),
 (222, 0, 'TO', 'TON', 776, '676', '', '', '', 0, '', 'Tonga', 'Tonga'),
 (223, 0, 'TT', 'TTO', 780, '1868', 'Trinidad and Tobago dollar', 'TTD', 'TT$', 0, '', 'Trinité-et-Tobago', 'Trinidad and Tobago'),
-(224, 15, 'TN', 'TUN', 788, '216', 'Tunisian dinar', 'TND', 'DT', 1, '3,''.'','' ''', 'Tunisie', 'Tunisia'),
+(224, 30, 'TN', 'TUN', 788, '216', 'Tunisian dinar', 'TND', 'DT', 1, '3,''.'','' ''', 'Tunisie', 'Tunisia'),
 (225, 0, 'TM', 'TKM', 795, '993', 'Turkmen manat', 'TMT', 'm', 0, '', 'Turkménistan', 'Turkmenistan'),
 (226, 0, 'TR', 'TUR', 792, '90', 'Turkish new lira', 'TRY', 'YTL', 0, '', 'Turquie', 'Turkey'),
 (227, 0, 'TV', 'TUV', 798, '688', '', '', '', 0, '', 'Tuvalu', 'Tuvalu'),
@@ -386,6 +391,7 @@ INSERT DELAYED INTO `jos_jaderp_countries` (`id`, `hits`, `iso`, `iso3`, `numcod
 -- Structure de la table `jos_jaderp_departments`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_departments`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_departments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -408,6 +414,7 @@ INSERT DELAYED INTO `jos_jaderp_departments` (`id`, `name`, `description`) VALUE
 -- Structure de la table `jos_jaderp_levels_menu`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_levels_menu`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_levels_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `menu_id` int(11) NOT NULL DEFAULT '0',
@@ -435,6 +442,7 @@ INSERT DELAYED INTO `jos_jaderp_levels_menu` (`id`, `menu_id`, `level_id`, `acti
 -- Structure de la table `jos_jaderp_links_map`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_links_map`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_links_map` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `access_min_level` int(11) NOT NULL,
@@ -457,6 +465,7 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_links_map` (
 -- Structure de la table `jos_jaderp_menu`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_menu`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_menu` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `option` varchar(255) NOT NULL,
@@ -496,32 +505,93 @@ INSERT DELAYED INTO `jos_jaderp_menu` (`id`, `option`, `controller`, `task`, `pu
 -- Structure de la table `jos_jaderp_suppliers`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_suppliers`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_suppliers` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `code` varchar(25) NOT NULL,
   `rsoc` varchar(255) NOT NULL,
   `responsable` varchar(80) NOT NULL,
-  `country` int(11) NOT NULL,
+  `pcountry` int(11) NOT NULL,
   `currency` int(11) NOT NULL,
   `max_credit` double NOT NULL,
-  `initial_credit` double NOT NULL,
+  `solde` double NOT NULL,
   `chaff` double NOT NULL,
-  `swift` varchar(25) NOT NULL,
-  `bank_name` varchar(255) NOT NULL,
-  `bank_address` text NOT NULL,
-  `account_number` varchar(255) NOT NULL,
-  `bankaccount` varchar(50) NOT NULL,
   `codetva` varchar(50) NOT NULL,
   `checked_out` int(11) NOT NULL,
   `checked_out_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `creation_date` datetime NOT NULL,
+  `creator_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
 -- Contenu de la table `jos_jaderp_suppliers`
 --
 
+INSERT DELAYED INTO `jos_jaderp_suppliers` (`id`, `code`, `rsoc`, `responsable`, `pcountry`, `currency`, `max_credit`, `solde`, `chaff`, `codetva`, `checked_out`, `checked_out_time`, `creation_date`, `creator_id`) VALUES
+(1, 'FR0001', 'EYASOFT', 'FEKI Hichem', 224, 67, 2500, 120, 0, '', 0, '0000-00-00 00:00:00', '2010-09-26 15:31:06', 63),
+(2, 'FR0001f', 'hichem', 'FEKI Hichem', 212, 64, 2500, 120, 0, '20sdqsd q2sd 12q', 0, '0000-00-00 00:00:00', '2010-09-26 23:12:21', 63);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `jos_jaderp_supplier_bank`
+--
+
+DROP TABLE IF EXISTS `jos_jaderp_supplier_bank`;
+CREATE TABLE IF NOT EXISTS `jos_jaderp_supplier_bank` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `supplier_id` int(11) NOT NULL,
+  `bank_name` varchar(255) NOT NULL,
+  `bank_address` text NOT NULL,
+  `rib` varchar(50) NOT NULL,
+  `swift` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `jos_jaderp_supplier_bank`
+--
+
+INSERT DELAYED INTO `jos_jaderp_supplier_bank` (`id`, `supplier_id`, `bank_name`, `bank_address`, `rib`, `swift`) VALUES
+(1, 1, 'UBCI', 'Rte de Tunis', '11700154545454564', '545456'),
+(2, 2, '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `jos_jaderp_supplier_contact`
+--
+
+DROP TABLE IF EXISTS `jos_jaderp_supplier_contact`;
+CREATE TABLE IF NOT EXISTS `jos_jaderp_supplier_contact` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `supplier_id` int(11) NOT NULL,
+  `suppliername` varchar(50) NOT NULL,
+  `position` varchar(50) NOT NULL,
+  `photo` varchar(255) NOT NULL,
+  `country` int(11) NOT NULL,
+  `telephone` varchar(25) NOT NULL,
+  `telephone1` varchar(25) NOT NULL,
+  `mobile` varchar(25) NOT NULL,
+  `fax` varchar(25) NOT NULL,
+  `address` text NOT NULL,
+  `suburb` varchar(50) NOT NULL,
+  `state` varchar(50) NOT NULL,
+  `postcode` varchar(15) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `webpage` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+--
+-- Contenu de la table `jos_jaderp_supplier_contact`
+--
+
+INSERT DELAYED INTO `jos_jaderp_supplier_contact` (`id`, `supplier_id`, `suppliername`, `position`, `photo`, `country`, `telephone`, `telephone1`, `mobile`, `fax`, `address`, `suburb`, `state`, `postcode`, `email`, `webpage`) VALUES
+(1, 0, '', '', '', 0, '', '', '', '', '', '', '', '', '', ''),
+(2, 2, '', '', '', 0, '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -529,6 +599,7 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_suppliers` (
 -- Structure de la table `jos_jaderp_tables`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_tables`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_tables` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_name` varchar(255) NOT NULL,
@@ -557,6 +628,7 @@ INSERT DELAYED INTO `jos_jaderp_tables` (`id`, `table_name`, `table_description`
 -- Structure de la table `jos_jaderp_tables_access`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_tables_access`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_tables_access` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `table_id` int(11) NOT NULL,
@@ -636,7 +708,7 @@ INSERT DELAYED INTO `jos_jaderp_tables_access` (`id`, `table_id`, `field_name`, 
 (65, 5, 'code', '', 10, 10, 10),
 (66, 5, 'rsoc', '', 10, 10, 10),
 (67, 5, 'responsable', '', 10, 10, 10),
-(68, 5, 'country', '', 10, 10, 10),
+(68, 5, 'pcountry', '', 10, 10, 10),
 (69, 5, 'currency', '', 10, 10, 10),
 (70, 5, 'max_credit', '', 10, 10, 10),
 (71, 5, 'initial_credit', '', 10, 10, 10),
@@ -678,6 +750,7 @@ INSERT DELAYED INTO `jos_jaderp_tables_access` (`id`, `table_id`, `field_name`, 
 -- Structure de la table `jos_jaderp_types_piece`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_types_piece`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_types_piece` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
@@ -702,6 +775,7 @@ INSERT DELAYED INTO `jos_jaderp_types_piece` (`id`, `name`, `description`) VALUE
 -- Structure de la table `jos_jaderp_users`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_users`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `joomla_id` int(11) NOT NULL DEFAULT '0',
@@ -756,6 +830,7 @@ INSERT DELAYED INTO `jos_jaderp_users` (`id`, `joomla_id`, `canaccess`, `access_
 -- Structure de la table `jos_jaderp_users_access`
 --
 
+DROP TABLE IF EXISTS `jos_jaderp_users_access`;
 CREATE TABLE IF NOT EXISTS `jos_jaderp_users_access` (
   `user_id` int(11) NOT NULL DEFAULT '0',
   `module_component` varchar(255) NOT NULL,
