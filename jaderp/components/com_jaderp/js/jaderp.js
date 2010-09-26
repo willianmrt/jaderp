@@ -56,3 +56,50 @@ function countryChanged(country)
 	}
 	
 }
+
+function validatecode(supplcode)
+{
+	if (supplcode.value != '')
+	{
+		if (document.adminForm.id.value == "0")
+		{
+			document.getElementById("suppcode").style.backgroundImage= 'url(images/jaderp/ajax-loader.gif)';
+			jQuery.get("code.php", { id: supplcode.value },
+			  function(data){
+		  		var form = document.adminForm;
+		  		var valeur = data;
+		  		var strToTest = "";
+		  		var result = "";
+					
+		  		if (valeur != "0")
+		  		{
+		  			alert ("Veuillez vérifier, code fournisseur existe déja pour "+valeur);
+		  			document.getElementById("suppcode").style.backgroundImage= 'url(images/jaderp/cancel-icon.png)'; //
+		  			supplcode.focus();
+		  		}
+		  		else
+		  		{
+		  			document.getElementById("suppcode").style.backgroundImage= 'url(images/jaderp/ok-icon.png)';
+		  		}
+		  	});
+		}
+		  
+	}
+	else
+	{
+		alert ("Veuillez vérifier, code fournisseur obligatoire");
+		document.getElementById("suppcode").style.backgroundImage= 'url(images/jaderp/cancel-icon.png)'; //
+		supplcode.focus();
+	}
+}
+
+function validate(champ, obligatoire, numerique, nomchamp)
+{
+	champ.value = jQuery.trim(champ.value);
+	if (champ.value == '' && obligatoire)
+	{
+		alert ("Veuillez vérifier, "+nomchamp+" obligatoire");
+		document.getElementById("suppcode").style.backgroundImage= 'url(images/jaderp/cancel-icon.png)'; //
+		champ.focus();
+	}
+}

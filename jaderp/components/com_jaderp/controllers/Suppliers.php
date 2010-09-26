@@ -143,6 +143,7 @@ class JaderpControllerSuppliers extends JaderpController
 
 		</script>
 		<?php
+		
 		//$blockMenu = true;
 		$menubars->writeHead($tache, $tacheText);			
 		$menubars->addButton('save');	
@@ -179,7 +180,10 @@ class JaderpControllerSuppliers extends JaderpController
 		$result = $model->store($post);
 		if ($result->success) 
 		{
-			$msg = JText::sprintf( 'Successfully Saved Supplier %s', $post['rsoc']);
+			if ($result->msg == '')
+				$msg = JText::sprintf( 'Successfully Saved Supplier %s', $post['rsoc']);
+			else
+				$msg = $result->msg;
 			$table =& JTable::getInstance('suppliers', 'Table');
 			if($this->getTask() == 'save')
 			{
@@ -201,6 +205,17 @@ class JaderpControllerSuppliers extends JaderpController
 				$msg = JText::_( 'ERROR_SAVING_DATA' );
 			else
 				$msg = $result->msg;
+				
+			$menuid = JRequest::getInt('menuid', 0);
+			$task="add";
+			if ($post['id']>0)
+				$task="edit";
+			if ($menuid > 0)
+				$menulink = '&menuid='.$menuid;
+			else 
+				$menulink = '';
+			$this->setRedirect( 'index.php?option=com_jaderp&func=Suppliers&task='.$task.'&cid='. $post['id'].$menulink, $msg );
+			return ;
 		}
 		
 		

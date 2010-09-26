@@ -231,7 +231,7 @@ class JAdERPTools
 	function CountryHits($countryid)
 	{
 		$db =& JFactory::getDBO();
-		$req = "UPDATE #__jaderp_suppliers SET hits = hits+1 WHERE id=".$db->quote($countryid).";";
+		$req = "UPDATE #__jaderp_countries SET hits = hits+1 WHERE id=".$db->quote($countryid).";";
 		//echo $req;
 		$db->setQuery($req);
 		$re = $db->query();

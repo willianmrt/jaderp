@@ -9,7 +9,7 @@ $Conf =& new JConfig();
     $dbname       = $Conf->db; 
 	$id			  = $_GET['id'];
     if (!($conn=mysql_connect($host, $username, $pwd)))  { 
-       printf("error connecting to DB by user = $username and pwd=$pwd"); 
+       printf("error connecting to DB by user = $username"); 
        exit; 
     } 
     $db=mysql_select_db($dbname,$conn) or die('error db'); 

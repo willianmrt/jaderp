@@ -30,9 +30,11 @@ class JaderpViewSupplier extends JView
 		$task = JRequest::getCmd('task', 'view');
 		$accesses = $JAdERPTool->accessRights('jaderp_contacts', $task);
 		$this->assign('contactAccesses', $accesses);
+		$post = JRequest::get( 'post' );
 		$accesses = $JAdERPTool->accessRights('jaderp_suppliers', $task);
 		$this->assign('supplierAccesses', $accesses);
 		$menuid = JRequest::getInt('menuid', 0);
+		$this->assign('datas', $post);
 		if ($menuid > 0)
 		{
 			$this->assign('menuid', $menuid);	
