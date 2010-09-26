@@ -22,11 +22,11 @@ class TableSuppliers extends JTable
 	/** @var int */
 	var $currency	 		= null;
 	/** @var double */
-	var $max_credit			= null;	
+	var $max_credit			= 0;	
 	/** @var double */
-	var $solde				= null;
+	var $solde				= 0;
 	/** @var double */
-	var $chaff	 			= null;
+	var $chaff	 			= 0;
 	/** @var string */
 	var $codetva			= null;
 	/** @var int */
@@ -49,16 +49,25 @@ class TableSuppliers extends JTable
 	
 	function check()
 	{
+		$resul = new stdClass();
+		$resul->success = true;
+		$resul->msg = "";
+		
 		$db =& $this->getDBO();
-		$req = "SELECT 0 FROM #__jaderp_suppliers WHERE code='".$this->code."'";
-		$db->setQuery($req);
-		$rows = $db->loadAssocList();
-		if ($rows)
+		if ($this->id < 1)
 		{
-			$this->setError(JText::_('ERROR_CODE_EXISTS'));
-			return false;
+			$req = "SELECT * FROM #__jaderp_suppliers WHERE code='".$this->code."'";
+			$db->setQuery($req);
+			$rows = $db->loadAssocList();
+			if ($rows)
+			{
+				$resul->success = false;
+				$resul->msg = 'CODE EXISTS';
+				return $resul;
+			}	
 		}
 		
-		return true;
+		
+		return $resul;
 	}
 }

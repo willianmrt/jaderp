@@ -232,6 +232,20 @@ defined ( '_JEXEC' ) or die ( 'Restricted access' );
 </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <form id="adminForm" name="adminForm" method="POST" action="index.php">
 <div id="FormElementsGroup">
 <fieldset><legend><?php
@@ -240,10 +254,10 @@ echo JText::_ ( 'SUPPLIER_INFOS' );
 	<?php
 	if ($this->supplierAccesses ['code'] ['task']) {
 		?> 
-      <div class="FormElements"><label for="supplierCode"><?php
+      <div id="suppcode" style="background-repeat: no-repeat; background-position: 35% 1%; " class="FormElements"><label for="supplierCode"><?php
 		echo JText::_ ( 'CODE' );
 		?>:</label> <br />
-<input name="code" size="20" type="text" id="supplierCode" /></div>
+<input name="code" size="20" onBlur = "validatecode(this)" type="text" id="supplierCode" /></div>
     <?php
 	}
 	?>
@@ -254,7 +268,7 @@ echo JText::_ ( 'SUPPLIER_INFOS' );
 <div class="FormElements"><label for="supplierCompany"><?php
 		echo JText::_ ( 'COMPANY' );
 		?>:</label> <br />
-<input name="rsoc" type="text" id="supplierCompany" size="80" /></div>
+<input name="rsoc" onBlur = "validate(this, true, false, 'nom societe')" type="text" id="supplierCompany" size="80" /></div>
     <?php
 	}
 	?>
@@ -302,7 +316,7 @@ echo JText::_ ( 'SUPPLIER_INFOS' );
 <div class="FormElements"><label for="supplierTVA"><?php
 		echo JText::_ ( 'TVA' );
 		?>:</label> <br />
-<input name="tvacode" type="text" id="supplierTVA" size="40" />
+<input name="codetva" type="text" id="supplierTVA" size="40" />
 </div>
     <?php
 	}
@@ -342,7 +356,7 @@ echo JText::_ ( 'SUPPLIER_INFOS' );
 <div class="FormElements"><label for="supplieInitialBalance"><?php
 		echo JText::_ ( 'BALANCE' );
 		?>:</label> <br />
-<input name="initial_credit" type="text" id="supplieInitialBalance"
+<input name="solde" type="text" value="<?php echo $this->datas->solde;?>" id="supplieInitialBalance"
 	class="numeric" /></div>
     <?php
 	}

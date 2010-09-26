@@ -111,66 +111,107 @@ class JaderpModelSupplier extends JModel
 		$data['creation_date'] = $now->toMySQL(true);
 		$user =& JFactory::getUser();
 		$data['creator_id'] = $user->get('id');
-		/*if ($data['id'] < 1) // new record
-		{
-			$sql = "INSERT INTO #__jaderp_suppliers (`id`, `code`, `rsoc`, `responsable`, `country`, `currency`, `max_credit`, `solde`, `chaff`, `codetva`, `checked_out`, `checked_out_time`)
-			 VALUES (NULL,".$db->Quote($data['code'].", ".$data['rsoc'])." , ".$db->Quote($data['responsable']). " , ".$db->Quote($data['country']).", ".$db->Quote($data['currency']).",".$db->Quote($data['max_credit'])." ,".$db->Quote($data['solde']). ", '0',". $db->Quote($data['codetva'])." '0','0000-00-00 00:00:00');";
-			$db->setQuery($sql);
-			if (!$db->query())
-			{
-				JError::raiseError(500, $db->getErrorMsg() );
-			}
-			$aro=$db->insertid();
-			
-			/*$sql = "INSERT INTO #__core_acl_groups_aro_map (`group_id`, `section_value`, `aro_id`)
-			 VALUES ('18','', ".$db->Quote($aro).");";
-			$db->setQuery($sql);
-			if (!$db->query()) 
-			{
-				JError::raiseError(500, $db->getErrorMsg() );
-			}
-		}
-		else // record modified
-		{
-			if ($data['id'] > 0)
-			{
-				
-			}
-		}*/
 		JTable::addIncludePath('components'.DS.'com_jaderp'.DS.'tables');
 		$row =& $this->getTable('Suppliers');
 		$resul = new stdClass();
 		$resul->success = true;
 		$resul->msg = "";
 		
+		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
+		$JAdERPTool =& new JAdERPTools;
+		
 		// Bind the form fields to the table
 		if (!$row->bind($data)) {
-			$this->setError($row->getErrorMsg() );
+			$this->setError($db->getError() );
 			$resul->success = false;
-			$resul->msg = $row->getErrorMsg();
+			$resul->msg = $db->getError();
+			return $resul;
+			
 		}
 
 		// Make sure the record is valid
-		if (!$row->check()) {
-			$this->setError($db->getErrorMsg() );
-			$resul->success = false;
-			$resul->msg = $row->getErrorMsg();
+		$reslt = $row->check();
+		if (!$reslt->success) 
+		{
+			return $reslt;
 		}
 
 		// Store the table to the database
-		if (!$row->store()) {
-			$this->setError($row->getErrorMsg() );
-			$resul->success = false;
-			$resul->msg = $row->getErrorMsg();
-		}
-		
-		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
-		$JAdERPTool =& new JAdERPTools;
-		if (!$JAdERPTool->CountryHits($data['pcountry']))
+		if (!$row->store()) 
 		{
+			//$this->setError($row->getErrorMsg() );
 			$resul->success = false;
-			$resul->msg = "Error saving country hits";
+			$resul->msg = $db->getErrorMsg();
+			return $resul;
 		}
+		if ($data['id'] < 1) // new record
+		{
+			$newid = $db->insertid();
+			$data['supplier_id'] = $newid;
+
+			if (!$JAdERPTool->CountryHits($data['pcountry']))
+			{
+				$resul->success = false;
+				$resul->msg = "Error saving country hits";
+				return $resul;
+			}
+
+			if (sizeof($data["bank_name"]))
+			{
+				$bankname    	= $data["bank_name"];
+				$bankaddress 	= $data["bank_address"];
+				$rib        	= $data["account_number"];
+				$swift 			= $data["swift"];
+				 
+				for ($i=0; $i < sizeof($bankname); $i++)
+				{
+					$sql = "INSERT INTO #__jaderp_supplier_bank (`id`, `supplier_id`, `bank_name`, `bank_address`, `rib`, `swift`)
+					 VALUES (NULL,".$db->Quote($newid).", ".$db->Quote($bankname[$i])." , ".$db->Quote($bankaddress[$i]). " , ".$db->Quote($rib[$i]).", ".$db->Quote($swift[$i]).");";
+					$db->setQuery($sql);
+					if (!$db->query())
+					{
+						JError::raiseError(500, $db->getErrorMsg() );
+					}
+				}
+			}
+			
+			if (sizeof($data["country"]))
+			{
+				$contacts =& $this->getTable('Supplier_Contact');
+				if (!$contacts->bind($data)) 
+				{
+					$this->setError($contacts->getError() );
+					$resul->success = false;
+					$resul->msg = $contacts->getError();
+					return $resul;
+					
+				}
+		
+				// Make sure the record is valid
+				$reslt = $contacts->check();
+				if (!$reslt->success) 
+				{
+					return $reslt;
+				}
+		
+				// Store the table to the database
+				if (!$contacts->store()) 
+				{
+					$this->setError($db->getErrorMsg() );
+					$resul->success = false;
+					if ($db->getErrorMsg() != '')
+						$resul->msg = $db->getErrorMsg();
+					else 
+						$resul->msg = JText::_("ERROR_SAVING_CONTACTS");
+					return $resul;
+				}				
+			}			
+		}
+		else // record modified
+		{
+
+			
+		}	
 			
 		return $resul;
 		
