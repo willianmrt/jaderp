@@ -98,8 +98,12 @@ function validate(champ, obligatoire, numerique, nomchamp)
 	champ.value = jQuery.trim(champ.value);
 	if (champ.value == '' && obligatoire)
 	{
-		alert ("Veuillez vérifier, "+nomchamp+" obligatoire");
+		champ.style.backgroundColor="#FEE2E4";
+		//alert ("Veuillez vérifier, "+nomchamp+" obligatoire");
 		document.getElementById("suppcode").style.backgroundImage= 'url(images/jaderp/cancel-icon.png)'; //
 		champ.focus();
+		return false;
 	}
+	champ.style.backgroundColor="#ECFFED";
+	return true;
 }
