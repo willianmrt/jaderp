@@ -412,14 +412,13 @@ class JaderpControllerWorkers extends JaderpController
 		
 		$document =& JFactory::getDocument();			
 		JHTML::_('behavior.modal', 'a.modal');
-		JHTML::_('behavior.tooltip');
 		//$menubar = $JAdERPTool-> creatMenuBar($buttons, $tache, $tacheText, true, false,true);
 		//echo $menubar;?>
 		 <a rel="{handler: 'iframe', size: {x: 870, y: 600}}" href="index.php?option=com_jaderp&view=Workers&tmpl=component&layout=print_preview" class="modal">
 <span title="Paramètres" class="icon-32-config">
 Paramètres</span>
 </a>
-		 <a target="_blank" href="http://localhost/tcpdf/examples/example_011.php"><span title="Paramètres" class="icon-32-config">PDF</span></a>
+		 <a target="_blank" href="http://localhost/tcpdf/examples/example_011.php"><span title="Param�tres" class="icon-32-config">PDF</span></a>
 <?php
 		$menubars->writeHead($tache, $tacheText);
 		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner dans la liste les éléments à\');}else{  submitbutton(\'publish\')}"';
