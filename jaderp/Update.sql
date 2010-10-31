@@ -1,16 +1,16 @@
--- phpMyAdmin SQL Dump
+ï»¿-- phpMyAdmin SQL Dump
 -- version 3.1.3.1
 -- http://www.phpmyadmin.net
 --
 -- Serveur: localhost
--- Généré le : Lun 27 Septembre 2010 à 01:14
+-- GÃ©nÃ©rÃ© le : Lun 01 Novembre 2010 Ã  00:45
 -- Version du serveur: 5.1.33
 -- Version de PHP: 5.2.9
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 --
--- Base de données: `erp`
+-- Base de donnÃ©es: `erp`
 --
 
 -- --------------------------------------------------------
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp` (
 -- Contenu de la table `jos_jaderp`
 --
 
-INSERT DELAYED INTO `jos_jaderp` (`id`, `greeting`) VALUES
+INSERT IGNORE INTO `jos_jaderp` (`id`, `greeting`) VALUES
 (1, 'jaderp, World!'),
 (2, 'Bonjour, Monde!'),
 (3, 'Ciao, Mondo!');
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_access_levels` (
 -- Contenu de la table `jos_jaderp_access_levels`
 --
 
-INSERT DELAYED INTO `jos_jaderp_access_levels` (`id`, `access_label`, `access_level`) VALUES
+INSERT IGNORE INTO `jos_jaderp_access_levels` (`id`, `access_label`, `access_level`) VALUES
 (1, 'Minimum', 1),
 (2, 'Agent de saisie', 10);
 
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_branchs` (
 -- Contenu de la table `jos_jaderp_branchs`
 --
 
-INSERT DELAYED INTO `jos_jaderp_branchs` (`id`, `name`, `description`, `address`) VALUES
+INSERT IGNORE INTO `jos_jaderp_branchs` (`id`, `name`, `description`, `address`) VALUES
 (1, 'Msaken', 'fi msaken', 'bidhabet ma na3rafeh'),
 (2, 'Tunis Rep', 'fil 3asma', '');
 
@@ -146,91 +146,91 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_countries` (
 -- Contenu de la table `jos_jaderp_countries`
 --
 
-INSERT DELAYED INTO `jos_jaderp_countries` (`id`, `hits`, `iso`, `iso3`, `numcode`, `phone_code`, `currency`, `iso4217`, `currency_symbol`, `active_currency`, `currency_format`, `fr`, `en`) VALUES
+INSERT IGNORE INTO `jos_jaderp_countries` (`id`, `hits`, `iso`, `iso3`, `numcode`, `phone_code`, `currency`, `iso4217`, `currency_symbol`, `active_currency`, `currency_format`, `fr`, `en`) VALUES
 (1, 0, 'AF', 'AFG', 4, '93', 'Afghan afghani', 'AFN', '', 0, '', 'Afghanistan', 'Afghanistan'),
 (2, 0, 'ZA', 'ZAF', 710, '27', 'South African rand', 'ZAR', 'R', 0, '', 'Afrique du Sud', 'South Africa'),
 (3, 0, 'AL', 'ALB', 8, '355', 'Albanian lek', 'ALL', '', 0, '', 'Albanie', 'Albania'),
-(4, 0, 'DZ', 'DZA', 12, '213', 'Algerian dinar', 'DZD', '', 0, '', 'Algérie', 'Algeria'),
-(5, 1, 'DE', 'DEU', 276, '49', 'European euro', 'EUR', '€', 0, '', 'Allemagne', 'Germany'),
+(4, 0, 'DZ', 'DZA', 12, '213', 'Algerian dinar', 'DZD', '', 0, '', 'AlgÃ©rie', 'Algeria'),
+(5, 1, 'DE', 'DEU', 276, '49', 'European euro', 'EUR', 'â‚¬', 0, '', 'Allemagne', 'Germany'),
 (6, 0, 'AD', 'AND', 20, '376', '', '', '', 0, '', 'Andorre', 'Andorra'),
 (7, 0, 'AO', 'AGO', 24, '244', 'Angolan kwanza', 'AOA', '', 0, '', 'Angola', 'Angola'),
 (8, 0, 'AI', 'AIA', 660, '1264', '', '', '', 0, '', 'Anguilla', 'Anguilla'),
 (9, 0, 'AQ', '', 0, '', '', '', '', 0, '', 'Antarctique', 'Antarctica'),
 (10, 0, 'AG', 'ATG', 28, '1268', '', '', '', 0, '', 'Antigua-et-Barbuda', 'Antigua and Barbuda'),
-(11, 0, 'AN', 'ANT', 530, '599', 'Netherlands Antillean gulden', 'ANG', 'NAƒ', 0, '', 'Antilles néerlandaises', 'Netherlands Antilles'),
+(11, 0, 'AN', 'ANT', 530, '599', 'Netherlands Antillean gulden', 'ANG', 'NAÆ’', 0, '', 'Antilles nÃ©erlandaises', 'Netherlands Antilles'),
 (12, 0, 'SA', 'SAU', 682, '966', 'Saudi riyal', 'SAR', 'SR', 0, '', 'Arabie saoudite', 'Saudi Arabia'),
 (13, 0, 'AR', 'ARG', 32, '54', 'Argentine peso', 'ARS', '', 0, '', 'Argentine', 'Argentina'),
-(14, 0, 'AM', 'ARM', 51, '374', 'Armenian dram', 'AMD', '', 0, '', 'Arménie', 'Armenia'),
-(15, 0, 'AW', 'ABW', 533, '297', 'Aruban florin', 'AWG', 'ƒ', 0, '', 'Aruba', 'Aruba'),
+(14, 0, 'AM', 'ARM', 51, '374', 'Armenian dram', 'AMD', '', 0, '', 'ArmÃ©nie', 'Armenia'),
+(15, 0, 'AW', 'ABW', 533, '297', 'Aruban florin', 'AWG', 'Æ’', 0, '', 'Aruba', 'Aruba'),
 (16, 0, 'AU', 'AUS', 36, '61', 'Australian dollar', 'AUD', '$', 0, '', 'Australie', 'Australia'),
-(17, 0, 'AT', 'AUT', 40, '43', 'European euro', 'EUR', '€', 0, '', 'Autriche', 'Austria'),
-(18, 0, 'AZ', 'AZE', 31, '994', 'Azerbaijani manat', 'AZN', '', 0, '', 'Azerbaïdjan', 'Azerbaijan'),
-(19, 0, 'BJ', 'BEN', 204, '229', '', '', '', 0, '', 'Bénin', 'Benin'),
+(17, 0, 'AT', 'AUT', 40, '43', 'European euro', 'EUR', 'â‚¬', 0, '', 'Autriche', 'Austria'),
+(18, 0, 'AZ', 'AZE', 31, '994', 'Azerbaijani manat', 'AZN', '', 0, '', 'AzerbaÃ¯djan', 'Azerbaijan'),
+(19, 0, 'BJ', 'BEN', 204, '229', '', '', '', 0, '', 'BÃ©nin', 'Benin'),
 (20, 0, 'BS', 'BHS', 44, '1242', 'Bahamian dollar', 'BSD', 'B$', 0, '', 'Bahamas', 'Bahamas'),
-(21, 0, 'BH', 'BHR', 48, '973', 'Bahraini dinar', 'BHD', '', 0, '', 'Bahreïn', 'Bahrain'),
+(21, 0, 'BH', 'BHR', 48, '973', 'Bahraini dinar', 'BHD', '', 0, '', 'BahreÃ¯n', 'Bahrain'),
 (22, 0, 'BD', 'BGD', 50, '880', 'Bangladeshi taka', 'BDT', '', 0, '', 'Bangladesh', 'Bangladesh'),
 (23, 0, 'BB', 'BRB', 52, '1246', 'Barbadian dollar', 'BBD', 'Bds$', 0, '', 'Barbade', 'Barbados'),
 (24, 0, 'PW', 'PLW', 585, '680', '', '', '', 0, '', 'Belau', 'Palau'),
-(25, 1, 'BE', 'BEL', 56, '32', 'European euro', 'EUR', '€', 0, '', 'Belgique', 'Belgium'),
+(25, 1, 'BE', 'BEL', 56, '32', 'European euro', 'EUR', 'â‚¬', 0, '', 'Belgique', 'Belgium'),
 (26, 0, 'BZ', 'BLZ', 84, '501', 'Belize dollar', 'BZD', 'BZ$', 0, '', 'Belize', 'Belize'),
 (27, 0, 'BM', 'BMU', 60, '1441', 'Bermudian dollar', 'BMD', 'BD$', 0, '', 'Bermudes', 'Bermuda'),
 (28, 0, 'BT', 'BTN', 64, '975', 'Bhutanese ngultrum', 'BTN', 'Nu.', 0, '', 'Bhoutan', 'Bhutan'),
-(29, 0, 'BY', 'BLR', 112, '375', 'Belarusian ruble', 'BYR', 'Br', 0, '', 'Biélorussie', 'Belarus'),
+(29, 0, 'BY', 'BLR', 112, '375', 'Belarusian ruble', 'BYR', 'Br', 0, '', 'BiÃ©lorussie', 'Belarus'),
 (30, 0, 'MM', 'MMR', 104, '95', 'Myanma kyat', 'MMK', 'K', 0, '', 'Birmanie', 'Myanmar'),
 (31, 0, 'BO', 'BOL', 68, '591', 'Bolivian boliviano', 'BOB', 'Bs.', 0, '', 'Bolivie', 'Bolivia'),
-(32, 0, 'BA', 'BIH', 70, '387', 'Bosnia and Herzegovina konvertibilna marka', 'BAM', 'KM', 0, '', 'Bosnie-Herzégovine', 'Bosnia and Herzegovina'),
+(32, 0, 'BA', 'BIH', 70, '387', 'Bosnia and Herzegovina konvertibilna marka', 'BAM', 'KM', 0, '', 'Bosnie-HerzÃ©govine', 'Bosnia and Herzegovina'),
 (33, 0, 'BW', 'BWA', 72, '267', 'Botswana pula', 'BWP', 'P', 0, '', 'Botswana', 'Botswana'),
-(34, 0, 'BR', 'BRA', 76, '55', 'Brazilian real', 'BRL', 'R$', 0, '', 'Brésil', 'Brazil'),
+(34, 0, 'BR', 'BRA', 76, '55', 'Brazilian real', 'BRL', 'R$', 0, '', 'BrÃ©sil', 'Brazil'),
 (35, 0, 'BN', 'BRN', 96, '673', 'Brunei dollar', 'BND', 'B$', 0, '', 'Brunei', 'Brunei Darussalam'),
 (36, 0, 'BG', 'BGR', 100, '359', 'Bulgarian lev', 'BGN', '', 0, '', 'Bulgarie', 'Bulgaria'),
 (37, 0, 'BF', 'BFA', 854, '226', '', '', '', 0, '', 'Burkina Faso', 'Burkina Faso'),
 (38, 0, 'BI', 'BDI', 108, '257', 'Burundi franc', 'BIF', 'FBu', 0, '', 'Burundi', 'Burundi'),
-(39, 0, 'CI', 'CIV', 384, '225', '', '', '', 0, '', 'Côte d''Ivoire', 'Cote D''Ivoire'),
+(39, 0, 'CI', 'CIV', 384, '225', '', '', '', 0, '', 'CÃ´te d''Ivoire', 'Cote D''Ivoire'),
 (40, 0, 'KH', 'KHM', 116, '855', 'Cambodian riel', 'KHR', '', 0, '', 'Cambodge', 'Cambodia'),
 (41, 0, 'CM', 'CMR', 120, '237', '', '', '', 0, '', 'Cameroun', 'Cameroon'),
 (42, 0, 'CA', 'CAN', 124, '1', 'Canadian dollar', 'CAD', '$', 0, '', 'Canada', 'Canada'),
 (43, 0, 'CV', 'CPV', 132, '238', 'Cape Verdean escudo', 'CVE', 'Esc', 0, '', 'Cap-Vert', 'Cape Verde'),
 (44, 0, 'CL', 'CHL', 152, '56', 'Chilean peso', 'CLP', '$', 0, '', 'Chili', 'Chile'),
-(45, 2, 'CN', 'CHN', 156, '86', 'Chinese renminbi', 'CNY', '¥', 0, '', 'Chine', 'China'),
-(46, 0, 'CY', 'CYP', 196, '357', 'European euro', 'EUR', '€', 0, '', 'Chypre', 'Cyprus'),
+(45, 2, 'CN', 'CHN', 156, '86', 'Chinese renminbi', 'CNY', 'Â¥', 0, '', 'Chine', 'China'),
+(46, 0, 'CY', 'CYP', 196, '357', 'European euro', 'EUR', 'â‚¬', 0, '', 'Chypre', 'Cyprus'),
 (47, 0, 'CO', 'COL', 170, '57', 'Colombian peso', 'COP', 'Col$', 0, '', 'Colombie', 'Colombia'),
 (48, 0, 'KM', 'COM', 174, '269', 'Comorian franc', 'KMF', '', 0, '', 'Comores', 'Comoros'),
 (49, 0, 'CG', 'COG', 178, '242', '', '', '', 0, '', 'Congo', 'Congo'),
-(50, 0, 'KP', 'PRK', 408, '850', 'North Korean won', 'KPW', 'W', 0, '', 'Corée du Nord', 'Korea, Democratic People''s Republic of'),
-(51, 0, 'KR', 'KOR', 410, '82', 'South Korean won', 'KRW', 'W', 0, '', 'Corée du Sud', 'Korea, Republic of'),
-(52, 0, 'CR', 'CRI', 188, '506', 'Costa Rican colon', 'CRC', '¢', 0, '', 'Costa Rica', 'Costa Rica'),
+(50, 0, 'KP', 'PRK', 408, '850', 'North Korean won', 'KPW', 'W', 0, '', 'CorÃ©e du Nord', 'Korea, Democratic People''s Republic of'),
+(51, 0, 'KR', 'KOR', 410, '82', 'South Korean won', 'KRW', 'W', 0, '', 'CorÃ©e du Sud', 'Korea, Republic of'),
+(52, 0, 'CR', 'CRI', 188, '506', 'Costa Rican colon', 'CRC', 'Â¢', 0, '', 'Costa Rica', 'Costa Rica'),
 (53, 0, 'HR', 'HRV', 191, '385', 'Croatian kuna', 'HRK', 'kn', 0, '', 'Croatie', 'Croatia'),
 (54, 0, 'CU', 'CUB', 192, '53', 'Cuban peso', 'CUC', '$', 0, '', 'Cuba', 'Cuba'),
 (55, 0, 'DK', 'DNK', 208, '45', 'Danish krone', 'DKK', 'Kr', 0, '', 'Danemark', 'Denmark'),
 (56, 0, 'DJ', 'DJI', 262, '253', 'Djiboutian franc', 'DJF', 'Fdj', 0, '', 'Djibouti', 'Djibouti'),
 (57, 0, 'DM', 'DMA', 212, '1767', '', '', '', 0, '', 'Dominique', 'Dominica'),
-(58, 0, 'EG', 'EGY', 818, '20', 'Egyptian pound', 'EGP', '£', 0, '', 'Egypte', 'Egypt'),
-(59, 0, 'AE', 'ARE', 784, '971', 'UAE dirham', 'AED', '', 0, '', 'Emirats arabes unis', 'United Arab Emirates'),
-(60, 0, 'EC', 'ECU', 218, '593', '', '', '', 0, '', 'Equateur', 'Ecuador'),
-(61, 0, 'ER', 'ERI', 232, '291', 'Eritrean nakfa', 'ERN', 'Nfa', 0, '', 'Erythrée', 'Eritrea'),
-(62, 0, 'ES', 'ESP', 724, '34', 'European euro', 'EUR', '€', 0, '', 'Espagne', 'Spain'),
+(58, 0, 'EG', 'EGY', 818, '20', 'Egyptian pound', 'EGP', 'Â£', 0, '', 'Ã‰gypte', 'Egypt'),
+(59, 0, 'AE', 'ARE', 784, '971', 'UAE dirham', 'AED', '', 0, '', 'Ã‰mirats arabes unis', 'United Arab Emirates'),
+(60, 0, 'EC', 'ECU', 218, '593', '', '', '', 0, '', 'Ã‰quateur', 'Ecuador'),
+(61, 0, 'ER', 'ERI', 232, '291', 'Eritrean nakfa', 'ERN', 'Nfa', 0, '', 'Ã‰rythrÃ©e', 'Eritrea'),
+(62, 0, 'ES', 'ESP', 724, '34', 'European euro', 'EUR', 'â‚¬', 0, '', 'Espagne', 'Spain'),
 (63, 0, 'EE', 'EST', 233, '372', 'Estonian kroon', 'EEK', 'KR', 0, '', 'Estonie', 'Estonia'),
-(64, 0, 'US', 'USA', 840, '1', 'United States dollar', 'USD', 'US$', 1, '2/''.''/'',''', 'Etats-Unis', 'United States'),
-(65, 0, 'ET', 'ETH', 231, '251', 'Ethiopian birr', 'ETB', 'Br', 0, '', 'Ethiopie', 'Ethiopia'),
-(66, 0, 'FI', 'FIN', 246, '358', 'European euro', 'EUR', '€', 0, '', 'Finlande', 'Finland'),
-(67, 1, 'FR', 'FRA', 250, '33', 'European euro', 'EUR', '€', 1, '2/''.''/'' ''', 'France', 'France'),
-(68, 0, 'GE', 'GEO', 268, '995', 'Georgian lari', 'GEL', '', 0, '', 'Géorgie', 'Georgia'),
+(64, 0, 'US', 'USA', 840, '1', 'United States dollar', 'USD', 'US$', 1, '2/''.''/'',''', 'Ã‰tats-Unis', 'United States'),
+(65, 0, 'ET', 'ETH', 231, '251', 'Ethiopian birr', 'ETB', 'Br', 0, '', 'Ã‰thiopie', 'Ethiopia'),
+(66, 0, 'FI', 'FIN', 246, '358', 'European euro', 'EUR', 'â‚¬', 0, '', 'Finlande', 'Finland'),
+(67, 1, 'FR', 'FRA', 250, '33', 'European euro', 'EUR', 'â‚¬', 1, '2/''.''/'' ''', 'France', 'France'),
+(68, 0, 'GE', 'GEO', 268, '995', 'Georgian lari', 'GEL', '', 0, '', 'GÃ©orgie', 'Georgia'),
 (69, 0, 'GA', 'GAB', 266, '241', '', '', '', 0, '', 'Gabon', 'Gabon'),
 (70, 0, 'GM', 'GMB', 270, '220', 'Gambian dalasi', 'GMD', 'D', 0, '', 'Gambie', 'Gambia'),
 (71, 0, 'GH', 'GHA', 288, '233', 'Ghanaian cedi', 'GHS', '', 0, '', 'Ghana', 'Ghana'),
-(72, 0, 'GI', 'GIB', 292, '350', 'Gibraltar pound', 'GIP', '£', 0, '', 'Gibraltar', 'Gibraltar'),
-(73, 0, 'GR', 'GRC', 300, '30', 'European euro', 'EUR', '€', 0, '', 'Grèce', 'Greece'),
+(72, 0, 'GI', 'GIB', 292, '350', 'Gibraltar pound', 'GIP', 'Â£', 0, '', 'Gibraltar', 'Gibraltar'),
+(73, 0, 'GR', 'GRC', 300, '30', 'European euro', 'EUR', 'â‚¬', 0, '', 'GrÃ¨ce', 'Greece'),
 (74, 0, 'GD', 'GRD', 308, '1473', '', '', '', 0, '', 'Grenade', 'Grenada'),
 (75, 0, 'GL', 'GRL', 304, '299', '', '', '', 0, '', 'Groenland', 'Greenland'),
 (76, 0, 'GP', 'GLP', 312, '590', '', '', '', 0, '', 'Guadeloupe', 'Guadeloupe'),
 (77, 0, 'GU', 'GUM', 316, '671', '', '', '', 0, '', 'Guam', 'Guam'),
 (78, 0, 'GT', 'GTM', 320, '502', 'Guatemalan quetzal', 'GTQ', 'Q', 0, '', 'Guatemala', 'Guatemala'),
-(79, 0, 'GN', 'GIN', 324, '224', 'Guinean franc', 'GNF', 'FG', 0, '', 'Guinée', 'Guinea'),
-(80, 0, 'GQ', 'GNQ', 226, '240', 'Central African CFA franc', 'GQE', 'CFA', 0, '', 'Guinée équatoriale', 'Equatorial Guinea'),
-(81, 0, 'GW', 'GNB', 624, '245', '', '', '', 0, '', 'Guinée-Bissao', 'Guinea-Bissau'),
+(79, 0, 'GN', 'GIN', 324, '224', 'Guinean franc', 'GNF', 'FG', 0, '', 'GuinÃ©e', 'Guinea'),
+(80, 0, 'GQ', 'GNQ', 226, '240', 'Central African CFA franc', 'GQE', 'CFA', 0, '', 'GuinÃ©e Ã©quatoriale', 'Equatorial Guinea'),
+(81, 0, 'GW', 'GNB', 624, '245', '', '', '', 0, '', 'GuinÃ©e-Bissao', 'Guinea-Bissau'),
 (82, 0, 'GY', 'GUY', 328, '592', 'Guyanese dollar', 'GYD', 'GY$', 0, '', 'Guyana', 'Guyana'),
-(83, 0, 'GF', 'GUF', 254, '592', '', '', '', 0, '', 'Guyane française', 'French Guiana'),
-(84, 0, 'HT', 'HTI', 332, '509', 'Haitian gourde', 'HTG', 'G', 0, '', 'Haïti', 'Haiti'),
+(83, 0, 'GF', 'GUF', 254, '592', '', '', '', 0, '', 'Guyane franÃ§aise', 'French Guiana'),
+(84, 0, 'HT', 'HTI', 332, '509', 'Haitian gourde', 'HTG', 'G', 0, '', 'HaÃ¯ti', 'Haiti'),
 (85, 0, 'HN', 'HND', 340, '504', 'Honduran lempira', 'HNL', 'L', 0, '', 'Honduras', 'Honduras'),
 (86, 1, 'HK', 'HKG', 344, '852', 'Hong Kong dollar', 'HKD', 'HK$', 0, '', 'Hong Kong', 'Hong Kong'),
 (87, 0, 'HU', 'HUN', 348, '36', 'Hungarian forint', 'HUF', 'Ft', 0, '', 'Hongrie', 'Hungary'),
@@ -239,35 +239,35 @@ INSERT DELAYED INTO `jos_jaderp_countries` (`id`, `hits`, `iso`, `iso3`, `numcod
 (90, 0, 'NF', 'NFK', 574, '672', '', '', '', 0, '', 'Ile Norfolk', 'Norfolk Island'),
 (91, 0, 'KY', 'CYM', 136, '1345', 'Cayman Islands dollar', 'KYD', 'KY$', 0, '', 'Iles Cayman', 'Cayman Islands'),
 (92, 0, 'CK', 'COK', 184, '682', '', '', '', 0, '', 'Iles Cook', 'Cook Islands'),
-(93, 0, 'FO', 'FRO', 234, '298', '', '', '', 0, '', 'Iles Féroé', 'Faroe Islands'),
-(94, 0, 'FK', 'FLK', 238, '500', 'Falkland Islands pound', 'FKP', '£', 0, '', 'Iles Falkland', 'Falkland Islands (Malvinas)'),
+(93, 0, 'FO', 'FRO', 234, '298', '', '', '', 0, '', 'Iles FÃ©roÃ©', 'Faroe Islands'),
+(94, 0, 'FK', 'FLK', 238, '500', 'Falkland Islands pound', 'FKP', 'Â£', 0, '', 'Iles Falkland', 'Falkland Islands (Malvinas)'),
 (95, 0, 'FJ', 'FJI', 242, '679', 'Fijian dollar', 'FJD', 'FJ$', 0, '', 'Iles Fidji', 'Fiji'),
-(96, 0, 'GS', '', 0, '', '', '', '', 0, '', 'Iles Géorgie du Sud et Sandwich du Sud', 'South Georgia and the South Sandwich Islands'),
+(96, 0, 'GS', '', 0, '', '', '', '', 0, '', 'Iles GÃ©orgie du Sud et Sandwich du Sud', 'South Georgia and the South Sandwich Islands'),
 (97, 0, 'HM', '', 0, '', '', '', '', 0, '', 'Iles Heard et McDonald', 'Heard Island and Mcdonald Islands'),
 (98, 0, 'MH', 'MHL', 584, '692', '', '', '', 0, '', 'Iles Marshall', 'Marshall Islands'),
 (99, 0, 'PN', 'PCN', 612, '', '', '', '', 0, '', 'Iles Pitcairn', 'Pitcairn'),
 (100, 0, 'SB', 'SLB', 90, '677', 'Solomon Islands dollar', 'SBD', 'SI$', 0, '', 'Iles Salomon', 'Solomon Islands'),
 (101, 0, 'SJ', 'SJM', 744, '', '', '', '', 0, '', 'Iles Svalbard et Jan Mayen', 'Svalbard and Jan Mayen'),
 (102, 0, 'TC', 'TCA', 796, '1649', '', '', '', 0, '', 'Iles Turks-et-Caicos', 'Turks and Caicos Islands'),
-(103, 0, 'VI', 'VIR', 850, '1', '', '', '', 0, '', 'Iles Vierges américaines', 'Virgin Islands, U.s.'),
+(103, 0, 'VI', 'VIR', 850, '1', '', '', '', 0, '', 'Iles Vierges amÃ©ricaines', 'Virgin Islands, U.s.'),
 (104, 0, 'VG', 'VGB', 92, '1284', '', '', '', 0, '', 'Iles Vierges britanniques', 'Virgin Islands, British'),
 (105, 0, 'CC', '', 0, '', '', '', '', 0, '', 'Iles des Cocos (Keeling)', 'Cocos (Keeling) Islands'),
-(106, 0, 'UM', '', 0, '', '', '', '', 0, '', 'Iles mineures éloignées des Etats-Unis', 'United States Minor Outlying Islands'),
+(106, 0, 'UM', '', 0, '', '', '', '', 0, '', 'Iles mineures Ã©loignÃ©es des Ã‰tats-Unis', 'United States Minor Outlying Islands'),
 (107, 0, 'IN', 'IND', 356, '91', 'Indian rupee', 'INR', 'Rs', 0, '', 'Inde', 'India'),
-(108, 0, 'ID', 'IDN', 360, '62', 'Indonesian rupiah', 'IDR', 'Rp', 0, '', 'Indonésie', 'Indonesia'),
+(108, 0, 'ID', 'IDN', 360, '62', 'Indonesian rupiah', 'IDR', 'Rp', 0, '', 'IndonÃ©sie', 'Indonesia'),
 (109, 0, 'IR', 'IRN', 364, '98', 'Iranian rial', 'IRR', '', 0, '', 'Iran', 'Iran, Islamic Republic of'),
 (110, 0, 'IQ', 'IRQ', 368, '964', 'Iraqi dinar', 'IQD', '', 0, '', 'Iraq', 'Iraq'),
-(111, 0, 'IE', 'IRL', 372, '353', 'European euro', 'EUR', '€', 0, '', 'Irlande', 'Ireland'),
-(112, 0, 'IS', 'ISL', 352, '354', 'Icelandic kr?na', 'ISK', 'kr', 0, '', 'Islande', 'Iceland'),
-(114, 1, 'IT', 'ITA', 380, '39', 'European euro', 'EUR', '€', 0, '', 'Italie', 'Italy'),
-(115, 0, 'JM', 'JAM', 388, '1876', 'Jamaican dollar', 'JMD', 'J$', 0, '', 'Jamaïque', 'Jamaica'),
-(116, 1, 'JP', 'JPN', 392, '81', 'Japanese yen', 'JPY', '¥', 1, '2/''.''/'' ''', 'Japon', 'Japan'),
+(111, 0, 'IE', 'IRL', 372, '353', 'European euro', 'EUR', 'â‚¬', 0, '', 'Irlande', 'Ireland'),
+(112, 0, 'IS', 'ISL', 352, '354', 'Icelandic krÃ³na', 'ISK', 'kr', 0, '', 'Islande', 'Iceland'),
+(114, 1, 'IT', 'ITA', 380, '39', 'European euro', 'EUR', 'â‚¬', 0, '', 'Italie', 'Italy'),
+(115, 0, 'JM', 'JAM', 388, '1876', 'Jamaican dollar', 'JMD', 'J$', 0, '', 'JamaÃ¯que', 'Jamaica'),
+(116, 1, 'JP', 'JPN', 392, '81', 'Japanese yen', 'JPY', 'Â¥', 1, '2/''.''/'' ''', 'Japon', 'Japan'),
 (117, 0, 'JO', 'JOR', 400, '962', 'Jordanian dinar', 'JOD', '', 0, '', 'Jordanie', 'Jordan'),
 (118, 0, 'KZ', 'KAZ', 398, '', 'Kazakhstani tenge', 'KZT', 'T', 0, '', 'Kazakhstan', 'Kazakhstan'),
 (119, 0, 'KE', 'KEN', 404, '254', 'Kenyan shilling', 'KES', 'KSh', 0, '', 'Kenya', 'Kenya'),
 (120, 0, 'KG', 'KGZ', 417, '996', 'Kyrgyzstani som', 'KGS', '', 0, '', 'Kirghizistan', 'Kyrgyzstan'),
 (121, 0, 'KI', 'KIR', 296, '686', '', '', '', 0, '', 'Kiribati', 'Kiribati'),
-(122, 0, 'KW', 'KWT', 414, '965', 'Kuwaiti dinar', 'KWD', '', 0, '', 'Koweït', 'Kuwait'),
+(122, 0, 'KW', 'KWT', 414, '965', 'Kuwaiti dinar', 'KWD', '', 0, '', 'KoweÃ¯t', 'Kuwait'),
 (123, 0, 'LA', 'LAO', 418, '', 'Lao kip', 'LAK', 'KN', 0, '', 'Laos', 'Lao People''s Democratic Republic'),
 (124, 0, 'LS', 'LSO', 426, '266', 'Lesotho loti', 'LSL', 'M', 0, '', 'Lesotho', 'Lesotho'),
 (125, 0, 'LV', 'LVA', 428, '371', 'Latvian lats', 'LVL', 'Ls', 0, '', 'Lettonie', 'Latvia'),
@@ -276,14 +276,14 @@ INSERT DELAYED INTO `jos_jaderp_countries` (`id`, `hits`, `iso`, `iso3`, `numcod
 (128, 0, 'LY', 'LBY', 434, '218', 'Libyan dinar', 'LYD', 'LD', 0, '', 'Libye', 'Libyan Arab Jamahiriya'),
 (129, 0, 'LI', 'LIE', 438, '', '', '', '', 0, '', 'Liechtenstein', 'Liechtenstein'),
 (130, 0, 'LT', 'LTU', 440, '370', 'Lithuanian litas', 'LTL', 'Lt', 0, '', 'Lituanie', 'Lithuania'),
-(131, 0, 'LU', 'LUX', 442, '352', 'European euro', 'EUR', '€', 0, '', 'Luxembourg', 'Luxembourg'),
+(131, 0, 'LU', 'LUX', 442, '352', 'European euro', 'EUR', 'â‚¬', 0, '', 'Luxembourg', 'Luxembourg'),
 (132, 0, 'MO', 'MAC', 446, '853', 'Macanese pataca', 'MOP', 'P', 0, '', 'Macao', 'Macao'),
 (133, 0, 'MG', 'MDG', 450, '261', 'Malagasy ariary', 'MGA', 'FMG', 0, '', 'Madagascar', 'Madagascar'),
 (134, 0, 'MY', 'MYS', 458, '60', 'Malaysian ringgit', 'MYR', 'RM', 0, '', 'Malaisie', 'Malaysia'),
 (135, 0, 'MW', 'MWI', 454, '265', 'Malawian kwacha', 'MWK', 'MK', 0, '', 'Malawi', 'Malawi'),
 (136, 0, 'MV', 'MDV', 462, '960', 'Maldivian rufiyaa', 'MVR', 'Rf', 0, '', 'Maldives', 'Maldives'),
 (137, 0, 'ML', 'MLI', 466, '223', '', '', '', 0, '', 'Mali', 'Mali'),
-(138, 0, 'MT', 'MLT', 470, '356', 'European Euro', 'EUR', '€', 0, '', 'Malte', 'Malta'),
+(138, 0, 'MT', 'MLT', 470, '356', 'European Euro', 'EUR', 'â‚¬', 0, '', 'Malte', 'Malta'),
 (139, 0, 'MP', 'MNP', 580, '670', '', '', '', 0, '', 'Mariannes du Nord', 'Northern Mariana Islands'),
 (140, 0, 'MA', 'MAR', 504, '212', 'Moroccan dirham', 'MAD', '', 0, '', 'Maroc', 'Morocco'),
 (141, 0, 'MQ', 'MTQ', 474, '', '', '', '', 0, '', 'Martinique', 'Martinique'),
@@ -291,99 +291,99 @@ INSERT DELAYED INTO `jos_jaderp_countries` (`id`, `hits`, `iso`, `iso3`, `numcod
 (143, 0, 'MR', 'MRT', 478, '222', 'Mauritanian ouguiya', 'MRO', 'UM', 0, '', 'Mauritanie', 'Mauritania'),
 (144, 0, 'YT', '', 0, '', '', '', '', 0, '', 'Mayotte', 'Mayotte'),
 (145, 0, 'MX', 'MEX', 484, '52', 'Mexican peso', 'MXN', '$', 0, '', 'Mexique', 'Mexico'),
-(146, 0, 'FM', 'FSM', 583, '691', '', '', '', 0, '', 'Micronésie', 'Micronesia, Federated States of'),
+(146, 0, 'FM', 'FSM', 583, '691', '', '', '', 0, '', 'MicronÃ©sie', 'Micronesia, Federated States of'),
 (147, 0, 'MD', 'MDA', 498, '373', 'Moldovan leu', 'MDL', '', 0, '', 'Moldavie', 'Moldova, Republic of'),
 (148, 0, 'MC', 'MCO', 492, '377', '', '', '', 0, '', 'Monaco', 'Monaco'),
 (149, 0, 'MN', 'MNG', 496, '976', 'Mongolian tugrik', 'MNT', '?', 0, '', 'Mongolie', 'Mongolia'),
 (150, 0, 'MS', 'MSR', 500, '1664', '', '', '', 0, '', 'Montserrat', 'Montserrat'),
 (151, 0, 'MZ', 'MOZ', 508, '258', 'Mozambican metical', 'MZM', 'MTn', 0, '', 'Mozambique', 'Mozambique'),
-(152, 0, 'NP', 'NPL', 524, '977', 'Nepalese rupee', 'NPR', 'NRs', 0, '', 'Népal', 'Nepal'),
+(152, 0, 'NP', 'NPL', 524, '977', 'Nepalese rupee', 'NPR', 'NRs', 0, '', 'NÃ©pal', 'Nepal'),
 (153, 0, 'NA', 'NAM', 516, '264', 'Namibian dollar', 'NAD', 'N$', 0, '', 'Namibie', 'Namibia'),
 (154, 0, 'NR', 'NRU', 520, '674', '', '', '', 0, '', 'Nauru', 'Nauru'),
-(155, 0, 'NI', 'NIC', 558, '505', 'Nicaraguan c?rdoba', 'NIO', 'C$', 0, '', 'Nicaragua', 'Nicaragua'),
+(155, 0, 'NI', 'NIC', 558, '505', 'Nicaraguan cÃ³rdoba', 'NIO', 'C$', 0, '', 'Nicaragua', 'Nicaragua'),
 (156, 0, 'NE', 'NER', 562, '227', '', '', '', 0, '', 'Niger', 'Niger'),
 (157, 0, 'NG', 'NGA', 566, '234', 'Nigerian naira', 'NGN', '?', 0, '', 'Nigeria', 'Nigeria'),
-(158, 0, 'NU', 'NIU', 570, '683', '', '', '', 0, '', 'Nioué', 'Niue'),
-(159, 0, 'NO', 'NOR', 578, '47', 'Norwegian krone', 'NOK', 'kr', 0, '', 'Norvège', 'Norway'),
-(160, 0, 'NC', 'NCL', 540, '687', '', '', '', 0, '', 'Nouvelle-Calédonie', 'New Caledonia'),
-(161, 0, 'NZ', 'NZL', 554, '64', 'New Zealand dollar', 'NZD', 'NZ$', 0, '', 'Nouvelle-Zélande', 'New Zealand'),
+(158, 0, 'NU', 'NIU', 570, '683', '', '', '', 0, '', 'NiouÃ©', 'Niue'),
+(159, 0, 'NO', 'NOR', 578, '47', 'Norwegian krone', 'NOK', 'kr', 0, '', 'NorvÃ¨ge', 'Norway'),
+(160, 0, 'NC', 'NCL', 540, '687', '', '', '', 0, '', 'Nouvelle-CalÃ©donie', 'New Caledonia'),
+(161, 0, 'NZ', 'NZL', 554, '64', 'New Zealand dollar', 'NZD', 'NZ$', 0, '', 'Nouvelle-ZÃ©lande', 'New Zealand'),
 (162, 0, 'OM', 'OMN', 512, '968', 'Omani rial', 'OMR', '', 0, '', 'Oman', 'Oman'),
 (163, 0, 'UG', 'UGA', 800, '256', 'Ugandan shilling', 'UGX', 'USh', 0, '', 'Ouganda', 'Uganda'),
-(164, 0, 'UZ', 'UZB', 860, '998', 'Uzbekistani som', 'UZS', '', 0, '', 'Ouzbékistan', 'Uzbekistan'),
-(165, 0, 'PE', 'PER', 604, '51', 'Peruvian nuevo sol', 'PEN', 'S/.', 0, '', 'Pérou', 'Peru'),
+(164, 0, 'UZ', 'UZB', 860, '998', 'Uzbekistani som', 'UZS', '', 0, '', 'OuzbÃ©kistan', 'Uzbekistan'),
+(165, 0, 'PE', 'PER', 604, '51', 'Peruvian nuevo sol', 'PEN', 'S/.', 0, '', 'PÃ©rou', 'Peru'),
 (166, 0, 'PK', 'PAK', 586, '92', 'Pakistani rupee', 'PKR', 'Rs.', 0, '', 'Pakistan', 'Pakistan'),
 (167, 0, 'PA', 'PAN', 591, '507', 'Panamanian balboa', 'PAB', 'B./', 0, '', 'Panama', 'Panama'),
-(168, 0, 'PG', 'PNG', 598, '675', 'Papua New Guinean kina', 'PGK', 'K', 0, '', 'Papouasie-Nouvelle-Guinée', 'Papua New Guinea'),
+(168, 0, 'PG', 'PNG', 598, '675', 'Papua New Guinean kina', 'PGK', 'K', 0, '', 'Papouasie-Nouvelle-GuinÃ©e', 'Papua New Guinea'),
 (169, 0, 'PY', 'PRY', 600, '595', 'Paraguayan guarani', 'PYG', '', 0, '', 'Paraguay', 'Paraguay'),
-(170, 0, 'NL', 'NLD', 528, '31', 'European euro', 'EUR', '€', 0, '', 'Pays-Bas', 'Netherlands'),
+(170, 0, 'NL', 'NLD', 528, '31', 'European euro', 'EUR', 'â‚¬', 0, '', 'Pays-Bas', 'Netherlands'),
 (171, 0, 'PH', 'PHL', 608, '63', 'Philippine peso', 'PHP', '?', 0, '', 'Philippines', 'Philippines'),
 (172, 0, 'PL', 'POL', 616, '48', 'Polish zloty', 'PLN', '', 0, '', 'Pologne', 'Poland'),
-(173, 0, 'PF', 'PYF', 258, '689', '', '', '', 0, '', 'Polynésie française', 'French Polynesia'),
+(173, 0, 'PF', 'PYF', 258, '689', '', '', '', 0, '', 'PolynÃ©sie franÃ§aise', 'French Polynesia'),
 (174, 0, 'PR', 'PRI', 630, '', '', '', '', 0, '', 'Porto Rico', 'Puerto Rico'),
-(175, 0, 'PT', 'PRT', 620, '351', 'European euro', 'EUR', '€', 0, '', 'Portugal', 'Portugal'),
+(175, 0, 'PT', 'PRT', 620, '351', 'European euro', 'EUR', 'â‚¬', 0, '', 'Portugal', 'Portugal'),
 (176, 0, 'QA', 'QAT', 634, '974', 'Qatari riyal', 'QAR', 'QR', 0, '', 'Qatar', 'Qatar'),
-(177, 0, 'CF', 'CAF', 140, '236', '', '', '', 0, '', 'République centrafricaine', 'Central African Republic'),
-(178, 0, 'CD', 'COD', 180, '242', 'Congolese franc', 'CDF', 'F', 0, '', 'République démocratique du Congo', 'Congo, the Democratic Republic of the'),
-(179, 0, 'DO', 'DOM', 214, '809', 'Dominican peso', 'DOP', 'RD$', 0, '', 'République dominicaine', 'Dominican Republic'),
-(180, 0, 'CZ', 'CZE', 203, '', 'Czech koruna', 'CZK', 'Kc', 0, '', 'République tchèque', 'Czech Republic'),
-(181, 0, 'RE', 'REU', 638, '262', '', '', '', 0, '', 'Réunion', 'Reunion'),
+(177, 0, 'CF', 'CAF', 140, '236', '', '', '', 0, '', 'RÃ©publique centrafricaine', 'Central African Republic'),
+(178, 0, 'CD', 'COD', 180, '242', 'Congolese franc', 'CDF', 'F', 0, '', 'RÃ©publique dÃ©mocratique du Congo', 'Congo, the Democratic Republic of the'),
+(179, 0, 'DO', 'DOM', 214, '809', 'Dominican peso', 'DOP', 'RD$', 0, '', 'RÃ©publique dominicaine', 'Dominican Republic'),
+(180, 0, 'CZ', 'CZE', 203, '', 'Czech koruna', 'CZK', 'Kc', 0, '', 'RÃ©publique tchÃ¨que', 'Czech Republic'),
+(181, 0, 'RE', 'REU', 638, '262', '', '', '', 0, '', 'RÃ©union', 'Reunion'),
 (182, 0, 'RO', 'ROM', 642, '40', 'Romanian leu', 'RON', 'L', 0, '', 'Roumanie', 'Romania'),
-(183, 1, 'GB', 'GBR', 826, '44', 'British pound', 'GBP', '£', 1, '2/''.''/'',''', 'Royaume-Uni', 'United Kingdom'),
+(183, 1, 'GB', 'GBR', 826, '44', 'British pound', 'GBP', 'Â£', 1, '2/''.''/'',''', 'Royaume-Uni', 'United Kingdom'),
 (184, 0, 'RU', 'RUS', 643, '7', 'Russian ruble', 'RUB', 'R', 0, '', 'Russie', 'Russian Federation'),
 (185, 0, 'RW', 'RWA', 646, '250', 'Rwandan franc', 'RWF', 'RF', 0, '', 'Rwanda', 'Rwanda'),
-(186, 0, 'SN', 'SEN', 686, '221', '', '', '', 0, '', 'Sénégal', 'Senegal'),
+(186, 0, 'SN', 'SEN', 686, '221', '', '', '', 0, '', 'SÃ©nÃ©gal', 'Senegal'),
 (187, 0, 'EH', 'ESH', 732, '', '', '', '', 0, '', 'Sahara occidental', 'Western Sahara'),
-(188, 0, 'KN', 'KNA', 659, '1869', '', '', '', 0, '', 'Saint-Christophe-et-Niévès', 'Saint Kitts and Nevis'),
+(188, 0, 'KN', 'KNA', 659, '1869', '', '', '', 0, '', 'Saint-Christophe-et-NiÃ©vÃ¨s', 'Saint Kitts and Nevis'),
 (189, 0, 'SM', 'SMR', 674, '378', '', '', '', 0, '', 'Saint-Marin', 'San Marino'),
 (190, 0, 'PM', 'SPM', 666, '508', '', '', '', 0, '', 'Saint-Pierre-et-Miquelon', 'Saint Pierre and Miquelon'),
-(191, 0, 'VA', 'VAT', 336, '39', '', '', '', 0, '', 'Saint-Siège ', 'Holy See (Vatican City State)'),
+(191, 0, 'VA', 'VAT', 336, '39', '', '', '', 0, '', 'Saint-SiÃ¨ge ', 'Holy See (Vatican City State)'),
 (192, 0, 'VC', 'VCT', 670, '1784', '', '', '', 0, '', 'Saint-Vincent-et-les-Grenadines', 'Saint Vincent and the Grenadines'),
-(193, 0, 'SH', 'SHN', 654, '290', 'Saint Helena pound', 'SHP', '£', 0, '', 'Sainte-Hélène', 'Saint Helena'),
+(193, 0, 'SH', 'SHN', 654, '290', 'Saint Helena pound', 'SHP', 'Â£', 0, '', 'Sainte-HÃ©lÃ¨ne', 'Saint Helena'),
 (194, 0, 'LC', 'LCA', 662, '1758', '', '', '', 0, '', 'Sainte-Lucie', 'Saint Lucia'),
 (195, 0, 'SV', 'SLV', 222, '503', '', '', '', 0, '', 'Salvador', 'El Salvador'),
 (196, 0, 'WS', 'WSM', 882, '685', 'Samoan tala', 'WST', 'WS$', 0, '', 'Samoa', 'Samoa'),
-(197, 0, 'AS', 'ASM', 16, '684', '', '', '', 0, '', 'Samoa américaines', 'American Samoa'),
-(198, 0, 'ST', 'STP', 678, '239', 'S?o Tomé and Pr?ncipe dobra', 'STD', 'Db', 0, '', 'Sao Tomé-et-Principe', 'Sao Tome and Principe'),
+(197, 0, 'AS', 'ASM', 16, '684', '', '', '', 0, '', 'Samoa amÃ©ricaines', 'American Samoa'),
+(198, 0, 'ST', 'STP', 678, '239', 'SÃ£o TomÃ© and PrÃ­ncipe dobra', 'STD', 'Db', 0, '', 'Sao TomÃ©-et-Principe', 'Sao Tome and Principe'),
 (199, 0, 'SC', 'SYC', 690, '248', 'Seychellois rupee', 'SCR', 'SR', 0, '', 'Seychelles', 'Seychelles'),
 (200, 0, 'SL', 'SLE', 694, '232', 'Sierra Leonean leone', 'SLL', 'Le', 0, '', 'Sierra Leone', 'Sierra Leone'),
 (201, 1, 'SG', 'SGP', 702, '65', 'Singapore dollar', 'SGD', 'S$', 0, '', 'Singapour', 'Singapore'),
-(202, 0, 'SI', 'SVN', 705, '386', 'European euro', 'EUR', '€', 0, '', 'Slovénie', 'Slovenia'),
-(203, 0, 'SK', 'SVK', 703, '421', 'European euro', 'EUR', '€', 0, '', 'Slovaquie', 'Slovakia'),
+(202, 0, 'SI', 'SVN', 705, '386', 'European euro', 'EUR', 'â‚¬', 0, '', 'SlovÃ©nie', 'Slovenia'),
+(203, 0, 'SK', 'SVK', 703, '421', 'European euro', 'EUR', 'â‚¬', 0, '', 'Slovaquie', 'Slovakia'),
 (204, 0, 'SO', 'SOM', 706, '252', 'Somali shilling', 'SOS', 'Sh.', 0, '', 'Somalie', 'Somalia'),
 (205, 0, 'SD', 'SDN', 736, '249', 'Sudanese pound', 'SDG', '', 0, '', 'Soudan', 'Sudan'),
 (206, 0, 'LK', 'LKA', 144, '94', 'Sri Lankan rupee', 'LKR', 'Rs', 0, '', 'Sri Lanka', 'Sri Lanka'),
-(207, 0, 'SE', 'SWE', 752, '46', 'Swedish krona', 'SEK', 'kr', 0, '', 'Suède', 'Sweden'),
+(207, 0, 'SE', 'SWE', 752, '46', 'Swedish krona', 'SEK', 'kr', 0, '', 'SuÃ¨de', 'Sweden'),
 (208, 0, 'CH', 'CHE', 756, '41', 'Swiss franc', 'CHF', 'Fr.', 1, '2/''.''/'' ''', 'Suisse', 'Switzerland'),
 (209, 0, 'SR', 'SUR', 740, '597', 'Surinamese dollar', 'SRD', '$', 0, '', 'Suriname', 'Suriname'),
 (210, 0, 'SZ', 'SWZ', 748, '268', 'Swazi lilangeni', 'SZL', 'E', 0, '', 'Swaziland', 'Swaziland'),
 (211, 0, 'SY', 'SYR', 760, '963', 'Syrian pound', 'SYP', '', 0, '', 'Syrie', 'Syrian Arab Republic'),
-(212, 9, 'TW', 'TWN', 158, '886', 'New Taiwan dollar', 'TWD', 'NT$', 0, '', 'Taïwan', 'Taiwan, Province of China'),
+(212, 9, 'TW', 'TWN', 158, '886', 'New Taiwan dollar', 'TWD', 'NT$', 0, '', 'TaÃ¯wan', 'Taiwan, Province of China'),
 (213, 0, 'TJ', 'TJK', 762, '992', 'Tajikistani somoni', 'TJS', '', 0, '', 'Tadjikistan', 'Tajikistan'),
 (214, 0, 'TZ', 'TZA', 834, '255', 'Tanzanian shilling', 'TZS', '', 0, '', 'Tanzanie', 'Tanzania, United Republic of'),
 (215, 0, 'TD', 'TCD', 148, '235', '', '', '', 0, '', 'Tchad', 'Chad'),
-(216, 0, 'TF', '', 0, '', '', '', '', 0, '', 'Terres australes françaises', 'French Southern Territories'),
-(217, 0, 'IO', '', 0, '', '', '', '', 0, '', 'Territoire britannique de l''Océan Indien', 'British Indian Ocean Territory'),
-(218, 0, 'TH', 'THA', 764, '66', 'Thai baht', 'THB', '?', 0, '', 'Thaïlande', 'Thailand'),
+(216, 0, 'TF', '', 0, '', '', '', '', 0, '', 'Terres australes franÃ§aises', 'French Southern Territories'),
+(217, 0, 'IO', '', 0, '', '', '', '', 0, '', 'Territoire britannique de l''OcÃ©an Indien', 'British Indian Ocean Territory'),
+(218, 0, 'TH', 'THA', 764, '66', 'Thai baht', 'THB', '?', 0, '', 'ThaÃ¯lande', 'Thailand'),
 (219, 0, 'TL', '', 0, '670', '', '', '', 0, '', 'Timor Oriental', 'Timor-Leste'),
 (220, 0, 'TG', 'TGO', 768, '228', '', '', '', 0, '', 'Togo', 'Togo'),
-(221, 0, 'TK', 'TKL', 772, '690', '', '', '', 0, '', 'Tokélaou', 'Tokelau'),
+(221, 0, 'TK', 'TKL', 772, '690', '', '', '', 0, '', 'TokÃ©laou', 'Tokelau'),
 (222, 0, 'TO', 'TON', 776, '676', '', '', '', 0, '', 'Tonga', 'Tonga'),
-(223, 0, 'TT', 'TTO', 780, '1868', 'Trinidad and Tobago dollar', 'TTD', 'TT$', 0, '', 'Trinité-et-Tobago', 'Trinidad and Tobago'),
-(224, 30, 'TN', 'TUN', 788, '216', 'Tunisian dinar', 'TND', 'DT', 1, '3,''.'','' ''', 'Tunisie', 'Tunisia'),
-(225, 0, 'TM', 'TKM', 795, '993', 'Turkmen manat', 'TMT', 'm', 0, '', 'Turkménistan', 'Turkmenistan'),
+(223, 0, 'TT', 'TTO', 780, '1868', 'Trinidad and Tobago dollar', 'TTD', 'TT$', 0, '', 'TrinitÃ©-et-Tobago', 'Trinidad and Tobago'),
+(224, 43, 'TN', 'TUN', 788, '216', 'Tunisian dinar', 'TND', 'DT', 1, '3,''.'','' ''', 'Tunisie', 'Tunisia'),
+(225, 0, 'TM', 'TKM', 795, '993', 'Turkmen manat', 'TMT', 'm', 0, '', 'TurkmÃ©nistan', 'Turkmenistan'),
 (226, 0, 'TR', 'TUR', 792, '90', 'Turkish new lira', 'TRY', 'YTL', 0, '', 'Turquie', 'Turkey'),
 (227, 0, 'TV', 'TUV', 798, '688', '', '', '', 0, '', 'Tuvalu', 'Tuvalu'),
 (228, 0, 'UA', 'UKR', 804, '380', 'Ukrainian hryvnia', 'UAH', '', 0, '', 'Ukraine', 'Ukraine'),
 (229, 0, 'UY', 'URY', 858, '598', 'Uruguayan peso', 'UYU', '$U', 0, '', 'Uruguay', 'Uruguay'),
 (230, 0, 'VU', 'VUT', 548, '678', 'Vanuatu vatu', 'VUV', 'VT', 0, '', 'Vanuatu', 'Vanuatu'),
 (231, 0, 'VE', 'VEN', 862, '58', 'Venezuelan bolivar', 'VEB', 'Bs', 0, '', 'Venezuela', 'Venezuela'),
-(232, 0, 'VN', 'VNM', 704, '84', 'Vietnamese dong', 'VND', '?', 0, '', 'Viêt Nam', 'Viet Nam'),
+(232, 0, 'VN', 'VNM', 704, '84', 'Vietnamese dong', 'VND', '?', 0, '', 'ViÃªt Nam', 'Viet Nam'),
 (233, 0, 'WF', 'WLF', 876, '681', '', '', '', 0, '', 'Wallis-et-Futuna', 'Wallis and Futuna'),
-(234, 0, 'YE', 'YEM', 887, '967', 'Yemeni rial', 'YER', '', 0, '', 'Yémen', 'Yemen'),
+(234, 0, 'YE', 'YEM', 887, '967', 'Yemeni rial', 'YER', '', 0, '', 'YÃ©men', 'Yemen'),
 (235, 0, 'YU', '', 0, '381', '', '', '', 0, '', 'Yougoslavie', 'Yugoslavia'),
 (236, 0, 'ZM', 'ZMB', 894, '260', 'Zambian kwacha', 'ZMK', 'ZK', 0, '', 'Zambie', 'Zambia'),
 (237, 0, 'ZW', 'ZWE', 716, '263', 'Zimbabwean dollar', 'ZWR', 'Z$', 0, '', 'Zimbabwe', 'Zimbabwe'),
-(238, 0, 'MK', 'MKD', 807, '389', 'Macedonian denar', 'MKD', '', 0, '', 'ex-République yougoslave de Macédoine', 'Macedonia, the Former Yugoslav Republic of');
+(238, 0, 'MK', 'MKD', 807, '389', 'Macedonian denar', 'MKD', '', 0, '', 'ex-RÃ©publique yougoslave de MacÃ©doine', 'Macedonia, the Former Yugoslav Republic of');
 
 -- --------------------------------------------------------
 
@@ -403,10 +403,10 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_departments` (
 -- Contenu de la table `jos_jaderp_departments`
 --
 
-INSERT DELAYED INTO `jos_jaderp_departments` (`id`, `name`, `description`) VALUES
+INSERT IGNORE INTO `jos_jaderp_departments` (`id`, `name`, `description`) VALUES
 (1, 'Ressource humaines', 'bla bla bla ya ressource'),
 (2, 'Commercial', ''),
-(3, 'Approvisionnement', 'Ce département est lahi bil chra');
+(3, 'Approvisionnement', 'Ce dÃ©partement est lahi bil chra');
 
 -- --------------------------------------------------------
 
@@ -422,19 +422,20 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_levels_menu` (
   `active` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- Contenu de la table `jos_jaderp_levels_menu`
 --
 
-INSERT DELAYED INTO `jos_jaderp_levels_menu` (`id`, `menu_id`, `level_id`, `active`) VALUES
+INSERT IGNORE INTO `jos_jaderp_levels_menu` (`id`, `menu_id`, `level_id`, `active`) VALUES
 (2, 2, 5, 0),
 (3, 3, 0, 1),
 (5, 5, 1, 0),
 (6, 11, 0, 1),
 (7, 9, 0, 1),
-(8, 8, 0, 0);
+(8, 8, 0, 0),
+(9, 16, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -485,19 +486,20 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_menu` (
   `min_access_level` int(11) NOT NULL,
   UNIQUE KEY `name` (`name`),
   KEY `id` (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
 -- Contenu de la table `jos_jaderp_menu`
 --
 
-INSERT DELAYED INTO `jos_jaderp_menu` (`id`, `option`, `controller`, `task`, `published`, `hidden`, `name`, `languagename`, `url`, `ordering`, `parent_name`, `component`, `menu_icon`, `desktop_icon`, `menu_description`, `min_access_level`) VALUES
+INSERT IGNORE INTO `jos_jaderp_menu` (`id`, `option`, `controller`, `task`, `published`, `hidden`, `name`, `languagename`, `url`, `ordering`, `parent_name`, `component`, `menu_icon`, `desktop_icon`, `menu_description`, `min_access_level`) VALUES
 (9, 'com_jaderp', 'Workers', 'add', 1, 1, 'workerscreat', 'MENU_WORKERS_CREAT', 'index.php?option=com_jaderp&func=Workers&task=add', 1, 'workers', 'jaderp', 'workers/executive_add.png', 'add_billing.png', '', 0),
 (11, '', '', '', 1, 1, 'workers', 'MENU_WORKERS', '', 3, '', 'jaderp', 'workers/executive_config.png', 'add_billing.png', '', 0),
 (12, 'com_jaderp', 'Workers', 'manage', 1, 0, 'manageworkers', 'MANAGE_WORKERS', 'index.php?option=com_jaderp&func=Workers&task=manage', 3, 'workers', 'jaderp', 'workers/executive_config.png', 'add_billing.png', '', 10),
 (13, '', '', '', 1, 0, 'suppliers', 'SUPPLIERS_MENU', '', 4, '', 'jaderp', '', '', '', 0),
 (14, 'com_jaderp', 'Suppliers', 'add', 1, 0, 'addsupplier', 'ADD_SUPPLIER', 'index.php?option=com_jaderp&func=Suppliers&task=add', 1, 'suppliers', 'jaderp', 'invoice/invoice_add.png', 'add_billing.png', '', 0),
-(15, 'com_jaderp', 'Workers', 'edit', 0, 1, 'workersedit', 'MENU_WORKERS_EDIT', '', 0, 'workers', 'jaderp', 'workers/executive_write.png', 'add_billing.png', '', 10);
+(15, 'com_jaderp', 'Workers', 'edit', 0, 1, 'workersedit', 'MENU_WORKERS_EDIT', '', 0, 'workers', 'jaderp', 'workers/executive_write.png', 'add_billing.png', '', 10),
+(16, 'com_jaderp', 'Suppliers', 'manage', 1, 0, 'managesuppliers', 'MANAGE_SUPPLIERS', 'index.php?option=com_jaderp&func=Suppliers&task=manage', 5, 'suppliers', 'jaderp', 'workers/executive_config.png', 'add_billing.png', '', 10);
 
 -- --------------------------------------------------------
 
@@ -523,15 +525,19 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_suppliers` (
   `creator_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `jos_jaderp_suppliers`
 --
 
-INSERT DELAYED INTO `jos_jaderp_suppliers` (`id`, `code`, `rsoc`, `responsable`, `pcountry`, `currency`, `max_credit`, `solde`, `chaff`, `codetva`, `checked_out`, `checked_out_time`, `creation_date`, `creator_id`) VALUES
-(1, 'FR0001', 'EYASOFT', 'FEKI Hichem', 224, 67, 2500, 120, 0, '', 0, '0000-00-00 00:00:00', '2010-09-26 15:31:06', 63),
-(2, 'FR0001f', 'hichem', 'FEKI Hichem', 212, 64, 2500, 120, 0, '20sdqsd q2sd 12q', 0, '0000-00-00 00:00:00', '2010-09-26 23:12:21', 63);
+INSERT IGNORE INTO `jos_jaderp_suppliers` (`id`, `code`, `rsoc`, `responsable`, `pcountry`, `currency`, `max_credit`, `solde`, `chaff`, `codetva`, `checked_out`, `checked_out_time`, `creation_date`, `creator_id`) VALUES
+(1, 'FR0001', 'EYASOFT', 'FEKI Hichem', 224, 67, 2500, 120, 0, '', 63, '2010-10-31 19:23:43', '2010-09-26 15:31:06', 63),
+(2, 'FR0001f', 'hichem', 'FEKI Hichem', 212, 64, 2500, 120, 0, '20sdqsd q2sd 12q', 0, '0000-00-00 00:00:00', '2010-09-26 23:12:21', 63),
+(3, 'FR00011', 'gg', 'fggf', 224, 224, 0, 0, 0, '', 0, '0000-00-00 00:00:00', '2010-10-31 15:12:30', 63),
+(4, 'FR0002', 'STIPE', 'AYMEN', 224, 224, 0, 0, 0, '', 0, '0000-00-00 00:00:00', '2010-10-31 15:53:25', 63),
+(5, 'FR0003', 'STIPE', 'AYMEN', 224, 224, 0, 0, 0, '', 0, '0000-00-00 00:00:00', '2010-10-31 15:57:58', 63),
+(6, 'FR0004', 'STIPE', 'AYMEN ALI', 224, 224, 250, 120, 0, '20sdqsd q2sd 12q', 0, '0000-00-00 00:00:00', '2010-10-31 23:15:19', 63);
 
 -- --------------------------------------------------------
 
@@ -548,15 +554,18 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_supplier_bank` (
   `rib` varchar(50) NOT NULL,
   `swift` varchar(25) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `jos_jaderp_supplier_bank`
 --
 
-INSERT DELAYED INTO `jos_jaderp_supplier_bank` (`id`, `supplier_id`, `bank_name`, `bank_address`, `rib`, `swift`) VALUES
+INSERT IGNORE INTO `jos_jaderp_supplier_bank` (`id`, `supplier_id`, `bank_name`, `bank_address`, `rib`, `swift`) VALUES
 (1, 1, 'UBCI', 'Rte de Tunis', '11700154545454564', '545456'),
-(2, 2, '', '', '', '');
+(4, 4, 'ATB', 'SFAX', '852741963852741852', ''),
+(5, 6, 'UBCI1', 'Rte de Tunis', '11700154545454564', '545456'),
+(6, 5, 'ATB', 'SFAX', '852741963852741852', '545456'),
+(7, 6, 'ATB1', 'Rte de Tunis km 22', '852741963852741852', '123456');
 
 -- --------------------------------------------------------
 
@@ -572,6 +581,10 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_supplier_contact` (
   `position` varchar(50) NOT NULL,
   `photo` varchar(255) NOT NULL,
   `country` int(11) NOT NULL,
+  `telephoneind` varchar(10) NOT NULL,
+  `telephone1ind` varchar(10) NOT NULL,
+  `mobileind` varchar(10) NOT NULL,
+  `faxind` varchar(10) NOT NULL,
   `telephone` varchar(25) NOT NULL,
   `telephone1` varchar(25) NOT NULL,
   `mobile` varchar(25) NOT NULL,
@@ -583,15 +596,14 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_supplier_contact` (
   `email` varchar(255) NOT NULL,
   `webpage` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- Contenu de la table `jos_jaderp_supplier_contact`
 --
 
-INSERT DELAYED INTO `jos_jaderp_supplier_contact` (`id`, `supplier_id`, `suppliername`, `position`, `photo`, `country`, `telephone`, `telephone1`, `mobile`, `fax`, `address`, `suburb`, `state`, `postcode`, `email`, `webpage`) VALUES
-(1, 0, '', '', '', 0, '', '', '', '', '', '', '', '', '', ''),
-(2, 2, '', '', '', 0, '', '', '', '', '', '', '', '', '', '');
+INSERT IGNORE INTO `jos_jaderp_supplier_contact` (`id`, `supplier_id`, `suppliername`, `position`, `photo`, `country`, `telephoneind`, `telephone1ind`, `mobileind`, `faxind`, `telephone`, `telephone1`, `mobile`, `fax`, `address`, `suburb`, `state`, `postcode`, `email`, `webpage`) VALUES
+(4, 6, 'Chayma Feki', 'Binti sghira', '', 224, '+216', '+216', '+216', '+216', '12121211', '121212121121', '223932333', '74842408', 'Rte de Tunis km 22\r\nEl Ghraba\r\n3043 - Sfax', 'Sfax', 'Sfax', '3042', 'feki.hichem@gmail.com', 'www.culture3d.com');
 
 -- --------------------------------------------------------
 
@@ -612,7 +624,7 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_tables` (
 -- Contenu de la table `jos_jaderp_tables`
 --
 
-INSERT DELAYED INTO `jos_jaderp_tables` (`id`, `table_name`, `table_description`, `del_min_access_level`) VALUES
+INSERT IGNORE INTO `jos_jaderp_tables` (`id`, `table_name`, `table_description`, `del_min_access_level`) VALUES
 (1, 'jaderp_branchs', 'DESCRIPTION_TABLE_BRANCHS', 10),
 (2, 'jaderp_countries', 'DESCRIPTION_TABLE_COUNTRIES', 10),
 (3, 'jaderp_departments', 'DESCRIPTION_TABLE_DEPARTMENTS', 10),
@@ -644,7 +656,7 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_tables_access` (
 -- Contenu de la table `jos_jaderp_tables_access`
 --
 
-INSERT DELAYED INTO `jos_jaderp_tables_access` (`id`, `table_id`, `field_name`, `field_description`, `view_min_access_level`, `edit_min_access_level`, `add_min_access_level`) VALUES
+INSERT IGNORE INTO `jos_jaderp_tables_access` (`id`, `table_id`, `field_name`, `field_description`, `view_min_access_level`, `edit_min_access_level`, `add_min_access_level`) VALUES
 (6, 1, 'name', '', 10, 10, 10),
 (5, 1, 'id', '', 10, 10, 10),
 (7, 1, 'description', '', 10, 10, 10),
@@ -762,10 +774,10 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_types_piece` (
 -- Contenu de la table `jos_jaderp_types_piece`
 --
 
-INSERT DELAYED INTO `jos_jaderp_types_piece` (`id`, `name`, `description`) VALUES
-(1, 'C.I.N', 'Carte d''identité nationale'),
+INSERT IGNORE INTO `jos_jaderp_types_piece` (`id`, `name`, `description`) VALUES
+(1, 'C.I.N', 'Carte d''identitÃ© nationale'),
 (2, 'Passeport', 'Passeport'),
-(3, 'Carte de séjour', 'Carte de séjour pour les non résidents'),
+(3, 'Carte de sÃ©jour', 'Carte de sÃ©jour pour les non rÃ©sidents'),
 (4, 'Permis de conduire', 'Permis de conduire'),
 (5, 'Autre...', 'Autres type de carte');
 
@@ -807,7 +819,7 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_users` (
 -- Contenu de la table `jos_jaderp_users`
 --
 
-INSERT DELAYED INTO `jos_jaderp_users` (`id`, `joomla_id`, `canaccess`, `access_level`, `mat`, `department`, `branch`, `lastname`, `firstname`, `num_piece`, `type_piece`, `email`, `phone`, `salaire`, `startdate`, `note`, `position`, `present`, `iscontact`, `password`, `forcepasschange`, `checked_out`, `checked_out_time`) VALUES
+INSERT IGNORE INTO `jos_jaderp_users` (`id`, `joomla_id`, `canaccess`, `access_level`, `mat`, `department`, `branch`, `lastname`, `firstname`, `num_piece`, `type_piece`, `email`, `phone`, `salaire`, `startdate`, `note`, `position`, `present`, `iscontact`, `password`, `forcepasschange`, `checked_out`, `checked_out_time`) VALUES
 (1, 63, 0, 2, '2332', 0, 0, 'Feki', 'Hichem', '1222222', 0, 'feki.hichem@gmail.com', '22393233', 2536, '0000-00-00', 25, 'Master', 1, 0, '123456', 0, 0, '0000-00-00 00:00:00'),
 (2, 92, 1, 1, '142536', 2, 2, 'Feki', 'Chaima', '12345679', 1, 'feki.hichem@gmail.cm', '24751419', 0, '2009-06-02', 20, 'Binti', 1, 1, '9a9f8cf4d5b3d18dd3d3537e347182b8:4L4CgGYe3Y85qLcE9', 1, 0, '2009-07-01 01:47:35'),
 (3, 62, 1, 1, '253636', 0, 0, 'Feki', 'Eya', '456855222', 0, 'feki.hichem@gmail.com', '74464334', 1234, '1963-11-21', 12, 'Binti', 1, 0, 'ac7e4a54f57f7d90c8510548864a705b:NK64BMx3eLciiACu4', 0, 63, '2009-06-11 05:09:06'),
@@ -845,7 +857,7 @@ CREATE TABLE IF NOT EXISTS `jos_jaderp_users_access` (
 -- Contenu de la table `jos_jaderp_users_access`
 --
 
-INSERT DELAYED INTO `jos_jaderp_users_access` (`user_id`, `module_component`, `controller`, `task`, `access_level`, `id`) VALUES
+INSERT IGNORE INTO `jos_jaderp_users_access` (`user_id`, `module_component`, `controller`, `task`, `access_level`, `id`) VALUES
 (63, 'com_jaderp', 'Desktop', 'default', 5, 1),
 (63, 'com_jaderp', 'Workers', 'add', 5, 2),
 (63, 'com_jaderp', 'Suppliers', 'add', 5, 3);
