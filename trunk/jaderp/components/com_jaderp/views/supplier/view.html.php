@@ -14,13 +14,25 @@ class JaderpViewSupplier extends JView
 	function display($tpl = null)
 	{
 		$doc =& JFactory::getDocument();
+		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
+		$JAdERPTool=& new JAdERPTools;
+		$db =& JFactory::getDBO();
 		JHTML::stylesheet('datepicker.css','components/com_jaderp/css/');
 		JHTML::script('addfields.js','components/com_jaderp/js/');
 		JHTML::script('jaderp.js','components/com_jaderp/js/');
+		JHTML::script('supplierinit.js','components/com_jaderp/js/');
+		JHTML::script('jquery.qtip-1.0.0.min.js','includes/js/qtip/');
 		$supplier =& $this->get( 'Data' );
 		$this->assignRef('supplier', $supplier);
-		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
-		$JAdERPTool=& new JAdERPTools;
+		$id = JRequest::getInt('cid', 0);
+		if (!$id)
+			$id = JRequest::getInt('id', 0);	
+		$contacts = JAdERPTools::ReadTable("jaderp_supplier_contact",'*','WHERE supplier_id='.$db->Quote($id),'Object');
+		$this->assign('contacts', $contacts);
+		
+		$banks = JAdERPTools::ReadTable("jaderp_supplier_bank",'*','WHERE supplier_id='.$db->Quote($id),'Object');
+		$this->assign('banks', $banks);
+
 		$countries = $JAdERPTool->ReadCountries();
 		$this->assign('countries', $countries);
 		$currencies = $JAdERPTool->ReadCountries(false, true, '', '', 'Array');

@@ -18,9 +18,8 @@ class JaderpViewSuppliers extends JView
 		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_tools.php');
 		$JAdERPTool=& new JAdERPTools;
 		$doc =& JFactory::getDocument();
+		$db =& JFactory::getDBO();
 		$searchreq = '';
-		JHTML::script('datepicker.js','components/com_jaderp/js/',false );
-		JHTML::stylesheet('datepicker.css','components/com_jaderp/css/');
 		jimport('joomla.html.pagination');
 		$limit = $mainframe->getUserStateFromRequest('global.list.limit', 'limit', $mainframe->getCfg('list_limit'));
 		//$limitstart = $mainframe->getUserStateFromRequest('com_jaderp.limitstart', 'limitstart', 0);
@@ -32,66 +31,39 @@ class JaderpViewSuppliers extends JView
 		$search				= JString::strtolower( $search );
 		if ($search !='')
 		{
-			$searchreq = '(m.firstname LIKE "%'.$search.'%" OR m.lastname LIKE "%'.$search.'%")';
+			$searchreq = '(m.rsoc LIKE "%'.$search.'%" OR m.responsable LIKE "%'.$search.'%")';
 		}
 		$filter_order 		= JRequest::getVar('filter_order', 'm.id', '', 'cmd');
 		$filter_order_Dir 	= JRequest::getVar('filter_order_Dir', 'ASC', '', 'string');
 		
 		$orderreq = " ORDER BY ".$filter_order." ".$filter_order_Dir;
 		
-		$filter_dep 		= JRequest::getVar('filter_dep', '0', '', 'int');
-		if ($filter_dep >0)
+		$filter_country 		= JRequest::getVar('filter_country', '0', '', 'int');
+		if ($filter_country >0)
 		{
 			if ($searchreq == '')
 			{
-				$searchreq = 'm.department = '.$filter_dep;	
+				$searchreq = 'm.pcountry = '.$filter_country;	
 			}
 			else
 			{
-				$searchreq .= ' AND m.department ='.$filter_dep;
+				$searchreq .= ' AND m.pcountry ='.$filter_country;
 			}
 			
 		}		
-		$filter_branch 		= JRequest::getVar('filter_branch', '0', '', 'int');
-		if ($filter_branch >0)
+		$filter_currency 		= JRequest::getVar('filter_currency', '0', '', 'int');
+		if ($filter_currency >0)
 		{
 			if ($searchreq == '')
 			{
-				$searchreq = 'm.branch = '.$filter_branch;	
+				$searchreq = 'm.currency = '.$filter_currency;	
 			}
 			else
 			{
-				$searchreq .= ' AND m.branch ='.$filter_branch;
+				$searchreq .= ' AND m.currency ='.$filter_currency;
 			}
 			
 		}			
-		$filter_access 		= JRequest::getVar('filter_access', '0', '', 'int');
-		
-		if ($filter_access >0)
-		{
-			if ($searchreq == '')
-			{
-				$searchreq = 'm.canaccess = '.($filter_access - 1);	
-			}
-			else
-			{
-				$searchreq .= ' AND m.canaccess ='.($filter_access - 1);
-			}
-			
-		}		
-		$filter_presence	= JRequest::getVar('filter_presence', '0', '', 'int');
-		if ($filter_presence >0)
-		{
-			if ($searchreq == '')
-			{
-				$searchreq = 'm.present = '.($filter_presence - 1);	
-			}
-			else
-			{
-				$searchreq .= ' AND m.present ='.($filter_presence - 1);
-			}
-			
-		}
 		
 		$users = $JAdERPTool->ReadTable('jaderp_users', '*', '', 'Array');
  		if (!$users)
@@ -104,38 +76,47 @@ class JaderpViewSuppliers extends JView
 		$page = new JPagination($total, $limitstart, $limit);		
 		$this->assign('pagination', $page);
 		
-		$branchs = $JAdERPTool->ReadTable('jaderp_branchs');
-		$this->assign('branchs', $branchs);
-		$departments = $JAdERPTool->ReadTable('jaderp_departments');
-		$this->assign('departments', $departments);
+		$countries = $JAdERPTool->ReadCountries();
+		$this->assign('countries', $countries);
+		
+		$currencies = $JAdERPTool->ReadCountries(false, true);
+		$this->assign('currencies', $currencies);
+		//print_r	($currencies);
+		jimport('joomla.language.helper');
+		$lg = JLanguageHelper::detectLanguage();
+		$language = substr($lg,0,2);
+		
+		$req= "select * from #__jaderp_countries";
+		$db->setQuery($req);
+		$row = $db->loadAssoc();
+		if (!array_key_exists($language, $row))
+			$language = "en";
+			
 		$req = "SELECT m.id as id,
-				m.mat as matricule,
-				m.firstname as firstname,
-				m.lastname as lastname,
+				m.code,
+				m.rsoc,
+				m.responsable,
 				m.checked_out,
 				m.checked_out_time,
-				d.name as department,
-				b.name as branch,
-				m.position as position,
-				m.email as email,
-				m.present as presence,
-				m.canaccess as access";
-		$req .= " FROM #__jaderp_users as m INNER JOIN #__jaderp_departments as d ON m.department = d.id 
-		INNER JOIN #__jaderp_branchs as b ON m.branch = b.id";
+				c.".$language." as pcountry,
+				d.currency,
+				d.currency_format,
+				m.max_credit,
+				m.solde,
+				m.chaff";
+		$req .= " FROM #__jaderp_suppliers as m INNER JOIN #__jaderp_countries as c ON m.pcountry = c.id INNER JOIN #__jaderp_countries as d ON m.currency = d.id";
 		
 		if ($searchreq != '')
 			$req .= " WHERE ".$searchreq;
 		$req .= $orderreq." ".$limitreq;
-		$db =& JFactory::getDBO();
 		$db->setQuery($req);
 		$rows = $db->loadAssocList();
-
+		$menuid = JAdERPTools::getmenuId("com_jaderp", "Suppliers", "edit");
 		//echo $req;
-		$this->assign('filter_dep', $filter_dep);
-		$this->assign('filter_branch', $filter_branch);
-		$this->assign('filter_access', $filter_access);
-		$this->assign('filter_presence', $filter_presence);
+		$this->assign('filter_country', $filter_country);
+		$this->assign('filter_currency', $filter_currency);
 		$this->assign('search', $search);
+		$this->assign('menuid', $menuid);
 		$this->assign('rows', $rows);
 		$this->assign('neworderdir', $filter_order_Dir);
 		$this->assign('neworder', $filter_order);

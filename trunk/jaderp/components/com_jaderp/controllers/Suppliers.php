@@ -1,6 +1,6 @@
 <?php
 /**
- * Workers Controller for Jaderp Component
+ * Suppliers Controller for Jaderp Component
  * 
  * @subpackage Components
  */
@@ -9,7 +9,7 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 /**
- * Workers Jaderp Controller
+ * Suppliers Jaderp Controller
  *
  * @package    Joomla.Tutorials
  * @subpackage Components
@@ -149,13 +149,6 @@ class JaderpControllerSuppliers extends JaderpController
 		$menubars->addButton('save');	
 		$menubars->addButton('cancel');
 		$menubars->addButton('apply');
-		/*$task = 'onclick="javascript:if(document.adminForm.boxchecked.value!=1){alert(\'Veuillez sélectionner une ligne de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'edit\')}"';
-		$menubars->addButton('edit',$task);
-		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner au moin un élément de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'remove\')}"';
-		$menubars->addButton('remove', $task);
-		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner au moin un élément de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'print\')}"';
-		$menubars->addButton('print', $task);*/
-		
 		$menubars->writeFoot();
 		$menubars->addDeclaration(false,false,'',140);
 		$menubars->render();
@@ -264,7 +257,7 @@ class JaderpControllerSuppliers extends JaderpController
 	{
 		JRequest::checkToken() or jexit( 'Invalid Token' );
 
-		$this->setRedirect( 'index.php?option=com_jaderp&func=Workers&task=manage' );
+		$this->setRedirect( 'index.php?option=com_jaderp&func=Suppliers&task=manage' );
 
 		// Initialize variables
 		$db			=& JFactory::getDBO();
@@ -290,7 +283,7 @@ class JaderpControllerSuppliers extends JaderpController
 		if (!$db->query()) {
 			return JError::raiseWarning( 500, $db->getError() );
 		}
-		$this->setMessage( JText::sprintf( $publish ? 'WORKERS_TO_PRESENT' : 'WORKERS_TO_ABSENT', $n ) );
+		$this->setMessage( JText::sprintf( $publish ? 'SUPPLIERS_TO_PRESENT' : 'SUPPLIERS_TO_ABSENT', $n ) );
 	}	
 	/**
 	 * cancel editing a record
@@ -304,7 +297,7 @@ class JaderpControllerSuppliers extends JaderpController
 		$id = JRequest::getInt('id', 0);	
 		if ($id)
 		{
-			if (!$JAdERPTool->CheckInOut('workers', $id))
+			if (!$JAdERPTool->CheckInOut('Suppliers', $id))
 			{
 				$msg= JText::_( 'CANT_CHECKIN_ALERT' ) ;
 			}			
@@ -356,26 +349,13 @@ class JaderpControllerSuppliers extends JaderpController
 		
 		$document =& JFactory::getDocument();			
 		JHTML::_('behavior.modal', 'a.modal');
-		JHTML::_('behavior.tooltip');
-		//$menubar = $JAdERPTool-> creatMenuBar($buttons, $tache, $tacheText, true, false,true);
-		//echo $menubar;?>
-		 <a rel="{handler: 'iframe', size: {x: 870, y: 600}}" href="index.php?option=com_jaderp&view=Workers&tmpl=component&layout=print_preview" class="modal">
-<span title="Paramètres" class="icon-32-config">
-Paramètres</span>
-</a>
-		 <a target="_blank" href="http://localhost/tcpdf/examples/example_011.php"><span title="Paramètres" class="icon-32-config">PDF</span></a>
-<?php
 		$menubars->writeHead($tache, $tacheText);
-		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner dans la liste les éléments à\');}else{  submitbutton(\'publish\')}"';
-		$menubars->addButton('publish',$task);
-		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner dans la liste les éléments à\');}else{  submitbutton(\'unpublish\')}"';
-		$menubars->addButton('unpublish',$task);				
 		$menubars->addButton('add');	
-		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value!=1){alert(\'Veuillez sélectionner une ligne de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'edit\')}"';
+		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value!=1){alert(\'Veuillez s�lectionner une ligne de la liste des �l�ments\');}else{ hideMainMenu(); submitbutton(\'edit\')}"';
 		$menubars->addButton('edit',$task);
-		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner au moin un élément de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'remove\')}"';
+		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez s�lectionner au moin un �l�ment de la liste des �l�ments\');}else{ hideMainMenu(); submitbutton(\'remove\')}"';
 		$menubars->addButton('remove', $task);
-		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez sélectionner au moin un élément de la liste des éléments\');}else{ hideMainMenu(); submitbutton(\'print\')}"';
+		$task = 'onclick="javascript:if(document.adminForm.boxchecked.value==0){alert(\'Veuillez s�lectionner au moin un �l�ment de la liste des �l�ments\');}else{ hideMainMenu(); submitbutton(\'print\')}"';
 		$menubars->addButton('print', $task);
 		
 		$menubars->writeFoot();
@@ -388,12 +368,12 @@ Paramètres</span>
 
 	function topdf()
 	{
-		//$model = & $this->getModel('Workers');
+		//$model = & $this->getModel('Suppliers');
 		require_once (JPATH_COMPONENT_ADMINISTRATOR.DS.'includes'.DS.'jaderp_pdf.php');
 		$user =& JFactory::getUser();
 		ob_clean();
 		$pdf =& new JAdERPDF;
-		//JRequest::setVar( 'view', 'workers' );
+		//JRequest::setVar( 'view', 'Suppliers' );
 		//JRequest::setVar( 'layout', 'listing'  );
 
 		//Titres des colonnes

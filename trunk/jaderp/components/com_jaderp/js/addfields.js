@@ -5,6 +5,26 @@ var counters1 = 0;
 
 
 function moreFields() {
+	if (counter == 0)
+	{
+		var ccc=0;
+		while (true)
+		{
+			ccc++;
+			if (document.getElementById('FormElementsGroup'+ccc)) 
+			{
+				counter++;
+				counters++;
+			}
+			else
+			{
+				if (counter == 0) 
+					break;
+				else
+					return false;
+			}
+		}
+	}
 	counter++;
 	counters++;
 	var newFields = document.getElementById('readroot').cloneNode(true);
@@ -22,6 +42,26 @@ function moreFields() {
 }
 
 function moreFields1() {
+	if (counter1 == 0)
+	{
+		var cc=0;
+		while (true)
+		{
+			cc++;
+			if (document.getElementById('FormElementsGroupC'+cc)) 
+			{
+				counter1++;
+				counters1++;
+			}
+			else
+			{
+				if (counter1 == 0) 
+					break;
+				else
+					return false;
+			}
+		}
+	}
 	counter1++;
 	counters1++;
 	var newFields = document.getElementById('infosLine1').cloneNode(true);

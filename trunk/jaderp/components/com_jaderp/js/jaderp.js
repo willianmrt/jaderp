@@ -5,28 +5,20 @@ function countryChanged(country)
 		jQuery.get("country.php", { id: country.value },
 		  function(data){
 		  		var form = document.adminForm;
-		  		var valeur = "(+"+data+")";
+		  		var valeur = "+"+data;
 		  		var strToTest = "";
 		  		var result = "";
 		  		if (counters == 1)
 		  		{
+	  				//strToTest = form.elements["telephone[]"].value;
+	  				//result = strToTest.replace(/^((\(\+)\d{1,4}[\)])([ 0-9]*)$/, "$3");
+	  				form.elements["telephoneind[]"].value = valeur;
 
-		  				
-	  				strToTest = form.elements["telephone[]"].value;
-	  				result = strToTest.replace(/^((\(\+)\d{1,4}[\)])([ 0-9]*)$/, "$3");
-	  				form.elements["telephone[]"].value = valeur + result;
+	  				form.elements["telephone1ind[]"].value = valeur;
 
-	  				strToTest = form.elements["telephone1[]"].value;
-	  				result = strToTest.replace(/^((\(\+)\d{1,4}[\)])([ 0-9]*)$/, "$3");
-	  				form.elements["telephone1[]"].value = valeur + result;
-
-	  				strToTest = form.elements["mobile[]"].value;
-	  				result = strToTest.replace(/^((\(\+)\d{1,4}[\)])([ 0-9]*)$/, "$3");
-	  				form.elements["mobile[]"].value = valeur + result;
+	  				form.elements["mobileind[]"].value = valeur;
 	  				
-	  				strToTest = form.elements["fax[]"].value;
-	  				result = strToTest.replace(/^((\(\+)\d{1,4}[\)])([ 0-9]*)$/, "$3");
-	  				form.elements["fax[]"].value = valeur + result;
+	  				form.elements["faxind[]"].value = valeur;
 		  		}
 		  		else
 		  		{
@@ -34,21 +26,15 @@ function countryChanged(country)
 		  			{
 		  				if (form.elements["country[]"][i].value == country.value)
 		  				{
-			  				strToTest = form.elements["telephone[]"][i].value;
-			  				result = strToTest.replace(/^((\(\+)\d{1,4}[\)])([ 0-9]*)$/, "$3");
-			  				form.elements["telephone[]"][i].value = valeur + result;
+			  				//strToTest = form.elements["telephone[]"][i].value;
+			  				//result = strToTest.replace(/^((\(\+)\d{1,4}[\)])([ 0-9]*)$/, "$3");
+			  				form.elements["telephoneind[]"][i].value = valeur;
 		
-			  				strToTest = form.elements["telephone1[]"][i].value;
-			  				result = strToTest.replace(/^((\(\+)\d{1,4}[\)])([ 0-9]*)$/, "$3");
-			  				form.elements["telephone1[]"][i].value = valeur + result;
+			  				form.elements["telephone1ind[]"][i].value = valeur;
 		
-			  				strToTest = form.elements["mobile[]"][i].value;
-			  				result = strToTest.replace(/^((\(\+)\d{1,4}[\)])([ 0-9]*)$/, "$3");
-			  				form.elements["mobile[]"][i].value = valeur + result;
+			  				form.elements["mobileind[]"][i].value = valeur;
 			  				
-			  				strToTest = form.elements["fax[]"][i].value;
-			  				result = strToTest.replace(/^((\(\+)\d{1,4}[\)])([ 0-9]*)$/, "$3");
-			  				form.elements["fax[]"][i].value = valeur + result;
+			  				form.elements["faxind[]"][i].value = valeur;
 		  				}
 		  			}
 		  		} 
@@ -73,13 +59,17 @@ function validatecode(supplcode)
 					
 		  		if (valeur != "0")
 		  		{
-		  			alert ("Veuillez vérifier, code fournisseur existe déja pour "+valeur);
 		  			document.getElementById("suppcode").style.backgroundImage= 'url(images/jaderp/cancel-icon.png)'; //
+					jQuery("#supplierCode").qtip("api").updateContent("Veuillez vérifier, code fournisseur existe déja pour "+valeur);
+					jQuery("#supplierCode").qtip("api").updateStyle('red');
+					jQuery("#supplierCode").qtip("show");
 		  			supplcode.focus();
 		  		}
 		  		else
 		  		{
 		  			document.getElementById("suppcode").style.backgroundImage= 'url(images/jaderp/ok-icon.png)';
+					jQuery("#supplierCode").qtip("api").updateContent("Code fournisseur valide");
+					jQuery("#supplierCode").qtip("api").updateStyle('green');
 		  		}
 		  	});
 		}
@@ -87,23 +77,39 @@ function validatecode(supplcode)
 	}
 	else
 	{
-		alert ("Veuillez vérifier, code fournisseur obligatoire");
+		jQuery("#supplierCode").qtip("api").updateContent('Veuillez vérifier, code fournisseur obligatoire');
+		jQuery("#supplierCode").qtip("api").updateStyle('red');
+		jQuery("#supplierCode").qtip("show");
 		document.getElementById("suppcode").style.backgroundImage= 'url(images/jaderp/cancel-icon.png)'; //
 		supplcode.focus();
 	}
 }
 
-function validate(champ, obligatoire, numerique, nomchamp)
+function validate(champ, nomchamp, obligatoire, type, format)
 {
 	champ.value = jQuery.trim(champ.value);
+	msg = "";
 	if (champ.value == '' && obligatoire)
 	{
-		champ.style.backgroundColor="#FEE2E4";
-		//alert ("Veuillez vérifier, "+nomchamp+" obligatoire");
+		champ.style.backgroundColor="#FEE2E4"; // red
+		msg = nomchamp+" obligatoire<br/>";
 		document.getElementById("suppcode").style.backgroundImage= 'url(images/jaderp/cancel-icon.png)'; //
-		champ.focus();
+		jQuery("#"+champ.id).qtip("api").updateContent('Veuillez vérifier, ' + nomchamp+' obligatoire');
+		jQuery("#"+champ.id).qtip("api").updateStyle('red');
+		jQuery("#"+champ.id).qtip("show");
 		return false;
 	}
-	champ.style.backgroundColor="#ECFFED";
+	if (type == 'N' && isNaN(champ.value))
+	{
+		champ.style.backgroundColor="#FEE2E4";
+		jQuery("#"+champ.id).qtip("api").updateContent('Veuillez vérifier, ' + nomchamp+' doit être un nombre');
+		jQuery("#"+champ.id).qtip("api").updateStyle('red');
+		jQuery("#"+champ.id).qtip("show");
+		document.getElementById("suppcode").style.backgroundImage= 'url(images/jaderp/cancel-icon.png)'; //
+		return false;
+	}
+	champ.style.backgroundColor="#ECFFED"; // green
+	jQuery("#"+champ.id).qtip("api").updateContent(nomchamp+' valide');
+	jQuery("#"+champ.id).qtip("api").updateStyle('green');
 	return true;
 }

@@ -25,7 +25,7 @@ class JaderpModelSupplier extends JModel
      */
 	var $_id;
 	var $_supplier;
-/*	var $_code;	 		
+	var $_code;	 		
 	var $_rsoc;	 		
 	var $_responsable;		
 	var $_country;	
@@ -34,7 +34,7 @@ class JaderpModelSupplier extends JModel
 	var $_solde;		
 	var $_chaff; 			
 	var $_codetva;			
-*/
+
 	function __construct()
      {
 	       parent::__construct();
@@ -147,26 +147,43 @@ class JaderpModelSupplier extends JModel
 		if ($data['id'] < 1) // new record
 		{
 			$newid = $db->insertid();
-			$data['supplier_id'] = $newid;
-
 			if (!$JAdERPTool->CountryHits($data['pcountry']))
 			{
 				$resul->success = false;
 				$resul->msg = "Error saving country hits";
 				return $resul;
 			}
+		}
+		else 
+		{
+			$newid = $data['id'];
+		}
 
-			if (sizeof($data["bank_name"]))
+
+
+		if (sizeof($data["bank_name"]))
+		{
+			$bankid	    	= $data["bank_id"];
+			$bankname    	= $data["bank_name"];
+			$bankaddress 	= $data["bank_address"];
+			$rib        	= $data["account_number"];
+			$swift 			= $data["swift"];
+			 
+			for ($i=0; $i < sizeof($bankname); $i++)
 			{
-				$bankname    	= $data["bank_name"];
-				$bankaddress 	= $data["bank_address"];
-				$rib        	= $data["account_number"];
-				$swift 			= $data["swift"];
-				 
-				for ($i=0; $i < sizeof($bankname); $i++)
+				if ($bankname[$i] != '')
 				{
-					$sql = "INSERT INTO #__jaderp_supplier_bank (`id`, `supplier_id`, `bank_name`, `bank_address`, `rib`, `swift`)
-					 VALUES (NULL,".$db->Quote($newid).", ".$db->Quote($bankname[$i])." , ".$db->Quote($bankaddress[$i]). " , ".$db->Quote($rib[$i]).", ".$db->Quote($swift[$i]).");";
+					if ($bankid[$i] == 0)
+					{
+						$sql = "INSERT INTO #__jaderp_supplier_bank (`id`, `supplier_id`, `bank_name`, `bank_address`, `rib`, `swift`)
+						 VALUES (NULL,".$db->Quote($newid).", ".$db->Quote($bankname[$i])." , ".$db->Quote($bankaddress[$i]). " , ".$db->Quote($rib[$i]).", ".
+						$db->Quote($swift[$i]).");";
+					}
+					else 
+					{
+						$sql = "UPDATE #__jaderp_supplier_bank SET `bank_name` =".$db->Quote($bankname[$i]).", `bank_address`=".$db->Quote($bankaddress[$i]).
+						", `rib` =".$db->Quote($rib[$i]).", `swift` =". $db->Quote($swift[$i])." WHERE id=".$db->Quote($bankid[$i]).";";
+					}
 					$db->setQuery($sql);
 					if (!$db->query())
 					{
@@ -174,46 +191,84 @@ class JaderpModelSupplier extends JModel
 					}
 				}
 			}
-			
-			if (sizeof($data["country"]))
-			{
-				$contacts =& $this->getTable('Supplier_Contact');
-				if (!$contacts->bind($data)) 
-				{
-					$this->setError($contacts->getError() );
-					$resul->success = false;
-					$resul->msg = $contacts->getError();
-					return $resul;
-					
-				}
-		
-				// Make sure the record is valid
-				$reslt = $contacts->check();
-				if (!$reslt->success) 
-				{
-					return $reslt;
-				}
-		
-				// Store the table to the database
-				if (!$contacts->store()) 
-				{
-					$this->setError($db->getErrorMsg() );
-					$resul->success = false;
-					if ($db->getErrorMsg() != '')
-						$resul->msg = $db->getErrorMsg();
-					else 
-						$resul->msg = JText::_("ERROR_SAVING_CONTACTS");
-					return $resul;
-				}				
-			}			
 		}
-		else // record modified
+			
+		if (sizeof($data["country"]))
 		{
-
-			
-		}	
-			
+			$contactid	    = $data["contact_id"];
+			$suppliername	= $data["suppliername"];
+			$position	 	= $data["position"];
+			$photo        	= $data["photo"];
+			$country 		= $data["country"];
+			$telephoneind	= $data["telephoneind"];
+			$telephone1ind	= $data["telephone1ind"];
+			$mobileind		= $data["mobileind"];
+			$faxind        	= $data["faxind"];
+			$telephone	 	= $data["telephone"];
+			$telephone1		= $data["telephone1"];
+			$mobile	 		= $data["mobile"];
+			$fax	 		= $data["fax"];
+			$address		= $data["address"];
+			$suburb	 		= $data["suburb"];
+			$state       	= $data["state"];
+			$postcode 		= $data["postcode"];		
+			$email			= $data["email"];
+			$webpage	 	= $data["webpage"];
+	
+			for ($i=0; $i < sizeof($suppliername); $i++)
+			{			
+				if ($country[$i] != 0)
+				{
+					if (!$JAdERPTool->CountryHits($country[$i]))
+					{
+						$resul->success = false;
+						$resul->msg = "Error saving country hits";
+						//return $resul;
+					}
+				}
+				
+				if ($suppliername[$i] != '')
+				{
+					if ($contactid[$i] == 0)
+					{
+						$sql = "INSERT INTO #__jaderp_supplier_contact (`id`, `supplier_id`, `suppliername`, `position`, `photo`, `country`, `telephoneind`,".
+						" `telephone1ind`, `mobileind`, `faxind`, `telephone`, `telephone1`, `mobile`, `fax`, `address`, `suburb`, `state`, `postcode`, `email`, `webpage`)
+						VALUES (NULL,".$db->Quote($newid).", ".$db->Quote($suppliername[$i])." , ".$db->Quote($position[$i]). " , ".$db->Quote($photo[$i]).", ".
+						$db->Quote($country[$i]).", ".$db->Quote($telephoneind[$i]).", ".$db->Quote($telephone1ind[$i]).", ".$db->Quote($mobileind[$i]).", ".
+						$db->Quote($faxind[$i]).", ".$db->Quote($telephone[$i]).", ".$db->Quote($telephone1[$i]).", ".$db->Quote($mobile[$i]).", ".
+						$db->Quote($fax[$i]).", ".$db->Quote($address[$i]).", ".$db->Quote($suburb[$i]).", ".$db->Quote($state[$i]).", ".
+						$db->Quote($postcode[$i]).", ".$db->Quote($email[$i]).", ".$db->Quote($webpage[$i]).");";
+					}
+					else 
+					{
+						$sql = "UPDATE #__jaderp_supplier_contact SET ".
+						"  `suppliername` 	= ".$db->Quote($suppliername[$i]).
+						", `position` 		= ".$db->Quote($position[$i]). 
+						", `photo` 			= ".$db->Quote($photo[$i]).
+						", `country` 		= ".$db->Quote($country[$i]).
+						", `telephoneind` 	= ".$db->Quote($telephoneind[$i]).
+						", `telephone1ind` 	= ".$db->Quote($telephone1ind[$i]).
+						", `mobileind` 		= ".$db->Quote($mobileind[$i]).
+						", `faxind` 		= ".$db->Quote($faxind[$i]).
+						", `telephone` 		= ".$db->Quote($telephone[$i]).
+						", `telephone1` 	= ".$db->Quote($telephone1[$i]).
+						", `mobile` 		= ".$db->Quote($mobile[$i]).
+						", `fax` 			= ".$db->Quote($fax[$i]).
+						", `address` 		= ".$db->Quote($address[$i]).
+						", `suburb` 		= ".$db->Quote($suburb[$i]).
+						", `state` 			= ".$db->Quote($state[$i]).
+						", `postcode` 		= ".$db->Quote($postcode[$i]).
+						", `email` 			= ".	$db->Quote($email[$i]).
+						", `webpage` 		= ".$db->Quote($webpage[$i]).";";
+					}
+					$db->setQuery($sql);
+					if (!$db->query())
+					{
+						JError::raiseError(500, $db->getErrorMsg() );
+					}
+				}
+			}
+		}			
 		return $resul;
-		
 	}
 }
