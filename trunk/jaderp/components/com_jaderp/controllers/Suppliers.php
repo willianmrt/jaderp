@@ -250,7 +250,7 @@ class JaderpControllerSuppliers extends JaderpController
 			$msg = JText::_( 'Greeting(s) Deleted' );
 		}
 
-		$this->setRedirect( 'index.php?option=com_Jaderp', $msg );
+		$this->setRedirect( 'index.php?option=com_jaderp', $msg );
 	}
 
 	function publish()
@@ -302,7 +302,7 @@ class JaderpControllerSuppliers extends JaderpController
 				$msg= JText::_( 'CANT_CHECKIN_ALERT' ) ;
 			}			
 		}	
-		$this->setRedirect( 'index.php?option=com_Jaderp&func=Suppliers&task=manage', $msg );
+		$this->setRedirect( 'index.php?option=com_jaderp&func=Suppliers&task=manage', $msg );
 	}
 	
 	// function listing() ADDED BY MEHDI
