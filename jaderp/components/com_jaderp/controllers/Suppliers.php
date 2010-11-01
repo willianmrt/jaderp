@@ -243,14 +243,57 @@ class JaderpControllerSuppliers extends JaderpController
 	 */
 	function remove()
 	{
-		$model = $this->getModel('Jaderp');
-		if(!$model->delete()) {
-			$msg = JText::_( 'Error: One or More Greetings Could not be Deleted' );
-		} else {
-			$msg = JText::_( 'Greeting(s) Deleted' );
+		$cid		= JRequest::getVar( 'cid', array(), 'post', 'array' );
+		$db 		= JFactory::getDBO();
+		JArrayHelper::toInteger($cid);
+
+		if (count($cid) < 1) {
+			$msg =  JText::_('Select a supplier to delete');
+			$this->setRedirect( 'index.php?option=com_jaderp&func=Suppliers&task=manage', $msg, "error");
 		}
 
-		$this->setRedirect( 'index.php?option=com_jaderp', $msg );
+		// Removed content gets put in the trash [state = -2] and ordering is always set to 0
+		$state		= '-2';
+		$ordering	= '0';
+
+		// Get the list of content id numbers to send to trash.
+		$cids = implode(',', $cid);
+
+		// Update articles in the database
+		/*$query = 'DELETE a, b, c FROM #__jaderp_suppliers AS a INNER JOIN #__jaderp_supplier_contact AS b ON a.id = b.supplier_id '.
+   				'INNER JOIN #__jaderp_supplier_bank AS c ON a.id = c.supplier_id '.
+				'WHERE a.id IN ( '. $cids. ' )';*/
+				
+		$query = 'DELETE FROM #__jaderp_suppliers '.
+				'WHERE id IN ( '. $cids. ' )';
+				
+		$db->setQuery($query);
+		if (!$db->query())
+		{
+			JError::raiseError( 500, $db->getErrorMsg() );
+			return false;
+		}
+		
+		$query = 'DELETE FROM #__jaderp_supplier_bank '.
+				'WHERE supplier_id IN ( '. $cids. ' )';
+				
+		$db->setQuery($query);
+		if (!$db->query())
+		{
+			JError::raiseError( 500, $db->getErrorMsg() );
+			return false;
+		}
+		
+		$query = 'DELETE FROM #__jaderp_supplier_contact '.
+				'WHERE supplier_id IN ( '. $cids. ' )';
+				
+		$db->setQuery($query);
+		if (!$db->query())
+		{
+			JError::raiseError( 500, $db->getErrorMsg() );
+			return false;
+		}
+		$this->setRedirect( 'index.php?option=com_jaderp&func=Suppliers&task=manage', $msg );
 	}
 
 	function publish()
