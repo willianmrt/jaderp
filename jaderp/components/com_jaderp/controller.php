@@ -96,5 +96,57 @@ class JaderpController extends JController
 			$this->setRedirect(JRoute::_('index.php?option=com_user&view=login'), $msg, 'notice');
 		}		
 	}
+	
+	
+	
+	function Suppliers()
+	{	
+		$user =& JFactory::getUser();
+		$language =& JFactory::getLanguage();
+		$language->load('com_jaderp');
+		// Create the view
+		$view = & $this->getView('suppliers', 'html');
+
+		// Get/Create the model
+		$model = & $this->getModel('Suppliers');
+		$view->setModel($model, true);
+
+		if($user->get('id'))
+		{
+			//echo $user->get('id');
+			$view->display();
+		}
+		else 
+		{
+			$msg= JText::_('YOU_MUST_CONNECT');
+			$this->setRedirect(JRoute::_('index.php?option=com_user&view=login'), $msg, 'notice');
+		}		
+	}
+	
+	
+	
+	function Products()
+	{	
+		$user =& JFactory::getUser();
+		$language =& JFactory::getLanguage();
+		$language->load('com_jaderp');
+		// Create the view
+		$view = & $this->getView('products', 'html');
+
+		// Get/Create the model
+		$model = & $this->getModel('Products');
+		$view->setModel($model, true);
+
+		if($user->get('id'))
+		{
+			//echo $user->get('id');
+			$view->display();
+		}
+		else 
+		{
+			$msg= JText::_('YOU_MUST_CONNECT');
+			$this->setRedirect(JRoute::_('index.php?option=com_user&view=login'), $msg, 'notice');
+		}		
+	}
 }
 ?>
